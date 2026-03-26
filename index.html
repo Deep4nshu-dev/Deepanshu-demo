@@ -246,4 +246,226 @@ var DAY_TASKS={
   0:[{tag:'rev',text:'Sunday — Revision + PYQs + Law target check (2–3 hrs)'}],
   1:[{tag:'ca',text:'Cost Accounting only — full 2.5 hr session'}],
   2:[{tag:'ca',text:'Cost Accounting only — full 2.5 hr session'}],
-  3:[{tag:'ca',text:'
+  3:[{tag:'ca',text:'CA — 1.5 hrs (9–10:30 PM)'},{tag:null},{tag:'law',text:'Law Writing — 1 hr (10:30–11:30 PM)'}],
+  4:[{tag:'fa',text:'FA — 1.5 hrs (9–10:30 PM)'},{tag:null},{tag:'dt',text:'Direct Tax — 1 hr (10:30–11:30 PM)'}],
+  5:[{tag:'fa',text:'FA — 1.5 hrs (9–10:30 PM)'},{tag:null},{tag:'dt',text:'Direct Tax — 1 hr (10:30–11:30 PM)'}],
+  6:[{tag:'fa',text:'FA — 1.5 hrs (9–10:30 PM)'},{tag:null},{tag:'idt',text:'⚠️ Indirect Tax — 1 hr (10:30–11:30 PM)'}]
+};
+
+var LAW_TARGETS=[
+  'Companies Act — Directors + Board Meetings (commute reading, write Wed)',
+  'Companies Act — General Meetings + Audit + Charges',
+  'Companies Act — Winding Up + NCLT + Contract Act overview',
+  'Sale of Goods Act + NI Act + Partnership Act + LLP Act',
+  'Industrial Laws — Factories Act, Gratuity, EPF, ESI, Code on Wages',
+  'Business Ethics + Emotional Intelligence',
+  'Full Law revision — all Acts, key sections, definitions'
+];
+
+var WEEKS=[
+  {num:'Week 1 — Partial',dates:'Wed Mar 25 → Sun Mar 29',focus:'CA: Joint Products | FA: Branch finish | DT: Salary | IDT: GST intro',law:'Companies Act — Directors + Board Meetings',
+   days:[
+    {n:'Wed',d:'25 Mar',dow:3,tasks:[{tag:'ca',t:'Joint Products & By-products — NRV method, apportionment problems'},{tag:'div'},{tag:'law',t:'Law Writing: Directors — appointment, DIN, duties, liabilities'}]},
+    {n:'Thu',d:'26 Mar',dow:4,tasks:[{tag:'fa',t:'Finish Branch Accounts — Stock & Debtors method, incorporation entries'},{tag:'div'},{tag:'dt',t:'Salary — wrap allowances, perquisites, gratuity + 1 numerical'}]},
+    {n:'Fri',d:'27 Mar',dow:5,tasks:[{tag:'fa',t:'Departmental Accounts — inter-dept transfers, loading, unrealised profit'},{tag:'div'},{tag:'dt',t:'PGBP intro — Sec 28, basis of charge, Sec 30–37 allowable/disallowable'}]},
+    {n:'Sat',d:'28 Mar',dow:6,tasks:[{tag:'fa',t:'Lease Accounting — Finance vs Operating lease, AS 19, lessee entries'},{tag:'div'},{tag:'idt',t:'⚠️ GST — Constitutional background, CGST/SGST/IGST structure, Supply (Sec 7)'}]},
+    {n:'Sun',d:'29 Mar',dow:0,tasks:[{tag:'rev',t:'Revise Job & Batch Costing — EBQ formula, cost sheet'},{tag:'rev',t:'Revise Joint Products + Branch — solve 1 PYQ each'},{tag:'law',t:'Law check — Directors chapter covered?'}]}]},
+  {num:'Week 2',dates:'Mon Mar 30 → Sun Apr 5',focus:'CA: Contract + Service | FA: Insurance + HP | DT: PGBP | IDT: Supply + Registration',law:'Companies Act — General Meetings + Audit + Charges',
+   days:[
+    {n:'Mon',d:'30 Mar',dow:1,tasks:[{tag:'ca',t:'Contract Costing — WIP, notional profit, escalation clause, 2 problems'}]},
+    {n:'Tue',d:'31 Mar',dow:2,tasks:[{tag:'ca',t:'Service Costing — Hospital (per patient-day), Transport (per tonne-km), Hotel, 2 problems'}]},
+    {n:'Wed',d:'1 Apr',dow:3,tasks:[{tag:'ca',t:'Service Costing revision + 1 more PYQ (Canteen/Educational)'},{tag:'div'},{tag:'law',t:'Law Writing: General Meetings — AGM/EGM, quorum, notice, resolutions'}]},
+    {n:'Thu',d:'2 Apr',dow:4,tasks:[{tag:'fa',t:'Insurance Claim — Loss of Stock (Average clause) + Loss of Profit (MLOP)'},{tag:'div'},{tag:'dt',t:'PGBP — Sec 40A(3), Sec 43B, deemed profits, special provisions'}]},
+    {n:'Fri',d:'3 Apr',dow:5,tasks:[{tag:'fa',t:'Hire Purchase & Instalment Sale — Annuity & Instalment methods'},{tag:'div'},{tag:'dt',t:'PGBP — Depreciation (Sec 32): WDV, block of assets, additional depreciation'}]},
+    {n:'Sat',d:'4 Apr',dow:6,tasks:[{tag:'fa',t:'Hire Purchase complete + Foreign Branch Accounts (AS 11 intro)'},{tag:'div'},{tag:'idt',t:'⚠️ GST — Composite/Mixed Supply, Time of Supply, Value of Supply (Sec 15)'}]},
+    {n:'Sun',d:'5 Apr',dow:0,tasks:[{tag:'rev',t:'Contract + Service Costing — 2 PYQs'},{tag:'rev',t:'Insurance Claim + HP — write 1 problem each from scratch'},{tag:'law',t:'Law check — Meetings + Audit covered?'}]}]},
+  {num:'Week 3',dates:'Mon Apr 6 → Sun Apr 12',focus:'CA: CAS + Bookkeeping + Reconciliation | FA: AS block | DT: Capital Gains | IDT: ITC',law:'Companies Act — Winding Up + NCLT + Contract Act overview',
+   days:[
+    {n:'Mon',d:'6 Apr',dow:1,tasks:[{tag:'ca',t:'CAS 1–12 (key: CAS 4,6,7,10,11) + CAS 13–24 overview'}]},
+    {n:'Tue',d:'7 Apr',dow:2,tasks:[{tag:'ca',t:'Cost Bookkeeping — Integrated + Non-Integrated + Reconciliation full problem'}]},
+    {n:'Wed',d:'8 Apr',dow:3,tasks:[{tag:'ca',t:'Reconciliation — 2 full problems, under/over absorption'},{tag:'div'},{tag:'law',t:'Law Writing: Winding Up — modes, NCLT powers, liquidator role'}]},
+    {n:'Thu',d:'9 Apr',dow:4,tasks:[{tag:'fa',t:'AS 1, AS 2, AS 7, AS 9, AS 10 — key recognition & measurement rules'},{tag:'div'},{tag:'dt',t:'Capital Gains — types, computation, indexation, STCG vs LTCG'}]},
+    {n:'Fri',d:'10 Apr',dow:5,tasks:[{tag:'fa',t:'AS 13, AS 15, AS 16 — key points + application questions'},{tag:'div'},{tag:'dt',t:'Capital Gains — exemptions: Sec 54, 54F, 54EC, Sec 112A + 1 numerical'}]},
+    {n:'Sat',d:'11 Apr',dow:6,tasks:[{tag:'fa',t:'AS 19, AS 26, AS 29 — key points + application questions'},{tag:'div'},{tag:'idt',t:'⚠️ GST — Registration thresholds, Composition Scheme + ITC conditions (Sec 16–17)'}]},
+    {n:'Sun',d:'12 Apr',dow:0,tasks:[{tag:'rev',t:'CAS key provisions from memory (CAS 4,6,7,10)'},{tag:'rev',t:'Capital Gains full computation from scratch'},{tag:'law',t:'Law check — Companies Act complete? Read Contract Act intro'}]}]},
+  {num:'Week 4',dates:'Mon Apr 13 → Sun Apr 19',focus:'CA: Standard Costing | FA: Partnership deep | DT: Other Sources + Set Off | IDT: ITC + Valuation',law:'Sale of Goods Act + NI Act + Partnership Act + LLP Act',
+   days:[
+    {n:'Mon',d:'13 Apr',dow:1,tasks:[{tag:'ca',t:'Standard Costing — Material variances (MCV, MPV, MUV, MYV, MMV) — all formulas + problems'}]},
+    {n:'Tue',d:'14 Apr',dow:2,tasks:[{tag:'ca',t:'Standard Costing — Labour variances + Overhead variances (Fixed + Variable) + mixed problem'}]},
+    {n:'Wed',d:'15 Apr',dow:3,tasks:[{tag:'ca',t:'Standard Costing — 2 full PYQs (all variances + reconciliation of profit)'},{tag:'div'},{tag:'law',t:'Law Writing: Sale of Goods — conditions vs warranties + NI Act — dishonour, noting'}]},
+    {n:'Thu',d:'16 Apr',dow:4,tasks:[{tag:'fa',t:'Partnership — Admission (weak area): goodwill methods, sacrificing ratio, revaluation'},{tag:'div'},{tag:'dt',t:'Other Sources — Sec 56: deemed dividend, gifts, winnings, casual income'}]},
+    {n:'Fri',d:'17 Apr',dow:5,tasks:[{tag:'fa',t:'Partnership — Retirement & Death: gaining ratio, final payment, executor account'},{tag:'div'},{tag:'dt',t:'Set Off & Carry Forward — intra-head, inter-head, brought forward losses'}]},
+    {n:'Sat',d:'18 Apr',dow:6,tasks:[{tag:'fa',t:'Partnership — Dissolution (Garner vs Murray, Piecemeal) + 1 full problem'},{tag:'div'},{tag:'idt',t:'⚠️ GST — ITC reversal (Sec 17(1–4)) + Valuation (Sec 15), related party transactions'}]},
+    {n:'Sun',d:'19 Apr',dow:0,tasks:[{tag:'rev',t:'Standard Costing — all variance formulas from memory, 1 full timed problem'},{tag:'rev',t:'Partnership Admission + Retirement — 1 PYQ each'},{tag:'law',t:'Law check — Sale of Goods, NI Act, Partnership Act covered?'}]}]},
+  {num:'Week 5 — Final Push',dates:'Mon Apr 20 → Wed Apr 22',focus:'✅ Syllabus Deadline — Marginal Costing + Budgets + DT complete',law:'Industrial Laws — Factories Act, Gratuity, EPF, ESI, Code on Wages',
+   days:[
+    {n:'Mon',d:'20 Apr',dow:1,tasks:[{tag:'ca',t:'Marginal Costing — CVP, BEP (units + value), P/V ratio, Margin of Safety, Key Factor, Make or Buy'}]},
+    {n:'Tue',d:'21 Apr',dow:2,tasks:[{tag:'ca',t:'Budgetary Control — Fixed vs Flexible Budget, Cash Budget, Master Budget + 1 problem'}]},
+    {n:'Wed',d:'22 Apr',dow:3,tasks:[{tag:'dt',t:'Deductions (80C–80U) + Total Income + Tax Liability — Individual + HUF, rebate 87A'},{tag:'div'},{tag:'law',t:'Law Writing: Industrial Laws — Factories Act + Gratuity eligibility & formula'},{tag:'rev',t:'✅ PHASE 1 COMPLETE — Syllabus Done April 22'}]}]}
+];
+
+// ── Storage ──────────────────────────────────────────────────────────────────
+var progress={};
+function loadProgress(){try{var r=localStorage.getItem('cma-deepanshu-v3');if(r)progress=JSON.parse(r);}catch(e){progress={};}}
+function saveProgress(){try{localStorage.setItem('cma-deepanshu-v3',JSON.stringify(progress));}catch(e){}}
+function setDefaults(){var done=['ca-2','ca-3','ca-4','ca-8','ca-9','dt-1','dt-2','dt-3','dt-4'];for(var i=0;i<done.length;i++){if(progress[done[i]]===undefined)progress[done[i]]=true;}}
+
+// ── Countdown ────────────────────────────────────────────────────────────────
+function daysUntil(y,m,d){var t=new Date();var today=new Date(t.getFullYear(),t.getMonth(),t.getDate());var target=new Date(y,m,d);return Math.max(0,Math.ceil((target-today)/86400000));}
+
+function updateDate(){
+  var now=new Date();
+  document.getElementById('date-chip').textContent=DAYS[now.getDay()]+', '+now.getDate()+' '+MONTHS[now.getMonth()]+' '+now.getFullYear();
+  document.getElementById('cd-s').textContent=daysUntil(2026,3,22);
+  document.getElementById('cd-r').textContent=daysUntil(2026,4,30);
+  document.getElementById('cd-e').textContent=daysUntil(2026,5,11);
+  document.getElementById('today-badge').textContent=DAYS[now.getDay()].slice(0,3)+' '+now.getDate()+' '+MONTHS[now.getMonth()];
+  // Today tasks
+  var d=now.getDay();
+  var tasks=DAY_TASKS[d]||[];
+  var html='';
+  for(var i=0;i<tasks.length;i++){var t=tasks[i];if(!t.tag){html+='<div class="split-line"></div>';continue;}html+='<div class="today-task"><span class="tt-tag t-'+t.tag+'">'+t.tag.toUpperCase()+'</span><span class="tt-text">'+t.text+'</span></div>';}
+  document.getElementById('today-content').innerHTML=html;
+  // Law target
+  var start=new Date(2026,2,25);
+  var today2=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+  var wk=Math.max(0,Math.floor((today2-start)/(7*86400000)));
+  var idx=Math.min(wk,LAW_TARGETS.length-1);
+  document.getElementById('law-target').innerHTML='<strong>Week '+(wk+1)+' target:</strong> '+LAW_TARGETS[idx];
+}
+
+// ── Counts ───────────────────────────────────────────────────────────────────
+function countSubj(subj){var total=0,done=0;for(var s=0;s<subj.sections.length;s++){for(var c=0;c<subj.sections[s].chapters.length;c++){total++;if(progress[subj.sections[s].chapters[c].id])done++;}}return{total:total,done:done};}
+function countAll(){var t=0,d=0;for(var i=0;i<SUBJECTS.length;i++){var r=countSubj(SUBJECTS[i]);t+=r.total;d+=r.done;}return{total:t,done:d};}
+
+// ── Update UI ─────────────────────────────────────────────────────────────────
+function updateOverall(){var r=countAll();var pct=r.total?Math.round(r.done/r.total*100):0;document.getElementById('ov-pct').textContent=pct+'%';document.getElementById('ov-bar').style.width=pct+'%';document.getElementById('ov-count').textContent=r.done+' / '+r.total+' chapters done';}
+
+function updateSubjCard(id){
+  var subj=null;for(var i=0;i<SUBJECTS.length;i++){if(SUBJECTS[i].id===id){subj=SUBJECTS[i];break;}}
+  if(!subj)return;
+  var r=countSubj(subj);var pct=r.total?Math.round(r.done/r.total*100):0;
+  var b=document.getElementById('mb-'+id);if(b)b.style.width=pct+'%';
+  var c=document.getElementById('mc-'+id);if(c)c.textContent=r.done+'/'+r.total;
+  var p=document.getElementById('mp-'+id);if(p)p.textContent=subj.paper+' · '+pct+'% done';
+  var cb=document.getElementById('cb-'+id);if(cb)cb.style.width=pct+'%';
+  var cp=document.getElementById('cp-'+id);if(cp)cp.textContent=r.done+' / '+r.total+' done · '+pct+'%';
+}
+
+// ── Build subject mini grid ──────────────────────────────────────────────────
+function buildMini(){
+  var html='';
+  for(var i=0;i<SUBJECTS.length;i++){
+    var s=SUBJECTS[i];var r=countSubj(s);var pct=r.total?Math.round(r.done/r.total*100):0;
+    html+='<div class="subj-mini" onclick="goTab(\''+s.id+'\')">'
+      +'<div class="sm-top"><div class="sm-name" style="color:'+s.color+'">'+s.name+'</div><div class="sm-count" id="mc-'+s.id+'">'+r.done+'/'+r.total+'</div></div>'
+      +'<div class="bar-track" style="height:5px;margin:4px 0;"><div class="bar-fill" style="width:'+pct+'%;background:'+s.color+'" id="mb-'+s.id+'"></div></div>'
+      +'<div class="sm-paper" id="mp-'+s.id+'">'+s.paper+' · '+pct+'% done</div>'
+      +'</div>';
+  }
+  document.getElementById('subj-grid').innerHTML=html;
+}
+
+// ── Build chapter pages ───────────────────────────────────────────────────────
+function buildChapterPage(subj){
+  var r=countSubj(subj);var pct=r.total?Math.round(r.done/r.total*100):0;
+  var html='<div class="subj-header"><h3 style="color:'+subj.color+'">'+subj.name+'</h3><div class="paper-badge">'+subj.paper+'</div></div>'
+    +'<div class="prog-row" id="cp-'+subj.id+'">'+r.done+' / '+r.total+' done · '+pct+'%</div>'
+    +'<div class="bar-track" style="margin-bottom:10px;"><div class="bar-fill" style="width:'+pct+'%;background:'+subj.color+'" id="cb-'+subj.id+'"></div></div>';
+  for(var s=0;s<subj.sections.length;s++){
+    var sec=subj.sections[s];
+    html+='<div class="section-div">'+sec.label+'</div>';
+    for(var c=0;c<sec.chapters.length;c++){
+      var ch=sec.chapters[c];
+      var done=progress[ch.id]?'done':'';
+      var wt=ch.warn?'<span class="warn-tag">⚠️IDT</span>':'';
+      html+='<div class="ch-item '+done+'" id="ci-'+ch.id+'" style="--sc:'+subj.color+'" onclick="toggleCh(\''+subj.id+'\',\''+ch.id+'\')">'
+        +'<div class="chk"><svg viewBox="0 0 13 13"><polyline points="1.5,6.5 5,10 11.5,3"/></svg></div>'
+        +'<div class="ch-label">'+ch.text+'</div>'
+        +wt+'<div class="ch-wt">'+ch.w+'</div></div>';
+    }
+  }
+  document.getElementById('page-'+subj.id).innerHTML=html;
+}
+
+// ── Toggle chapter ────────────────────────────────────────────────────────────
+var tTimer;
+function toggleCh(subjId,chapId){
+  progress[chapId]=!progress[chapId];saveProgress();
+  var el=document.getElementById('ci-'+chapId);
+  if(el){if(progress[chapId])el.classList.add('done');else el.classList.remove('done');}
+  updateSubjCard(subjId);updateOverall();
+  var t=document.getElementById('toast');
+  t.textContent=progress[chapId]?'✅ Chapter marked done!':'↩️ Chapter unmarked';
+  t.classList.add('show');clearTimeout(tTimer);tTimer=setTimeout(function(){t.classList.remove('show');},1800);
+}
+
+// ── Build planner ─────────────────────────────────────────────────────────────
+function buildPlanner(){
+  var now=new Date();
+  var nowDay=now.getDate();var nowMonth=now.getMonth();// 0-indexed
+  var html='<div class="phase-lbl">Phase 1 — Syllabus Completion (Mar 25 → Apr 22)</div>';
+  for(var w=0;w<WEEKS.length;w++){
+    var wk=WEEKS[w];
+    html+='<div class="wk-card"><div class="wk-head"><div class="wk-num">'+wk.num+'</div><div class="wk-dates">'+wk.dates+'</div><div class="wk-focus">'+wk.focus+'</div></div>'
+      +'<div class="law-strip">📖 <strong>Law:</strong> '+wk.law+'</div>';
+    for(var d=0;d<wk.days.length;d++){
+      var day=wk.days[d];
+      // Parse day date e.g. "25 Mar" or "1 Apr"
+      var parts=day.d.split(' ');
+      var dayNum=parseInt(parts[0]);
+      var monthIdx=MONTHS.indexOf(parts[1]);
+      var isToday=(dayNum===nowDay && monthIdx===nowMonth);
+      html+='<div class="plan-day'+(isToday?' today-day':'')+'"><div class="pday-hdr">'
+        +'<span class="pday-name">'+day.n+(isToday?' <span class="today-pill">Today</span>':'')+'</span>'
+        +'<span class="pday-date">'+day.d+'</span>'
+        +'<span class="pday-time">'+(day.time||'')+'</span></div>';
+      for(var t=0;t<day.tasks.length;t++){
+        var task=day.tasks[t];
+        if(task.tag==='div'){html+='<div class="psplit"></div>';continue;}
+        var lbl=task.tag==='rev'?'REV':task.tag.toUpperCase();
+        html+='<div class="ptask"><span class="ptag t-'+task.tag+'">'+lbl+'</span><span>'+task.t+'</span></div>';
+      }
+      html+='</div>';
+    }
+    html+='</div>';
+  }
+  html+='<div class="phase-lbl">Phase 2 — Revision & Mocks (Apr 23 → May 30)</div>';
+  var P2=[
+    {num:'Week 6',dates:'Apr 23–29',focus:'CA Methods PYQs · Law: EPF + ESI + Code on Wages'},
+    {num:'Week 7',dates:'Apr 30–May 6',focus:'CA Techniques PYQs · Law: Business Ethics + EI'},
+    {num:'Week 8 — MOCK 1',dates:'May 7–13',focus:'🎯 Full mock attempt all 4 papers — make gap list after'},
+    {num:'Week 9',dates:'May 14–20',focus:'Weak area attack — based entirely on Mock 1 gap list'},
+    {num:'Week 10',dates:'May 21–27',focus:'High weightage push — Partnership, AS, Standard Costing, GST ITC'},
+    {num:'Week 11 — MOCK 2',dates:'May 28–30',focus:'🎯 Mock 2 + consolidation only · ✅ Phase 2 Done May 30'}
+  ];
+  for(var p=0;p<P2.length;p++){
+    html+='<div class="wk-card"><div class="wk-head"><div class="wk-num">'+P2[p].num+'</div><div class="wk-dates">'+P2[p].dates+'</div><div class="wk-focus">'+P2[p].focus+'</div></div>'
+      +'<div class="plan-day"><div class="ptask" style="color:var(--muted);">PYQs + timed practice + revision — same daily structure applies</div></div></div>';
+  }
+  document.getElementById('page-planner').innerHTML=html;
+}
+
+// ── Tab switch ────────────────────────────────────────────────────────────────
+function goTab(id){
+  var pages=document.querySelectorAll('.page');for(var i=0;i<pages.length;i++)pages[i].classList.remove('active');
+  var tabs=document.querySelectorAll('.nav-tab');for(var i=0;i<tabs.length;i++)tabs[i].classList.remove('active');
+  document.getElementById('page-'+id).classList.add('active');
+  var tab=document.querySelector('.nav-tab[data-page="'+id+'"]');
+  if(tab){tab.classList.add('active');tab.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});}
+  document.querySelector('.main-scroll').scrollTop=0;
+}
+var tabs=document.querySelectorAll('.nav-tab');
+for(var i=0;i<tabs.length;i++){(function(tab){tab.addEventListener('click',function(){goTab(tab.dataset.page);});})(tabs[i]);}
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+loadProgress();setDefaults();saveProgress();
+updateDate();
+updateOverall();
+buildMini();
+for(var i=0;i<SUBJECTS.length;i++)buildChapterPage(SUBJECTS[i]);
+buildPlanner();
+setInterval(updateDate,60000);
+</script>
+</body>
+</html>
