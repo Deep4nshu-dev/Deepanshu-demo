@@ -3,247 +3,187 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
-<meta name="theme-color" content="#191A23">
+<meta name="theme-color" content="#0D0E14">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
 <title>CMA Tracker — Deepanshu</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-/* ═══════════════════════ POSITIVUS THEME ═══════════════════════ */
-:root {
-  --bg:      #191A23;
-  --card:    #1E2030;
-  --card2:   #252838;
-  --border:  #2E3148;
-  --lime:    #B9FF66;
-  --lime-d:  #9AE040;
-  --text:    #F3F3F3;
-  --muted:   #6B6F8A;
-  --ca:      #60A5FA;
-  --fa:      #34D399;
-  --dt:      #FBBF24;
-  --idt:     #F87171;
-  --law:     #C084FC;
-  --radius:  14px;
-  --radius-s:8px;
+/* ═══════════════════════ POSITIVUS-NOIR THEME ═══════════════════════ */
+:root{
+  --bg:#0D0E14;--card:#13141E;--card2:#1A1B28;--border:#252635;
+  --lime:#B9FF66;--lime2:#D4FF99;--text:#F0F0F8;--muted:#5A5C7A;
+  --ca:#60A5FA;--fa:#34D399;--dt:#FBBF24;--idt:#F87171;--law:#C084FC;
+  --r:16px;--rs:10px;
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 html,body{height:100%;overflow:hidden;}
-body{
-  background:var(--bg);color:var(--text);
-  font-family:'Space Grotesk',sans-serif;font-size:14px;
-  display:flex;flex-direction:column;height:100dvh;
-  overflow:hidden;user-select:none;
-}
+body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;font-size:14px;display:flex;flex-direction:column;height:100dvh;overflow:hidden;user-select:none;}
 
 /* ─── TOPBAR ─── */
-.topbar{
-  background:var(--card);
-  border-bottom:2px solid var(--border);
-  padding:12px 16px 10px;flex-shrink:0;
-}
-.tb-row1{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
-.app-title{
-  font-size:22px;font-weight:700;letter-spacing:-0.5px;
-  color:var(--text);display:flex;align-items:center;gap:8px;
-}
-.app-title .lime-dot{
-  width:10px;height:10px;border-radius:50%;background:var(--lime);
-  flex-shrink:0;box-shadow:0 0 8px var(--lime);
-}
-.date-pill{
-  font-family:'DM Mono',monospace;font-size:10px;color:var(--bg);
-  background:var(--lime);padding:4px 12px;border-radius:99px;font-weight:500;
-}
-.cd-strip{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
-.cd-box{
-  background:var(--card2);border:2px solid var(--border);
-  border-radius:var(--radius-s);padding:7px 8px;text-align:center;
-}
-.cd-num{font-family:'DM Mono',monospace;font-size:20px;font-weight:500;line-height:1.1;}
-.cd-lbl{font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:2px;line-height:1.4;}
+.topbar{background:var(--card);border-bottom:1px solid var(--border);padding:12px 16px 10px;flex-shrink:0;}
+.tb1{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.logo{display:flex;align-items:center;gap:9px;font-size:18px;font-weight:800;letter-spacing:-0.3px;}
+.ldot{width:10px;height:10px;border-radius:50%;background:var(--lime);box-shadow:0 0 10px var(--lime);animation:pulse-dot 2s ease-in-out infinite;}
+@keyframes pulse-dot{0%,100%{box-shadow:0 0 6px var(--lime);}50%{box-shadow:0 0 14px var(--lime),0 0 28px rgba(185,255,102,0.3);}}
+.dpill{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--bg);background:var(--lime);padding:4px 12px;border-radius:99px;font-weight:500;letter-spacing:0.5px;}
+.cds{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
+.cdb{background:var(--card2);border:1px solid var(--border);border-radius:var(--rs);padding:8px;text-align:center;position:relative;overflow:hidden;}
+.cdb::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
+.cdb:nth-child(1)::before{background:var(--fa);}
+.cdb:nth-child(2)::before{background:var(--dt);}
+.cdb:nth-child(3)::before{background:var(--idt);}
+.cdn{font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:500;line-height:1.1;}
+.cdl{font-size:7.5px;color:var(--muted);text-transform:uppercase;letter-spacing:1.2px;margin-top:3px;line-height:1.4;}
 
 /* ─── NAV ─── */
-.nav{display:flex;background:var(--card);border-bottom:2px solid var(--border);flex-shrink:0;overflow-x:auto;}
+.nav{display:flex;background:var(--card);border-bottom:1px solid var(--border);flex-shrink:0;overflow-x:auto;}
 .nav::-webkit-scrollbar{display:none;}
-.nav-tab{
-  flex:1;min-width:0;padding:9px 6px;text-align:center;
-  font-size:11px;font-weight:600;color:var(--muted);
-  cursor:pointer;border-bottom:3px solid transparent;
-  transition:all 0.2s;white-space:nowrap;letter-spacing:0.3px;
-}
-.nav-tab.active{color:var(--lime);border-bottom-color:var(--lime);}
-.tab-ic{font-size:14px;display:block;margin-bottom:1px;}
+.nt{flex:1;min-width:0;padding:9px 4px;text-align:center;font-size:10px;font-weight:700;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s;white-space:nowrap;letter-spacing:0.5px;}
+.nt.active{color:var(--lime);border-bottom-color:var(--lime);}
+.ntic{font-size:14px;display:block;margin-bottom:2px;}
 
-/* ─── SCROLL ─── */
-.scroll{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding:14px 14px 28px;}
+/* ─── SCROLL / PAGES ─── */
+.scroll{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding:14px 14px 32px;}
 .scroll::-webkit-scrollbar{display:none;}
 .page{display:none;} .page.active{display:block;}
 
 /* ─── CARDS ─── */
-.card{
-  background:var(--card);border:2px solid var(--border);
-  border-radius:var(--radius);padding:16px;margin-bottom:12px;
-}
-.card.lime-border{border-color:rgba(185,255,102,0.3);}
-.card.accent-top{border-top:3px solid var(--lime);}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:15px;margin-bottom:12px;}
+.card.lime-accent{border-left:3px solid var(--lime);}
+.bar-track{height:5px;background:var(--border);border-radius:99px;overflow:hidden;margin:8px 0 4px;}
+.bar-fill{height:100%;border-radius:99px;transition:width 0.6s cubic-bezier(.4,0,.2,1);}
+.bar-main{background:linear-gradient(90deg,#60A5FA,#34D399 50%,#B9FF66);}
 
-/* ─── BARS ─── */
-.bar-track{height:6px;background:var(--border);border-radius:99px;overflow:hidden;margin:8px 0 4px;}
-.bar-fill{height:100%;border-radius:99px;transition:width 0.5s cubic-bezier(.4,0,.2,1);}
-.bar-overall{background:linear-gradient(90deg,#60A5FA,#34D399 50%,#B9FF66);}
+/* ─── OVERALL ─── */
+.ov-row{display:flex;align-items:flex-start;justify-content:space-between;}
+.ov-lbl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:2.5px;color:var(--muted);}
+.ov-pct{font-family:'JetBrains Mono',monospace;font-size:36px;font-weight:500;color:var(--lime);line-height:1;}
+.ov-cnt{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);margin-top:3px;}
 
-/* ─── DASHBOARD ─── */
-.ov-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:4px;}
-.ov-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--muted);}
-.ov-pct{font-family:'DM Mono',monospace;font-size:32px;font-weight:500;color:var(--lime);line-height:1;}
-.ov-count{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);}
+/* ─── SUBJECT GRID ─── */
+.sgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+.sm{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:13px;cursor:pointer;transition:all 0.15s;position:relative;overflow:hidden;}
+.sm::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--sc,#60A5FA);transform:scaleX(var(--sp,0));transform-origin:left;transition:transform 0.5s cubic-bezier(.4,0,.2,1);}
+.sm:active{transform:scale(0.97);}
+.smn{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;}
+.smr{display:flex;justify-content:space-between;margin-bottom:4px;}
+.smc{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);}
+.sm-pbar{height:3px;background:var(--border);border-radius:99px;overflow:hidden;margin-top:5px;}
+.sm-pfill{height:100%;border-radius:99px;transition:width 0.5s cubic-bezier(.4,0,.2,1);}
 
-.subj-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
-.subj-mini{
-  background:var(--card);border:2px solid var(--border);
-  border-radius:var(--radius);padding:14px;cursor:pointer;
-  transition:border-color 0.2s,transform 0.1s;
-}
-.subj-mini:active{transform:scale(0.97);}
-.subj-mini:hover{border-color:var(--lime);}
-.sm-name{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;}
-.sm-row{display:flex;justify-content:space-between;margin-bottom:5px;}
-.sm-count{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);}
-.sm-paper{font-size:9px;color:var(--muted);margin-top:4px;}
+/* ─── TODAY CARD ─── */
+.today-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+.today-hdr-left{display:flex;align-items:center;gap:8px;}
+.today-hdr h3{font-size:16px;font-weight:800;}
+.dy-pill{font-size:9px;font-weight:700;padding:3px 10px;border-radius:99px;background:var(--lime);color:var(--bg);letter-spacing:0.5px;}
+.edit-btn{width:32px;height:32px;border-radius:var(--rs);border:1px solid var(--border);background:var(--card2);color:var(--lime);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.15s;flex-shrink:0;}
+.edit-btn:active{transform:scale(0.93);}
 
-/* TODAY CARD */
-.today-hdr{display:flex;align-items:center;gap:8px;margin-bottom:12px;}
-.today-hdr h3{font-size:16px;font-weight:700;}
-.day-pill{
-  font-size:9px;font-weight:700;padding:3px 10px;border-radius:99px;
-  background:var(--lime);color:var(--bg);letter-spacing:0.5px;
-}
-.tt{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid var(--border);}
-.tt:last-child{border-bottom:none;}
-.tt-tag{font-size:9px;font-weight:700;padding:2px 7px;border-radius:5px;text-transform:uppercase;flex-shrink:0;margin-top:2px;letter-spacing:0.5px;}
-.tt-text{font-size:12px;color:#c8c8e0;line-height:1.5;}
-.split-ln{height:1px;background:var(--border);margin:4px 0;}
+/* SESSION BLOCK */
+.sess-blk{margin-bottom:10px;}
+.sess-lbl{font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin-bottom:6px;display:flex;align-items:center;gap:6px;}
+.sess-time{font-family:'JetBrains Mono',monospace;font-size:8px;padding:2px 7px;border-radius:99px;border:1px solid var(--border);color:var(--muted);}
+
+/* TAPPABLE TASK ITEM */
+.task-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--border);border-radius:var(--rs);margin-bottom:6px;cursor:pointer;transition:all 0.2s;background:var(--card2);}
+.task-item:active{transform:scale(0.98);}
+.task-item.done{background:rgba(185,255,102,0.05);border-color:rgba(185,255,102,0.2);}
+.task-chk{width:22px;height:22px;border-radius:7px;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.2s;}
+.task-item.done .task-chk{background:var(--lime);border-color:var(--lime);}
+.task-chk svg{display:none;width:12px;height:12px;stroke:var(--bg);fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;}
+.task-item.done .task-chk svg{display:block;}
+.task-info{flex:1;}
+.task-tag{display:inline-block;font-size:8px;font-weight:700;padding:1px 6px;border-radius:4px;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:3px;}
+.task-text{font-size:12px;line-height:1.4;color:var(--text);transition:color 0.2s;}
+.task-item.done .task-text{color:var(--muted);text-decoration:line-through;text-decoration-color:rgba(255,255,255,0.15);}
+.task-pts{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);flex-shrink:0;}
 
 /* LAW CARD */
-.law-card{
-  background:rgba(192,132,252,0.06);
-  border:2px solid rgba(192,132,252,0.25);
-  border-radius:var(--radius);padding:14px;margin-bottom:12px;
-}
-.law-badge-pill{
-  display:inline-block;font-size:9px;font-weight:700;padding:3px 10px;
-  border-radius:99px;background:rgba(192,132,252,0.15);color:var(--law);
-  text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;
-}
-.law-txt{font-size:12px;color:#c8a8e8;line-height:1.7;}
+.lcard{background:rgba(192,132,252,0.06);border:1px solid rgba(192,132,252,0.2);border-radius:var(--r);padding:14px;margin-bottom:12px;}
+.lpill{display:inline-block;font-size:8.5px;font-weight:700;padding:3px 10px;border-radius:99px;background:rgba(192,132,252,0.15);color:var(--law);text-transform:uppercase;letter-spacing:1px;margin-bottom:7px;}
+.ltxt{font-size:12px;color:#c8a8e8;line-height:1.7;}
 
 /* ─── CHAPTER PAGES ─── */
-.ch-hdr{display:flex;align-items:center;gap:10px;padding:10px 0 8px;}
-.ch-hdr h3{font-size:18px;font-weight:700;}
-.paper-pill{
-  font-family:'DM Mono',monospace;font-size:9px;
-  padding:3px 9px;border-radius:99px;
-  background:var(--card2);border:1px solid var(--border);color:var(--muted);
-}
-.ch-prog-row{display:flex;justify-content:space-between;font-size:10px;color:var(--muted);font-family:'DM Mono',monospace;margin-bottom:2px;}
-.sec-label{
-  font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:2px;
-  color:var(--muted);padding:12px 0 5px;
-}
-
-.ch-item{
-  display:flex;align-items:center;gap:12px;
-  background:var(--card);border:2px solid var(--border);
-  border-radius:var(--radius-s);padding:12px 14px;margin-bottom:7px;
-  cursor:pointer;transition:border-color 0.15s,background 0.15s,transform 0.1s;
-}
-.ch-item:active{transform:scale(0.98);}
-.ch-item.done{
-  background:rgba(52,211,153,0.04);
-  border-color:rgba(52,211,153,0.2);
-}
-.chk{
-  width:22px;height:22px;border-radius:7px;border:2px solid var(--border);
-  display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.2s;
-}
-.ch-item.done .chk{background:var(--lime);border-color:var(--lime);}
-.chk svg{display:none;width:13px;height:13px;stroke:#191A23;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;}
-.ch-item.done .chk svg{display:block;}
-.ch-lbl{flex:1;font-size:12px;line-height:1.45;color:var(--text);transition:color 0.2s;}
-.ch-item.done .ch-lbl{color:var(--muted);text-decoration:line-through;text-decoration-color:rgba(255,255,255,0.12);}
-.ch-wt{font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);flex-shrink:0;}
-.warn-chip{font-size:8px;font-weight:700;padding:2px 5px;border-radius:4px;background:rgba(248,113,113,0.12);color:var(--idt);flex-shrink:0;}
+.chhdr{display:flex;align-items:center;gap:9px;padding:10px 0 6px;}
+.chhdr h3{font-size:18px;font-weight:800;}
+.ppill{font-family:'JetBrains Mono',monospace;font-size:9px;padding:3px 9px;border-radius:99px;background:var(--card2);border:1px solid var(--border);color:var(--muted);}
+.sec-lbl{font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--muted);padding:11px 0 5px;}
+.chi{display:flex;align-items:center;gap:11px;background:var(--card);border:1px solid var(--border);border-radius:var(--rs);padding:12px 13px;margin-bottom:6px;cursor:pointer;transition:all 0.15s;}
+.chi:active{transform:scale(0.98);}
+.chi.done{background:rgba(52,211,153,0.04);border-color:rgba(52,211,153,0.18);}
+.chk{width:22px;height:22px;border-radius:7px;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.2s;}
+.chi.done .chk{background:var(--lime);border-color:var(--lime);}
+.chk svg{display:none;width:13px;height:13px;stroke:var(--bg);fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;}
+.chi.done .chk svg{display:block;}
+.chi-lbl{flex:1;font-size:12px;line-height:1.4;color:var(--text);transition:color 0.2s;}
+.chi.done .chi-lbl{color:var(--muted);text-decoration:line-through;text-decoration-color:rgba(255,255,255,0.1);}
+.chi-w{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);flex-shrink:0;}
+.star{font-size:10px;flex-shrink:0;}
 
 /* ─── PLANNER ─── */
-.phase-hdr{
-  font-size:9px;font-weight:700;text-transform:uppercase;
-  letter-spacing:2px;color:var(--muted);padding:12px 0 6px;
-}
-.wk-card{
-  background:var(--card);border:2px solid var(--border);
-  border-radius:var(--radius);margin-bottom:10px;overflow:hidden;
-}
-.wk-head{padding:11px 14px;border-bottom:2px solid var(--border);}
-.wk-num{font-family:'DM Mono',monospace;font-size:10px;color:var(--lime);margin-bottom:2px;}
-.wk-dates{font-size:13px;font-weight:700;margin-bottom:2px;}
-.wk-focus{font-size:10px;color:var(--muted);}
-.law-strip{
-  background:rgba(192,132,252,0.05);border-bottom:1px solid rgba(192,132,252,0.12);
-  padding:8px 14px;font-size:11px;color:#c0a0e0;line-height:1.5;
-}
-.pday{border-bottom:1px solid var(--border);padding:10px 14px;}
-.pday:last-child{border-bottom:none;}
-.pday.today{background:rgba(185,255,102,0.03);}
-.pday-hdr{display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap;}
-.pday-name{font-size:12px;font-weight:700;}
-.pday-date{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);}
-.pday-time{font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);margin-left:auto;}
-.today-tag{font-size:8px;font-weight:700;padding:2px 8px;border-radius:99px;background:var(--lime);color:var(--bg);}
-.ptask{display:flex;align-items:flex-start;gap:7px;font-size:11px;color:#b0b0d0;line-height:1.5;margin-bottom:4px;}
+.ph-lbl{font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:2.5px;color:var(--muted);padding:12px 0 6px;}
+.wkc{background:var(--card);border:1px solid var(--border);border-radius:var(--r);margin-bottom:10px;overflow:hidden;}
+.wk-hd{padding:11px 14px;border-bottom:1px solid var(--border);background:var(--card2);}
+.wk-n{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--lime);margin-bottom:2px;}
+.wk-d{font-size:13px;font-weight:800;margin-bottom:2px;}
+.wk-f{font-size:10px;color:var(--muted);line-height:1.4;}
+.law-s{background:rgba(192,132,252,0.05);border-bottom:1px solid rgba(192,132,252,0.12);padding:8px 14px;font-size:11px;color:#c0a0e0;line-height:1.5;}
+.pd{border-bottom:1px solid var(--border);padding:10px 14px;}
+.pd:last-child{border-bottom:none;}
+.pd.tod{background:rgba(185,255,102,0.025);}
+.pd-hdr{display:flex;align-items:center;gap:8px;margin-bottom:7px;flex-wrap:wrap;}
+.pd-n{font-size:12px;font-weight:800;}
+.pd-dt{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);}
+.tod-tag{font-size:8px;font-weight:700;padding:2px 8px;border-radius:99px;background:var(--lime);color:var(--bg);}
+.sh{font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin:6px 0 4px;display:flex;align-items:center;gap:5px;}
+.st{font-family:'JetBrains Mono',monospace;font-size:8px;padding:1px 6px;border-radius:99px;border:1px solid var(--border);color:var(--muted);}
+.ptask{display:flex;align-items:flex-start;gap:7px;font-size:11px;color:#b0b0cc;line-height:1.5;margin-bottom:4px;}
 .ptask:last-child{margin-bottom:0;}
 .ptag{font-size:8px;font-weight:700;padding:2px 6px;border-radius:4px;text-transform:uppercase;flex-shrink:0;margin-top:2px;}
-.psplit{height:1px;background:rgba(255,255,255,0.05);margin:5px 0;}
+.psplit{height:1px;background:rgba(255,255,255,0.04);margin:5px 0;}
+.live-badge{display:inline-flex;align-items:center;gap:4px;font-size:8px;font-weight:700;padding:2px 7px;border-radius:99px;background:rgba(185,255,102,0.1);color:var(--lime);border:1px solid rgba(185,255,102,0.2);margin-left:6px;}
+.live-dot{width:5px;height:5px;border-radius:50%;background:var(--lime);animation:pulse-dot 1.5s ease-in-out infinite;}
 
-/* ─── UPDATE HUB ─── */
-.hub-hero{
-  background:var(--lime);border-radius:var(--radius);
-  padding:18px;margin-bottom:12px;
-}
-.hub-hero h2{font-size:20px;font-weight:700;color:var(--bg);margin-bottom:4px;}
-.hub-hero p{font-size:12px;color:rgba(25,26,35,0.7);line-height:1.5;}
+/* ─── BOTTOM SHEET (Editor) ─── */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:100;opacity:0;pointer-events:none;transition:opacity 0.3s;backdrop-filter:blur(4px);}
+.overlay.show{opacity:1;pointer-events:all;}
+.sheet{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-radius:20px 20px 0 0;border-top:1px solid var(--border);z-index:101;transform:translateY(100%);transition:transform 0.35s cubic-bezier(.4,0,.2,1);max-height:85vh;display:flex;flex-direction:column;}
+.sheet.show{transform:translateY(0);}
+.sheet-handle{width:40px;height:4px;border-radius:99px;background:var(--border);margin:12px auto 0;}
+.sheet-hdr{padding:14px 18px 12px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.sheet-title{font-size:16px;font-weight:800;}
+.sheet-close{width:30px;height:30px;border-radius:var(--rs);border:1px solid var(--border);background:var(--card2);color:var(--muted);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.sheet-scroll{flex:1;overflow-y:auto;padding:14px 18px 24px;-webkit-overflow-scrolling:touch;}
+.sheet-scroll::-webkit-scrollbar{display:none;}
+.sheet-sec{font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin:12px 0 8px;}
+.sheet-task{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--card2);border:1px solid var(--border);border-radius:var(--rs);margin-bottom:6px;}
+.sheet-task-info{flex:1;font-size:12px;color:var(--text);line-height:1.4;}
+.sheet-task-sub{font-size:10px;color:var(--muted);margin-top:1px;}
+.rm-btn{width:26px;height:26px;border-radius:6px;background:rgba(248,113,113,0.1);border:1px solid rgba(248,113,113,0.2);color:var(--idt);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.add-section{margin-top:16px;}
+.subj-sel{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;}
+.subj-chip{padding:6px 12px;border:1px solid var(--border);border-radius:99px;font-size:11px;font-weight:700;cursor:pointer;transition:all 0.15s;color:var(--muted);}
+.subj-chip.sel{border-color:var(--lime);color:var(--lime);background:rgba(185,255,102,0.08);}
+.ch-list{max-height:220px;overflow-y:auto;}
+.ch-list::-webkit-scrollbar{display:none;}
+.add-ch{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--card2);border:1px solid var(--border);border-radius:var(--rs);margin-bottom:6px;cursor:pointer;transition:all 0.15s;}
+.add-ch:active{transform:scale(0.98);}
+.add-ch:hover{border-color:rgba(185,255,102,0.3);}
+.add-ch-plus{width:24px;height:24px;border-radius:6px;background:rgba(185,255,102,0.1);border:1px solid rgba(185,255,102,0.2);color:var(--lime);font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.add-ch-txt{flex:1;font-size:11.5px;color:var(--text);line-height:1.4;}
 
-.hub-card{background:var(--card);border:2px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:12px;}
-.hub-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin-bottom:10px;}
-.hub-textarea{
-  width:100%;min-height:150px;background:var(--card2);color:var(--lime);
-  border:2px solid var(--border);border-radius:var(--radius-s);
-  padding:12px;font-family:'DM Mono',monospace;font-size:11px;
-  line-height:1.6;resize:vertical;outline:none;
-  transition:border-color 0.2s;
-}
-.hub-textarea:focus{border-color:rgba(185,255,102,0.4);}
-.hub-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;}
-.btn{
-  border:2px solid var(--border);background:var(--card2);color:var(--text);
-  border-radius:var(--radius-s);padding:9px 14px;font-size:12px;font-weight:700;
-  cursor:pointer;font-family:'Space Grotesk',sans-serif;transition:all 0.15s;
-  letter-spacing:0.3px;
-}
+/* ─── HUB ─── */
+.hub-hero{background:var(--lime);border-radius:var(--r);padding:16px;margin-bottom:12px;}
+.hub-hero h2{font-size:18px;font-weight:800;color:var(--bg);margin-bottom:3px;}
+.hub-hero p{font-size:11px;color:rgba(13,14,20,0.65);line-height:1.5;}
+.hub-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:11px;}
+.hub-t{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin-bottom:10px;}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;}
+.btn{border:1px solid var(--border);background:var(--card2);color:var(--text);border-radius:var(--rs);padding:9px 14px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Syne',sans-serif;transition:all 0.15s;}
 .btn:active{transform:scale(0.97);}
-.btn.primary{background:var(--lime);border-color:var(--lime);color:var(--bg);}
-.btn.danger{background:rgba(248,113,113,0.1);border-color:rgba(248,113,113,0.3);color:var(--idt);}
+.btn.danger{background:rgba(248,113,113,0.08);border-color:rgba(248,113,113,0.25);color:var(--idt);}
 .hub-note{font-size:11px;color:var(--muted);line-height:1.6;margin-top:8px;padding-top:8px;border-top:1px solid var(--border);}
-.hub-note code{
-  font-family:'DM Mono',monospace;font-size:10px;
-  background:var(--card2);padding:1px 5px;border-radius:4px;color:var(--lime);
-}
-
-.hub-info-row{display:flex;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid var(--border);}
-.hub-info-row:last-child{border-bottom:none;}
-.hub-info-icon{font-size:18px;flex-shrink:0;}
-.hub-info-text{font-size:12px;color:#c0c0d8;line-height:1.5;}
-.hub-info-text strong{color:var(--lime);}
+.hub-note code{font-family:'JetBrains Mono',monospace;font-size:10px;background:var(--card2);padding:1px 5px;border-radius:4px;color:var(--lime);}
 
 /* ─── TAGS ─── */
 .t-ca{background:rgba(96,165,250,0.15);color:var(--ca);}
@@ -254,47 +194,43 @@ body{
 .t-rev{background:rgba(107,111,138,0.2);color:#94A3B8;}
 
 /* ─── TOAST ─── */
-.toast{
-  position:fixed;bottom:72px;left:50%;
-  transform:translateX(-50%) translateY(80px);
-  background:var(--lime);color:var(--bg);
-  border-radius:99px;padding:9px 20px;font-size:13px;font-weight:700;
-  transition:transform 0.3s cubic-bezier(.4,0,.2,1);
-  z-index:999;white-space:nowrap;pointer-events:none;
-  box-shadow:0 4px 20px rgba(185,255,102,0.3);
-}
+.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--lime);color:var(--bg);border-radius:99px;padding:10px 22px;font-size:13px;font-weight:700;transition:transform 0.3s cubic-bezier(.4,0,.2,1);z-index:999;white-space:nowrap;pointer-events:none;box-shadow:0 4px 24px rgba(185,255,102,0.35);}
 .toast.show{transform:translateX(-50%) translateY(0);}
+
+/* ─── SESSION KEY ─── */
+.skey{background:var(--card2);border:1px solid var(--border);border-radius:var(--r);padding:12px 14px;margin-bottom:12px;}
+.skey-t{font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin-bottom:8px;}
+.skey-row{display:flex;align-items:center;gap:8px;margin-bottom:5px;font-size:11px;}
+.skey-day{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:600;padding:2px 8px;border-radius:4px;flex-shrink:0;min-width:34px;text-align:center;}
+.skey-txt{color:#c0c0d8;line-height:1.4;font-size:11px;}
 
 *{scrollbar-width:none;} *::-webkit-scrollbar{display:none;}
 </style>
 </head>
 <body>
 
-<!-- TOP BAR -->
+<!-- TOPBAR -->
 <div class="topbar">
-  <div class="tb-row1">
-    <div class="app-title">
-      <span class="lime-dot"></span>
-      CMA Tracker
-    </div>
-    <div class="date-pill" id="date-pill">--</div>
+  <div class="tb1">
+    <div class="logo"><span class="ldot"></span>CMA Tracker</div>
+    <div class="dpill" id="date-pill">--</div>
   </div>
-  <div class="cd-strip">
-    <div class="cd-box"><div class="cd-num" id="cd-s" style="color:var(--fa)">--</div><div class="cd-lbl">Syllabus<br>Apr 22</div></div>
-    <div class="cd-box"><div class="cd-num" id="cd-r" style="color:var(--dt)">--</div><div class="cd-lbl">Revision<br>May 30</div></div>
-    <div class="cd-box"><div class="cd-num" id="cd-e" style="color:var(--idt)">--</div><div class="cd-lbl">Exam<br>Jun 11</div></div>
+  <div class="cds">
+    <div class="cdb"><div class="cdn" id="cd-s" style="color:var(--fa)">--</div><div class="cdl">Syllabus<br>Apr 30</div></div>
+    <div class="cdb"><div class="cdn" id="cd-r" style="color:var(--dt)">--</div><div class="cdl">Revision<br>May 30</div></div>
+    <div class="cdb"><div class="cdn" id="cd-e" style="color:var(--idt)">--</div><div class="cdl">Exam<br>Jun 11</div></div>
   </div>
 </div>
 
 <!-- NAV -->
 <div class="nav">
-  <div class="nav-tab active" data-p="dash"><span class="tab-ic">🏠</span>Home</div>
-  <div class="nav-tab" data-p="ca"><span class="tab-ic">📊</span>Costing</div>
-  <div class="nav-tab" data-p="fa"><span class="tab-ic">📒</span>FA</div>
-  <div class="nav-tab" data-p="tax"><span class="tab-ic">🧾</span>Tax</div>
-  <div class="nav-tab" data-p="law"><span class="tab-ic">⚖️</span>Law</div>
-  <div class="nav-tab" data-p="plan"><span class="tab-ic">📅</span>Plan</div>
-  <div class="nav-tab" data-p="hub"><span class="tab-ic">🔧</span>Hub</div>
+  <div class="nt active" data-p="dash"><span class="ntic">🏠</span>Home</div>
+  <div class="nt" data-p="ca"><span class="ntic">📊</span>CA</div>
+  <div class="nt" data-p="fa"><span class="ntic">📒</span>FA</div>
+  <div class="nt" data-p="tax"><span class="ntic">🧾</span>Tax</div>
+  <div class="nt" data-p="law"><span class="ntic">⚖️</span>Law</div>
+  <div class="nt" data-p="plan"><span class="ntic">📅</span>Planner</div>
+  <div class="nt" data-p="hub"><span class="ntic">🔧</span>Hub</div>
 </div>
 
 <!-- PAGES -->
@@ -302,569 +238,854 @@ body{
 
   <!-- DASHBOARD -->
   <div class="page active" id="page-dash">
-    <div class="card accent-top">
-      <div class="ov-top">
-        <div>
-          <div class="ov-label">Overall Progress</div>
-          <div class="ov-count" id="ov-count" style="margin-top:4px;">0 / 0 chapters</div>
-        </div>
+    <div class="card lime-accent">
+      <div class="ov-row">
+        <div><div class="ov-lbl">Overall Progress</div><div class="ov-cnt" id="ov-cnt" style="margin-top:4px;">0 / 0 chapters</div></div>
         <div class="ov-pct" id="ov-pct">0%</div>
       </div>
-      <div class="bar-track"><div class="bar-fill bar-overall" id="ov-bar" style="width:0%"></div></div>
+      <div class="bar-track"><div class="bar-fill bar-main" id="ov-bar" style="width:0%"></div></div>
     </div>
 
-    <div class="subj-grid" id="subj-grid"></div>
+    <div class="skey">
+      <div class="skey-t">Daily Schedule — 3.5 hrs/day</div>
+      <div class="skey-row"><div class="skey-day" style="background:rgba(96,165,250,0.1);color:var(--ca)">Mon</div><div class="skey-txt">☀️ 6:30–8:00 CA reading &nbsp;·&nbsp; 🌙 9–12:30 CA full (3.5 hrs)</div></div>
+      <div class="skey-row"><div class="skey-day" style="background:rgba(96,165,250,0.1);color:var(--ca)">Tue</div><div class="skey-txt">☀️ CA reading &nbsp;·&nbsp; 🌙 9–11 CA + 11–12:30 Law (1.5 hrs)</div></div>
+      <div class="skey-row"><div class="skey-day" style="background:rgba(96,165,250,0.1);color:var(--ca)">Wed</div><div class="skey-txt">☀️ CA reading &nbsp;·&nbsp; 🌙 9–11 CA + 11–12:30 Law (1.5 hrs)</div></div>
+      <div class="skey-row"><div class="skey-day" style="background:rgba(52,211,153,0.1);color:var(--fa)">Thu</div><div class="skey-txt">☀️ FA reading &nbsp;·&nbsp; 🌙 9–11 FA + 11–12:30 DT</div></div>
+      <div class="skey-row"><div class="skey-day" style="background:rgba(52,211,153,0.1);color:var(--fa)">Fri</div><div class="skey-txt">☀️ FA reading &nbsp;·&nbsp; 🌙 9–11 FA + 11–12:30 DT</div></div>
+      <div class="skey-row"><div class="skey-day" style="background:rgba(248,113,113,0.1);color:var(--idt)">Sat</div><div class="skey-txt">☀️ FA reading &nbsp;·&nbsp; 🌙 9–11 FA + 11–12:30 IDT</div></div>
+      <div class="skey-row"><div class="skey-day" style="background:rgba(107,111,138,0.15);color:#94A3B8">Sun</div><div class="skey-txt">Revision + PYQs (2–3 hrs anytime)</div></div>
+    </div>
 
-    <div class="card">
+    <div class="sgrid" id="subj-grid"></div>
+
+    <!-- TODAY CARD -->
+    <div class="card" id="today-card">
       <div class="today-hdr">
-        <h3>Today's Plan</h3>
-        <div class="day-pill" id="day-pill">--</div>
+        <div class="today-hdr-left">
+          <h3>Today's Tasks</h3>
+          <div class="dy-pill" id="dy-pill">--</div>
+        </div>
+        <button class="edit-btn" onclick="openEditor()" title="Edit today's tasks">✏️</button>
       </div>
       <div id="today-content"></div>
     </div>
 
-    <div class="law-card">
-      <div class="law-badge-pill">This Week — Law</div>
-      <div class="law-txt" id="law-target">--</div>
+    <div class="lcard">
+      <div class="lpill">This Week — Law Target</div>
+      <div class="ltxt" id="law-target">--</div>
     </div>
   </div>
 
-  <!-- SUBJECT PAGES -->
+  <!-- CHAPTER PAGES -->
   <div class="page" id="page-ca"></div>
   <div class="page" id="page-fa"></div>
   <div class="page" id="page-tax"></div>
   <div class="page" id="page-law"></div>
 
   <!-- PLANNER -->
-  <div class="page" id="page-plan"></div>
+  <div class="page" id="page-plan">
+    <div style="display:flex;align-items:center;gap:8px;padding:10px 0 6px;margin-bottom:4px;">
+      <span style="font-size:17px;font-weight:800;">Live Planner</span>
+      <span class="live-badge"><span class="live-dot"></span>Auto-updates</span>
+    </div>
+    <div style="font-size:11px;color:var(--muted);margin-bottom:14px;line-height:1.5;">When you tick a chapter done, the planner automatically queues the next pending chapter in that subject's slot.</div>
+    <div id="plan-content"></div>
+  </div>
 
-  <!-- UPDATE HUB -->
+  <!-- HUB -->
   <div class="page" id="page-hub">
     <div class="hub-hero">
-      <h2>🔧 Update Hub</h2>
-      <p>Push UI or data patches without touching your progress. Your chapter ticks are always safe in localStorage.</p>
+      <h2>🔧 Data Hub</h2>
+      <p>Backup, restore, or reset your progress. Everything lives on your device — no server needed.</p>
     </div>
-
     <div class="hub-card">
-      <div class="hub-title">How data safety works</div>
-      <div class="hub-info-row">
-        <div class="hub-info-icon">💾</div>
-        <div class="hub-info-text">Your chapter progress is stored in <strong>localStorage</strong> under the key <code>cma-progress-v4</code>. This key never changes across app updates.</div>
-      </div>
-      <div class="hub-info-row">
-        <div class="hub-info-icon">🔄</div>
-        <div class="hub-info-text">When you update <code>index.html</code> on GitHub, only the UI code changes. <strong>localStorage stays untouched</strong> — your ticks survive every update.</div>
-      </div>
-      <div class="hub-info-row">
-        <div class="hub-info-icon">📱</div>
-        <div class="hub-info-text">Data lives on <strong>your phone's Chrome</strong> for the GitHub Pages URL. As long as you don't clear Chrome data, it's permanent. Export below as backup.</div>
-      </div>
-      <div class="hub-info-row">
-        <div class="hub-info-icon">⚡</div>
-        <div class="hub-info-text">Use the patch box to <strong>update planner data, chapter lists, or law targets</strong> without getting a new file from me — just paste and push.</div>
-      </div>
-    </div>
-
-    <div class="hub-card">
-      <div class="hub-title">UI / Data patch</div>
-      <textarea class="hub-textarea" id="patch-code" placeholder="// Paste a patch here to update UI data without resetting progress
-// Examples:
-// RUNTIME.subjects[0].name = 'Cost Accounting Pro';
-// RUNTIME.lawTargets[0] = 'New law target for week 1';
-// api.toast('Patch applied!');
-// 
-// To add a chapter to CA:
-// RUNTIME.subjects[0].sections[0].chapters.push({id:'ca-16',text:'New Topic',w:'5%'});"></textarea>
-      <div class="hub-row">
-        <button class="btn primary" onclick="applyPatch()">⚡ Push Update</button>
-        <button class="btn" onclick="loadSavedPatch()">📂 Load Saved</button>
-        <button class="btn danger" onclick="removePatch()">🗑 Remove</button>
-      </div>
-      <div class="hub-note">
-        Patch runs in a sandboxed function with access to <code>RUNTIME</code> and <code>api</code>. Chapter IDs must stay stable — if you rename an ID, use <code>api.remapProgress({'old-id':'new-id'})</code> to preserve ticks.
-      </div>
-    </div>
-
-    <div class="hub-card">
-      <div class="hub-title">Data backup & restore</div>
-      <div class="hub-row">
+      <div class="hub-t">Backup & Restore</div>
+      <div class="btn-row">
         <button class="btn" onclick="exportData()">📤 Export JSON</button>
         <button class="btn" onclick="importData()">📥 Import JSON</button>
-        <button class="btn danger" onclick="resetData()">⚠️ Reset All</button>
       </div>
-      <div class="hub-note">
-        Export saves a <code>cma-progress.json</code> file you can keep as backup or use to restore on another device/browser. Import loads it back instantly.
-      </div>
+      <div class="hub-note">Export saves your progress as a JSON file. Import restores it on any device. Always export before clearing Chrome data.</div>
     </div>
-
     <div class="hub-card">
-      <div class="hub-title">App info</div>
-      <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);line-height:2;">
-        <div>Version: <span style="color:var(--lime)">4.0.0 — Positivus</span></div>
-        <div>Progress key: <span style="color:var(--lime)">cma-progress-v4</span></div>
-        <div>Patch key: <span style="color:var(--lime)">cma-patch-v1</span></div>
-        <div>Hosted: <span style="color:var(--lime)">GitHub Pages</span></div>
+      <div class="hub-t">Reset</div>
+      <div class="btn-row">
+        <button class="btn danger" onclick="resetData()">⚠️ Reset All Progress</button>
+      </div>
+      <div class="hub-note">Resets all ticks. Known completed chapters (from your JSON backup) stay pre-ticked.</div>
+    </div>
+    <div class="hub-card">
+      <div class="hub-t">App Info</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);line-height:2.2;">
+        <div>Version: <span style="color:var(--lime)">5.0 — Live Queue</span></div>
+        <div>Storage key: <span style="color:var(--lime)">cma-progress-v5</span></div>
+        <div>Exam: <span style="color:var(--lime)">June 11, 2026</span></div>
+        <div>Syllabus deadline: <span style="color:var(--lime)">April 30, 2026</span></div>
       </div>
     </div>
   </div>
+</div>
 
+<!-- BOTTOM SHEET OVERLAY -->
+<div class="overlay" id="overlay" onclick="closeEditor()"></div>
+<div class="sheet" id="sheet">
+  <div class="sheet-handle"></div>
+  <div class="sheet-hdr">
+    <div class="sheet-title">Edit Today's Tasks</div>
+    <div class="sheet-close" onclick="closeEditor()">✕</div>
+  </div>
+  <div class="sheet-scroll">
+    <div class="sheet-sec">Current Tasks — tap ✕ to remove</div>
+    <div id="sheet-current"></div>
+    <div class="add-section">
+      <div class="sheet-sec">Add a Chapter</div>
+      <div class="subj-sel" id="subj-sel">
+        <div class="subj-chip sel" data-s="ca" onclick="selSubj(this,'ca')">CA</div>
+        <div class="subj-chip" data-s="fa" onclick="selSubj(this,'fa')">FA</div>
+        <div class="subj-chip" data-s="tax" onclick="selSubj(this,'tax')">Tax</div>
+        <div class="subj-chip" data-s="law" onclick="selSubj(this,'law')">Law</div>
+      </div>
+      <div class="ch-list" id="ch-list"></div>
+    </div>
+  </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
-/* ═══════════════════ CONSTANTS ═══════════════════════════════════════════════ */
-var MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-var DAYS=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-var PROGRESS_KEY='cma-progress-v4';
-var PATCH_KEY='cma-patch-v1';
+/* ═══════════════════════════════════════════════════════════
+   STORAGE KEYS
+═══════════════════════════════════════════════════════════ */
+var PK='cma-progress-v5';
+var TK='cma-today-v5'; // today's custom task overrides
 
-/* ═══════════════════ BASE DATA ═══════════════════════════════════════════════ */
-var BASE={
-subjects:[
-  {id:'ca',name:'Cost Accounting',paper:'Paper 8',color:'#60A5FA',sections:[
+/* ═══════════════════════════════════════════════════════════
+   SUBJECTS & CHAPTERS
+═══════════════════════════════════════════════════════════ */
+var SUBJECTS=[
+  {id:'ca',name:'Cost Accounting',paper:'Paper 8',color:'#60A5FA',tag:'ca',sections:[
     {label:'Section A — Introduction (40%)',chapters:[
       {id:'ca-1',text:'Intro to Cost Accounting — basics, terminology, classification',w:'5%'},
-      {id:'ca-2',text:'Material Costing — EOQ, ABC analysis, inventory valuation',w:'15%'},
-      {id:'ca-3',text:'Labour / Employee Costing — methods, idle time, overtime',w:'15%'},
-      {id:'ca-4',text:'Overhead Costing — absorption, apportionment, blanket rate',w:'15%'},
-      {id:'ca-5',text:'Cost Accounting Standards — CAS 1–24 (key: 4,6,7,10,11)',w:'10%'},
+      {id:'ca-2',text:'Material Costing — EOQ, ABC analysis, inventory valuation',w:'15%',star:'⭐'},
+      {id:'ca-3',text:'Labour / Employee Costing — methods, idle time, overtime',w:'15%',star:'⭐'},
+      {id:'ca-4',text:'Overhead Costing — absorption, apportionment, blanket rate',w:'15%',star:'⭐'},
+      {id:'ca-5',text:'Cost Accounting Standards — CAS 1–24',w:'10%'},
       {id:'ca-6',text:'Cost Bookkeeping — Integrated & Non-Integrated accounts',w:'10%'},
       {id:'ca-7',text:'Reconciliation of Cost & Financial Accounts',w:'10%'}]},
     {label:'Section B — Methods of Costing (30%)',chapters:[
-      {id:'ca-8',text:'Job Costing & Batch Costing — cost sheet, EBQ formula',w:'30%'},
-      {id:'ca-9',text:'Process Costing — normal/abnormal loss, inter-process profit',w:'30%'},
-      {id:'ca-10',text:'Joint Products & By-products — NRV, physical units methods',w:'30%'},
-      {id:'ca-11',text:'Contract Costing — WIP, notional profit, retention money',w:'30%'},
+      {id:'ca-8',text:'Job Costing & Batch Costing — cost sheet, EBQ formula',w:'30%',star:'⭐'},
+      {id:'ca-9',text:'Process Costing — normal/abnormal loss, inter-process profit',w:'30%',star:'⭐'},
+      {id:'ca-10',text:'Joint Products & By-products — NRV, physical units methods',w:'30%',star:'⭐'},
+      {id:'ca-11',text:'Contract Costing — WIP, notional profit, retention money',w:'30%',star:'⭐'},
       {id:'ca-12',text:'Service / Operating Costing — Hospital, Transport, Hotel',w:'30%'}]},
     {label:'Section C — Techniques (30%)',chapters:[
-      {id:'ca-13',text:'Standard Costing — Material, Labour, Overhead, Sales variances',w:'30%'},
-      {id:'ca-14',text:'Marginal Costing — CVP, BEP, Margin of Safety, Key Factor',w:'30%'},
-      {id:'ca-15',text:'Budgetary Control — Fixed, Flexible, Cash, Master Budget',w:'30%'}]}]},
-  {id:'fa',name:'Financial Accounting',paper:'Paper 6',color:'#34D399',sections:[
+      {id:'ca-13',text:'Standard Costing — all variance types + reconciliation',w:'30%',star:'⭐⭐'},
+      {id:'ca-14',text:'Marginal Costing — CVP, BEP, Key Factor decisions',w:'30%',star:'⭐⭐'},
+      {id:'ca-15',text:'Budgetary Control — Fixed, Flexible, Cash, Master Budget',w:'30%',star:'⭐'}]}]},
+  {id:'fa',name:'Financial Accounting',paper:'Paper 6',color:'#34D399',tag:'fa',sections:[
     {label:'Section A — Fundamentals (15%)',chapters:[
-      {id:'fa-1',text:'Accounting Fundamentals — concepts, conventions, frameworks',w:'15%'}]},
+      {id:'fa-1',text:'Accounting Fundamentals — concepts, conventions',w:'15%'}]},
     {label:'Section B — Special Transactions (10%)',chapters:[
       {id:'fa-2',text:'Bills of Exchange — discounting, dishonour, renewal',w:'10%'},
       {id:'fa-3',text:'Consignment Accounts',w:'10%'},
       {id:'fa-4',text:'Joint Venture Accounts',w:'10%'}]},
     {label:'Section C — Financial Statements (20%)',chapters:[
-      {id:'fa-5',text:'Final Accounts of Commercial Organisations',w:'20%'},
+      {id:'fa-5',text:'Final Accounts of Commercial Organisations',w:'20%',star:'⭐'},
       {id:'fa-6',text:'Not-for-Profit Organisations (NPO / Club Accounts)',w:'20%'},
       {id:'fa-7',text:'Accounts from Incomplete Records (Single Entry)',w:'20%'}]},
-    {label:'Section D — Partnership Accounting (20%) ⭐',chapters:[
-      {id:'fa-8',text:'Partnership — Admission: goodwill, sacrificing ratio, revaluation',w:'20%'},
-      {id:'fa-9',text:'Partnership — Retirement & Death of Partner',w:'20%'},
-      {id:'fa-10',text:'Partnership — Dissolution & Piecemeal Distribution',w:'20%'},
+    {label:'Section D — Partnership Accounting (20%) ⭐⭐',chapters:[
+      {id:'fa-8',text:'Partnership — Admission: goodwill, sacrificing ratio, revaluation',w:'20%',star:'⭐⭐'},
+      {id:'fa-9',text:'Partnership — Retirement & Death of Partner',w:'20%',star:'⭐⭐'},
+      {id:'fa-10',text:'Partnership — Dissolution & Piecemeal Distribution',w:'20%',star:'⭐⭐'},
       {id:'fa-11',text:'LLP Accounts',w:'20%'}]},
     {label:'Section E — Branch & Others (15%)',chapters:[
       {id:'fa-12',text:'Lease Accounting — Finance vs Operating lease, AS 19',w:'15%'},
-      {id:'fa-13',text:'Branch Accounts — Debtors method, Stock method',w:'15%'},
+      {id:'fa-13',text:'Branch Accounts — Debtors method, Stock method',w:'15%',star:'⭐'},
       {id:'fa-14',text:'Foreign Branch Accounts',w:'15%'},
       {id:'fa-15',text:'Departmental Accounts — inter-dept transfers, loading',w:'15%'},
-      {id:'fa-16',text:'Insurance Claim — Loss of Stock & Loss of Profit (MLOP)',w:'15%'},
-      {id:'fa-17',text:'Hire Purchase & Instalment Sale',w:'15%'}]},
+      {id:'fa-16',text:'Insurance Claim — Loss of Stock & Loss of Profit (MLOP)',w:'15%',star:'⭐'},
+      {id:'fa-17',text:'Hire Purchase & Instalment Sale',w:'15%',star:'⭐'}]},
     {label:'Section F — Accounting Standards (20%) ⭐',chapters:[
-      {id:'fa-18',text:'AS 1 (Disclosure), AS 2 (Inventories), AS 7 (Construction Contracts)',w:'20%'},
-      {id:'fa-19',text:'AS 9 (Revenue), AS 10 (PPE), AS 13 (Investments)',w:'20%'},
-      {id:'fa-20',text:'AS 15 (Employee Benefits), AS 16 (Borrowing Costs), AS 19 (Leases)',w:'20%'},
+      {id:'fa-18',text:'AS 1 (Disclosure), AS 2 (Inventories), AS 7 (Construction)',w:'20%',star:'⭐⭐'},
+      {id:'fa-19',text:'AS 9 (Revenue), AS 10 (PPE), AS 13 (Investments)',w:'20%',star:'⭐'},
+      {id:'fa-20',text:'AS 15 (Employee Benefits), AS 16 (Borrowing Costs), AS 19 (Leases)',w:'20%',star:'⭐'},
       {id:'fa-21',text:'AS 26 (Intangibles), AS 29 (Provisions) + remaining AS',w:'20%'}]}]},
-  {id:'tax',name:'Direct Tax + IDT',paper:'Paper 7',color:'#FBBF24',sections:[
+  {id:'tax',name:'Direct Tax + IDT',paper:'Paper 7',color:'#FBBF24',tag:'dt',sections:[
     {label:'DT — Basics (10%)',chapters:[
       {id:'dt-1',text:'Basics — Definitions, Previous Year, Assessment Year',w:'10%'},
       {id:'dt-2',text:'Residential Status & Incidence of Tax',w:'10%'}]},
     {label:'DT — Heads of Income (25%)',chapters:[
-      {id:'dt-3',text:'Income from Salary — allowances, perquisites, retirement benefits',w:'25%'},
+      {id:'dt-3',text:'Income from Salary — allowances, perquisites, retirement benefits',w:'25%',star:'⭐'},
       {id:'dt-4',text:'Income from House Property — Sec 22–27',w:'25%'},
-      {id:'dt-5',text:'PGBP — Sec 28–44, depreciation, disallowances, Sec 40A/43B',w:'25%'},
-      {id:'dt-6',text:'Capital Gains — indexation, exemptions (54/54F/54EC), Sec 112A',w:'25%'},
+      {id:'dt-5',text:'PGBP — Sec 28–44, depreciation, disallowances',w:'25%',star:'⭐⭐'},
+      {id:'dt-6',text:'Capital Gains — indexation, exemptions (54/54F/54EC), Sec 112A',w:'25%',star:'⭐⭐'},
       {id:'dt-7',text:'Other Sources — Sec 56: deemed dividend, gifts, winnings',w:'25%'}]},
     {label:'DT — Total Income & Tax Liability (15%)',chapters:[
       {id:'dt-8',text:'Set Off & Carry Forward of Losses',w:'15%'},
-      {id:'dt-9',text:'Deductions — Chapter VI-A (80C, 80D, 80E, 80G, 80TTA, 80U)',w:'15%'},
-      {id:'dt-10',text:'Total Income & Tax Liability — Individual + HUF, rebate 87A',w:'15%'},
+      {id:'dt-9',text:'Deductions — Chapter VI-A (80C, 80D, 80E, 80G, 80TTA, 80U)',w:'15%',star:'⭐'},
+      {id:'dt-10',text:'Total Income & Tax Liability — Individual + HUF, rebate 87A',w:'15%',star:'⭐'},
       {id:'dt-11',text:'Assessment, Returns, Advance Tax, TDS/TCS',w:'15%'}]},
-    {label:'⚠️ IDT — GST (40%) — CRITICAL GAP',chapters:[
-      {id:'idt-1',text:'⚠️ Concept of Indirect Taxes — structure, constitutional background',w:'5%',warn:true},
-      {id:'idt-2',text:'⚠️ GST — Levy & Collection, Supply (Sec 7), CGST/IGST/SGST',w:'35%',warn:true},
-      {id:'idt-3',text:'⚠️ GST — Composite/Mixed Supply, Time of Supply, Value (Sec 15)',w:'35%',warn:true},
-      {id:'idt-4',text:'⚠️ GST — Place of Supply rules (B2B vs B2C)',w:'35%',warn:true},
-      {id:'idt-5',text:'⚠️ GST — Input Tax Credit: conditions, blocked credits (Sec 17(5))',w:'35%',warn:true},
-      {id:'idt-6',text:'⚠️ GST — Registration, Composition Scheme, Returns, Payment',w:'35%',warn:true}]},
+    {label:'⚠️ IDT — GST (40%) CRITICAL',chapters:[
+      {id:'idt-1',text:'⚠️ Concept of Indirect Taxes — constitutional background',w:'5%'},
+      {id:'idt-2',text:'⚠️ GST — Levy & Collection, Supply (Sec 7), CGST/IGST/SGST',w:'35%',star:'⭐'},
+      {id:'idt-3',text:'⚠️ GST — Time of Supply, Value of Supply (Sec 15)',w:'35%',star:'⭐'},
+      {id:'idt-4',text:'⚠️ GST — Place of Supply rules (B2B vs B2C)',w:'35%',star:'⭐⭐'},
+      {id:'idt-5',text:'⚠️ GST — Input Tax Credit: conditions, Sec 17(5) blocked credits',w:'35%',star:'⭐⭐'},
+      {id:'idt-6',text:'⚠️ GST — Registration, Composition Scheme, Returns, Payment',w:'35%',star:'⭐'}]},
     {label:'⚠️ IDT — Customs Act (10%)',chapters:[
-      {id:'idt-7',text:'⚠️ Customs Act — types of duties, assessable value',w:'10%',warn:true},
-      {id:'idt-8',text:'⚠️ Customs — Import/Export procedures, valuation',w:'10%',warn:true}]}]},
-  {id:'law',name:'Business Laws & Ethics',paper:'Paper 5',color:'#C084FC',sections:[
+      {id:'idt-7',text:'⚠️ Customs Act — types of duties, assessable value',w:'10%'},
+      {id:'idt-8',text:'⚠️ Customs — Import/Export procedures, valuation',w:'10%'}]}]},
+  {id:'law',name:'Business Laws & Ethics',paper:'Paper 5',color:'#C084FC',tag:'law',sections:[
     {label:'Section A — Commercial Laws (30%)',chapters:[
       {id:'law-1',text:'Introduction to Law & Legal System in India',w:'5%'},
-      {id:'law-2',text:'Indian Contracts Act, 1872 — offer, acceptance, void agreements',w:'10%'},
+      {id:'law-2',text:'Indian Contracts Act, 1872 — offer, acceptance, void agreements',w:'10%',star:'⭐'},
       {id:'law-3',text:'Sale of Goods Act, 1930 — conditions, warranties',w:'5%'},
       {id:'law-4',text:'Negotiable Instruments Act, 1881 — dishonour, noting & protest',w:'5%'},
       {id:'law-5',text:'Indian Partnership Act, 1932',w:'5%'},
       {id:'law-6',text:'Limited Liability Partnership Act, 2008',w:'5%'}]},
     {label:'Section B — Industrial Laws (15%)',chapters:[
       {id:'law-7',text:'Factories Act, 1948 — hours, health, safety, welfare',w:'10%'},
-      {id:'law-8',text:'Payment of Gratuity Act, 1972 — eligibility, formula, limits',w:'10%'},
+      {id:'law-8',text:'Payment of Gratuity Act, 1972 — eligibility, formula',w:'10%'},
       {id:'law-9',text:'EPF & Miscellaneous Provisions Act, 1952',w:'10%'},
       {id:'law-10',text:'Employees State Insurance Act, 1948',w:'10%'},
       {id:'law-11',text:'The Code on Wages, 2019',w:'5%'}]},
-    {label:'Section C — Corporate Laws (40%) ⭐',chapters:[
-      {id:'law-12',text:'Companies Act 2013 — Incorporation, MOA, AOA, Share Capital',w:'40%'},
-      {id:'law-13',text:'Companies Act 2013 — Directors: appointment, DIN, duties',w:'40%'},
-      {id:'law-14',text:'Companies Act 2013 — Board + General Meetings (AGM/EGM)',w:'40%'},
-      {id:'law-15',text:'Companies Act 2013 — Audit, Charges, Winding Up, NCLT',w:'40%'}]},
+    {label:'Section C — Corporate Laws (40%) ⭐⭐',chapters:[
+      {id:'law-12',text:'Companies Act 2013 — Incorporation, MOA, AOA, Share Capital',w:'40%',star:'⭐⭐'},
+      {id:'law-13',text:'Companies Act 2013 — Directors: appointment, DIN, duties',w:'40%',star:'⭐⭐'},
+      {id:'law-14',text:'Companies Act 2013 — Board + General Meetings (AGM/EGM)',w:'40%',star:'⭐⭐'},
+      {id:'law-15',text:'Companies Act 2013 — Audit, Charges, Winding Up, NCLT',w:'40%',star:'⭐'}]},
     {label:'Section D — Business Ethics (15%)',chapters:[
       {id:'law-16',text:'Business Ethics — principles, frameworks, ethical dilemmas',w:'15%'},
       {id:'law-17',text:'Emotional Intelligence in Business — components, application',w:'15%'}]}]}
-],
-dayTasks:{
-  0:[{tag:'rev',text:'Sunday — Revision + PYQs + Law target check (2–3 hrs)'}],
-  1:[{tag:'ca',text:'Cost Accounting only — full 2.5 hr session'}],
-  2:[{tag:'ca',text:'Cost Accounting only — full 2.5 hr session'}],
-  3:[{tag:'ca',text:'CA — 1.5 hrs (9–10:30 PM)'},{tag:null},{tag:'law',text:'Law Writing — 1 hr (10:30–11:30 PM)'}],
-  4:[{tag:'fa',text:'FA — 1.5 hrs (9–10:30 PM)'},{tag:null},{tag:'dt',text:'Direct Tax — 1 hr (10:30–11:30 PM)'}],
-  5:[{tag:'fa',text:'FA — 1.5 hrs (9–10:30 PM)'},{tag:null},{tag:'dt',text:'Direct Tax — 1 hr (10:30–11:30 PM)'}],
-  6:[{tag:'fa',text:'FA — 1.5 hrs (9–10:30 PM)'},{tag:null},{tag:'idt',text:'⚠️ Indirect Tax — 1 hr (10:30–11:30 PM)'}]
-},
-lawTargets:[
-  'Companies Act — Directors + Board Meetings (commute reading, write Wed)',
-  'Companies Act — General Meetings + Audit + Charges',
-  'Companies Act — Winding Up + NCLT + Contract Act overview',
-  'Sale of Goods Act + NI Act + Partnership Act + LLP Act',
-  'Industrial Laws — Factories Act, Gratuity, EPF, ESI, Code on Wages',
-  'Business Ethics + Emotional Intelligence',
-  'Full Law revision — all Acts, key sections, definitions'
-],
-weeks:[
-  {num:'Week 1 — Partial',dates:'Wed Mar 25 → Sun Mar 29',focus:'CA: Joint Products | FA: Branch | DT: Salary wrap | IDT: GST intro',law:'Companies Act — Directors + Board Meetings',days:[
-    {n:'Wed',d:'25 Mar',tasks:[{tag:'ca',t:'Joint Products & By-products — NRV method, apportionment problems'},{tag:'div'},{tag:'law',t:'Law Writing: Directors — appointment, DIN, duties, liabilities'}]},
-    {n:'Thu',d:'26 Mar',tasks:[{tag:'fa',t:'Finish Branch Accounts — Stock & Debtors method, incorporation entries'},{tag:'div'},{tag:'dt',t:'Salary — wrap allowances, perquisites, gratuity + 1 numerical'}]},
-    {n:'Fri',d:'27 Mar',tasks:[{tag:'fa',t:'Departmental Accounts — inter-dept transfers, loading, unrealised profit'},{tag:'div'},{tag:'dt',t:'PGBP intro — Sec 28, basis of charge, Sec 30–37'}]},
-    {n:'Sat',d:'28 Mar',tasks:[{tag:'fa',t:'Lease Accounting — Finance vs Operating lease, AS 19, lessee entries'},{tag:'div'},{tag:'idt',t:'⚠️ GST — Constitutional background, CGST/SGST/IGST structure, Supply (Sec 7)'}]},
-    {n:'Sun',d:'29 Mar',tasks:[{tag:'rev',t:'Revise Job & Batch Costing — EBQ, cost sheet'},{tag:'rev',t:'Revise Joint Products + Branch — 1 PYQ each'},{tag:'law',t:'Law check — Directors done?'}]}]},
-  {num:'Week 2',dates:'Mon Mar 30 → Sun Apr 5',focus:'CA: Contract + Service | FA: Insurance + HP | DT: PGBP | IDT: Supply + Registration',law:'Companies Act — General Meetings + Audit + Charges',days:[
-    {n:'Mon',d:'30 Mar',tasks:[{tag:'ca',t:'Contract Costing — WIP, notional profit, escalation clause, 2 problems'}]},
-    {n:'Tue',d:'31 Mar',tasks:[{tag:'ca',t:'Service Costing — Hospital (per patient-day), Transport (per tonne-km), Hotel, 2 problems'}]},
-    {n:'Wed',d:'1 Apr',tasks:[{tag:'ca',t:'Service Costing revision + 1 more PYQ'},{tag:'div'},{tag:'law',t:'Law Writing: General Meetings — AGM/EGM, quorum, notice, resolutions'}]},
-    {n:'Thu',d:'2 Apr',tasks:[{tag:'fa',t:'Insurance Claim — Loss of Stock (Average clause) + Loss of Profit (MLOP)'},{tag:'div'},{tag:'dt',t:'PGBP — Sec 40A(3), Sec 43B, deemed profits'}]},
-    {n:'Fri',d:'3 Apr',tasks:[{tag:'fa',t:'Hire Purchase & Instalment Sale — Annuity & Instalment methods'},{tag:'div'},{tag:'dt',t:'PGBP — Depreciation (Sec 32): WDV, block of assets, additional depreciation'}]},
-    {n:'Sat',d:'4 Apr',tasks:[{tag:'fa',t:'Hire Purchase complete + Foreign Branch (AS 11 intro)'},{tag:'div'},{tag:'idt',t:'⚠️ GST — Composite/Mixed Supply, Time of Supply, Value of Supply (Sec 15)'}]},
-    {n:'Sun',d:'5 Apr',tasks:[{tag:'rev',t:'Contract + Service Costing — 2 PYQs'},{tag:'rev',t:'Insurance Claim + HP — 1 problem each from scratch'},{tag:'law',t:'Law check — Meetings + Audit covered?'}]}]},
-  {num:'Week 3',dates:'Mon Apr 6 → Sun Apr 12',focus:'CA: CAS + Bookkeeping + Reconciliation | FA: AS block | DT: Capital Gains | IDT: ITC',law:'Companies Act — Winding Up + NCLT + Contract Act overview',days:[
-    {n:'Mon',d:'6 Apr',tasks:[{tag:'ca',t:'CAS 1–12 (key: CAS 4,6,7,10,11) + CAS 13–24 overview'}]},
-    {n:'Tue',d:'7 Apr',tasks:[{tag:'ca',t:'Cost Bookkeeping — Integrated + Non-Integrated + Reconciliation full problem'}]},
-    {n:'Wed',d:'8 Apr',tasks:[{tag:'ca',t:'Reconciliation — 2 full problems, under/over absorption'},{tag:'div'},{tag:'law',t:'Law Writing: Winding Up — modes, NCLT powers, liquidator role'}]},
-    {n:'Thu',d:'9 Apr',tasks:[{tag:'fa',t:'AS 1, 2, 7, 9, 10 — key recognition & measurement rules'},{tag:'div'},{tag:'dt',t:'Capital Gains — types, computation, indexation, STCG vs LTCG'}]},
-    {n:'Fri',d:'10 Apr',tasks:[{tag:'fa',t:'AS 13, 15, 16 — key points + application questions'},{tag:'div'},{tag:'dt',t:'Capital Gains — exemptions: Sec 54, 54F, 54EC, Sec 112A + 1 numerical'}]},
-    {n:'Sat',d:'11 Apr',tasks:[{tag:'fa',t:'AS 19, 26, 29 — key points + application questions'},{tag:'div'},{tag:'idt',t:'⚠️ GST — Registration thresholds, Composition Scheme + ITC (Sec 16–17)'}]},
-    {n:'Sun',d:'12 Apr',tasks:[{tag:'rev',t:'CAS key provisions from memory (CAS 4,6,7,10)'},{tag:'rev',t:'Capital Gains full computation from scratch'},{tag:'law',t:'Law check — Companies Act complete?'}]}]},
-  {num:'Week 4',dates:'Mon Apr 13 → Sun Apr 19',focus:'CA: Standard Costing | FA: Partnership | DT: Other Sources + Set Off | IDT: ITC + Valuation',law:'Sale of Goods Act + NI Act + Partnership Act + LLP Act',days:[
-    {n:'Mon',d:'13 Apr',tasks:[{tag:'ca',t:'Standard Costing — Material variances (MCV, MPV, MUV, MYV, MMV) + problems'}]},
-    {n:'Tue',d:'14 Apr',tasks:[{tag:'ca',t:'Standard Costing — Labour + Overhead variances (Fixed + Variable) + mixed problem'}]},
-    {n:'Wed',d:'15 Apr',tasks:[{tag:'ca',t:'Standard Costing — 2 full PYQs (all variances + reconciliation)'},{tag:'div'},{tag:'law',t:'Law Writing: Sale of Goods — conditions vs warranties + NI Act — dishonour'}]},
-    {n:'Thu',d:'16 Apr',tasks:[{tag:'fa',t:'Partnership — Admission (weak area): goodwill methods, sacrificing ratio, revaluation'},{tag:'div'},{tag:'dt',t:'Other Sources — Sec 56: deemed dividend, gifts, winnings'}]},
-    {n:'Fri',d:'17 Apr',tasks:[{tag:'fa',t:'Partnership — Retirement & Death: gaining ratio, final payment, executor account'},{tag:'div'},{tag:'dt',t:'Set Off & Carry Forward — intra-head, inter-head, brought forward losses'}]},
-    {n:'Sat',d:'18 Apr',tasks:[{tag:'fa',t:'Partnership — Dissolution (Garner vs Murray, Piecemeal) + 1 full problem'},{tag:'div'},{tag:'idt',t:'⚠️ GST — ITC reversal (Sec 17(1–4)) + Valuation (Sec 15), related party'}]},
-    {n:'Sun',d:'19 Apr',tasks:[{tag:'rev',t:'Standard Costing — all variance formulas from memory, 1 timed problem'},{tag:'rev',t:'Partnership Admission + Retirement — 1 PYQ each'},{tag:'law',t:'Law check — Sale of Goods, NI Act, Partnership Act covered?'}]}]},
-  {num:'Week 5 — Final Push',dates:'Mon Apr 20 → Wed Apr 22',focus:'✅ Syllabus Deadline — Marginal Costing + Budgets + DT complete',law:'Industrial Laws — Factories Act, Gratuity, EPF, ESI, Code on Wages',days:[
-    {n:'Mon',d:'20 Apr',tasks:[{tag:'ca',t:'Marginal Costing — CVP, BEP (units + value), P/V ratio, Margin of Safety, Key Factor, Make or Buy'}]},
-    {n:'Tue',d:'21 Apr',tasks:[{tag:'ca',t:'Budgetary Control — Fixed vs Flexible Budget, Cash Budget, Master Budget + 1 problem'}]},
-    {n:'Wed',d:'22 Apr',tasks:[{tag:'dt',t:'Deductions (80C–80U) + Total Income + Tax Liability — Individual + HUF, rebate 87A'},{tag:'div'},{tag:'law',t:'Law Writing: Industrial Laws — Factories Act + Gratuity eligibility & formula'},{tag:'rev',t:'✅ PHASE 1 COMPLETE — Syllabus Done April 22'}]}]}
-]
+];
+
+/* ═══════════════════════════════════════════════════════════
+   CHAPTER LOOKUP MAP
+═══════════════════════════════════════════════════════════ */
+var CH_MAP={};
+SUBJECTS.forEach(function(s){
+  s.sections.forEach(function(sec){
+    sec.chapters.forEach(function(ch){
+      CH_MAP[ch.id]={text:ch.text,w:ch.w||'',star:ch.star||'',subjId:s.id,tag:s.tag,color:s.color};
+    });
+  });
+});
+
+/* ═══════════════════════════════════════════════════════════
+   QUEUES — ordered list of chapter IDs per subject slot
+   DT queue and IDT queue are separate
+═══════════════════════════════════════════════════════════ */
+var QUEUES={
+  ca: ['ca-1','ca-5','ca-6','ca-7','ca-12','ca-13','ca-14','ca-15'],
+  fa: ['fa-9','fa-10','fa-11','fa-12','fa-14','fa-15','fa-17','fa-18','fa-19','fa-20','fa-21','fa-2','fa-3','fa-4','fa-5','fa-6','fa-7','fa-1'],
+  dt: ['dt-5','dt-6','dt-7','dt-8','dt-9','dt-10','dt-11'],
+  idt:['idt-1','idt-3','idt-4','idt-5','idt-6','idt-7','idt-8'],
+  law:['law-12','law-14','law-15','law-2','law-3','law-4','law-5','law-6','law-1','law-7','law-8','law-9','law-10','law-11','law-16','law-17']
 };
 
-/* ═══════════════════ RUNTIME ════════════════════════════════════════════════ */
-var RUNTIME={};
-function makeRuntime(){
-  RUNTIME.subjects=JSON.parse(JSON.stringify(BASE.subjects));
-  RUNTIME.dayTasks=JSON.parse(JSON.stringify(BASE.dayTasks));
-  RUNTIME.lawTargets=JSON.parse(JSON.stringify(BASE.lawTargets));
-  RUNTIME.weeks=JSON.parse(JSON.stringify(BASE.weeks));
+function nextPending(queue){
+  if(!queue)return null;
+  for(var i=0;i<queue.length;i++){
+    if(!progress[queue[i]])return queue[i];
+  }
+  return null;
 }
 
-/* ═══════════════════ STORAGE ════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════
+   BASE SCHEDULE — day of week → session slots with queues
+═══════════════════════════════════════════════════════════ */
+function getBaseSchedule(dow){
+  // Returns array of session objects
+  // Each session has: label, time, slots (array of queue keys)
+  var S={
+    0:[{label:'📚 REVISION',time:'Anytime 2–3 hrs',queues:[],fixed:[{tag:'rev',text:'Revision + PYQs — review weakest chapters and solve past papers',chId:null}]}],
+    1:[
+      {label:'☀️ MORNING',time:'6:30–8:00 AM',queues:['ca'],fixed:[]},
+      {label:'🌙 EVENING',time:'9:00 PM–12:30 AM',queues:['ca','ca'],fixed:[]}
+    ],
+    2:[
+      {label:'☀️ MORNING',time:'6:30–8:00 AM',queues:['ca'],fixed:[]},
+      {label:'🌙 CA',time:'9:00–11:00 PM',queues:['ca'],fixed:[]},
+      {label:'🌙 LAW',time:'11:00 PM–12:30 AM',queues:['law'],fixed:[]}
+    ],
+    3:[
+      {label:'☀️ MORNING',time:'6:30–8:00 AM',queues:['ca'],fixed:[]},
+      {label:'🌙 CA',time:'9:00–11:00 PM',queues:['ca'],fixed:[]},
+      {label:'🌙 LAW',time:'11:00 PM–12:30 AM',queues:['law'],fixed:[]}
+    ],
+    4:[
+      {label:'☀️ MORNING',time:'6:30–8:00 AM',queues:['fa'],fixed:[]},
+      {label:'🌙 FA',time:'9:00–11:00 PM',queues:['fa'],fixed:[]},
+      {label:'🌙 DT',time:'11:00 PM–12:30 AM',queues:['dt'],fixed:[]}
+    ],
+    5:[
+      {label:'☀️ MORNING',time:'6:30–8:00 AM',queues:['fa'],fixed:[]},
+      {label:'🌙 FA',time:'9:00–11:00 PM',queues:['fa'],fixed:[]},
+      {label:'🌙 DT',time:'11:00 PM–12:30 AM',queues:['dt'],fixed:[]}
+    ],
+    6:[
+      {label:'☀️ MORNING',time:'6:30–8:00 AM',queues:['fa'],fixed:[]},
+      {label:'🌙 FA',time:'9:00–11:00 PM',queues:['fa'],fixed:[]},
+      {label:'🌙 IDT',time:'11:00 PM–12:30 AM',queues:['idt'],fixed:[]}
+    ]
+  };
+  return S[dow]||S[0];
+}
+
+/* ═══════════════════════════════════════════════════════════
+   TODAY TASKS — built dynamically from queues
+═══════════════════════════════════════════════════════════ */
+var todayKey=''; // date string for today e.g. "7 Apr 2026"
+
+function getTodayKey(){
+  var now=new Date();
+  return now.getDate()+' '+MONTHS[now.getMonth()]+' '+now.getFullYear();
+}
+
+function buildTodayTasks(dow){
+  // Check for custom override
+  var stored=loadTodayOverride();
+  if(stored&&stored.key===getTodayKey()&&stored.tasks){
+    return stored.tasks;
+  }
+  // Generate from queues
+  var schedule=getBaseSchedule(dow);
+  var tasks=[];
+  var usedQueues={}; // track how many times each queue has been drawn
+
+  schedule.forEach(function(sess){
+    // Fixed tasks (like Sunday revision)
+    sess.fixed.forEach(function(f){
+      tasks.push({sessLabel:sess.label,sessTime:sess.time,tag:f.tag,text:f.text,chId:f.chId});
+    });
+    // Queue-based tasks
+    sess.queues.forEach(function(qKey){
+      var usedCount=usedQueues[qKey]||0;
+      var q=QUEUES[qKey];
+      var skipped=0;
+      var chId=null;
+      // Find the next pending that hasn't already been drawn this call
+      for(var i=0;i<q.length;i++){
+        if(!progress[q[i]]){
+          if(skipped===usedCount){chId=q[i];break;}
+          skipped++;
+        }
+      }
+      if(chId){
+        var info=CH_MAP[chId];
+        if(info){
+          tasks.push({sessLabel:sess.label,sessTime:sess.time,tag:info.tag,text:info.text,chId:chId});
+          usedQueues[qKey]=(usedQueues[qKey]||0)+1;
+        }
+      }
+    });
+  });
+  return tasks;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   STORAGE
+═══════════════════════════════════════════════════════════ */
 var progress={};
 function loadProgress(){
   try{
-    // Migrate from older versions if they exist
-    var v4=localStorage.getItem(PROGRESS_KEY);
-    if(v4){progress=JSON.parse(v4);return;}
-    var v3=localStorage.getItem('cma-deepanshu-v3');
-    if(v3){progress=JSON.parse(v3);saveProgress();return;}
-    var v_old=localStorage.getItem('cma-deepanshu-progress-v4');
-    if(v_old){progress=JSON.parse(v_old);saveProgress();return;}
+    var r=localStorage.getItem(PK);
+    if(r){progress=JSON.parse(r);return;}
+    // Migrate
+    var old=['cma-progress-v4','cma-deepanshu-v3'];
+    for(var i=0;i<old.length;i++){var o=localStorage.getItem(old[i]);if(o){progress=JSON.parse(o);saveProgress();return;}}
   }catch(e){}
   progress={};
 }
-function saveProgress(){try{localStorage.setItem(PROGRESS_KEY,JSON.stringify(progress));}catch(e){}}
+function saveProgress(){try{localStorage.setItem(PK,JSON.stringify(progress));}catch(e){}}
 function setDefaults(){
-  var done=['ca-2','ca-3','ca-4','ca-8','ca-9','dt-1','dt-2','dt-3','dt-4'];
+  var done=['ca-2','ca-3','ca-4','ca-8','ca-9','dt-1','dt-2','dt-3','dt-4','fa-8','fa-13','ca-10','law-13','ca-11','fa-16','idt-2'];
   for(var i=0;i<done.length;i++){if(progress[done[i]]===undefined)progress[done[i]]=true;}
 }
 
-/* ═══════════════════ PATCH SYSTEM ════════════════════════════════════════════ */
-var api={
-  toast:function(m){showToast(m);},
-  getProgress:function(){return progress;},
-  setProgress:function(o){progress=o||{};saveProgress();renderAll();},
-  remapProgress:function(map){
-    var next={};
-    for(var k in progress){next[map&&map[k]?map[k]:k]=progress[k];}
-    progress=next;saveProgress();
+function loadTodayOverride(){try{var r=localStorage.getItem(TK);return r?JSON.parse(r):null;}catch(e){return null;}}
+function saveTodayOverride(tasks){
+  try{localStorage.setItem(TK,JSON.stringify({key:getTodayKey(),tasks:tasks}));}catch(e){}
+}
+function clearTodayOverride(){try{localStorage.removeItem(TK);}catch(e){}}
+
+/* ═══════════════════════════════════════════════════════════
+   COUNTDOWN
+═══════════════════════════════════════════════════════════ */
+var MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+var DAYS=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+
+function dU(y,m,d){
+  var t=new Date();
+  return Math.max(0,Math.ceil((new Date(y,m,d)-new Date(t.getFullYear(),t.getMonth(),t.getDate()))/86400000));
+}
+
+/* ═══════════════════════════════════════════════════════════
+   COUNTS
+═══════════════════════════════════════════════════════════ */
+function cntS(s){var t=0,d=0;s.sections.forEach(function(sec){sec.chapters.forEach(function(ch){t++;if(progress[ch.id])d++;});});return{t:t,d:d};}
+function cntAll(){var t=0,d=0;SUBJECTS.forEach(function(s){var r=cntS(s);t+=r.t;d+=r.d;});return{t:t,d:d};}
+
+/* ═══════════════════════════════════════════════════════════
+   UPDATE OVERALL
+═══════════════════════════════════════════════════════════ */
+function updateOverall(){
+  var r=cntAll();var p=r.t?Math.round(r.d/r.t*100):0;
+  document.getElementById('ov-pct').textContent=p+'%';
+  document.getElementById('ov-bar').style.width=p+'%';
+  document.getElementById('ov-cnt').textContent=r.d+' / '+r.t+' chapters done';
+}
+
+/* ═══════════════════════════════════════════════════════════
+   UPDATE DATE & TODAY
+═══════════════════════════════════════════════════════════ */
+function updateDate(){
+  var now=new Date();
+  var dow=now.getDay();
+  document.getElementById('date-pill').textContent=DAYS[dow].slice(0,3)+' '+now.getDate()+' '+MONTHS[now.getMonth()]+' '+now.getFullYear();
+  document.getElementById('dy-pill').textContent=DAYS[dow]+', '+now.getDate()+' '+MONTHS[now.getMonth()];
+  document.getElementById('cd-s').textContent=dU(2026,3,30);
+  document.getElementById('cd-r').textContent=dU(2026,4,30);
+  document.getElementById('cd-e').textContent=dU(2026,5,11);
+
+ 
+  // Law target
+  var start=new Date(2026,3,7); // Apr 7
+  var today2=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+  var wk=Math.max(0,Math.floor((today2-start)/(7*86400000)));
+  var LT=[
+    'Companies Act — Incorporation/Share Capital (law-12) + Meetings (law-14) + Winding Up (law-15)',
+    'Commercial Laws — Contract Act (law-2) + Sale of Goods (law-3) + NI Act (law-4)',
+    'Commercial Laws complete: Partnership Act + LLP Act + Industrial Laws (law-7 to law-11)',
+    'Business Ethics + Emotional Intelligence (law-16, law-17) + Full Law revision'
+  ];
+  document.getElementById('law-target').innerHTML='<strong>Week '+(wk+1)+':</strong> '+(LT[Math.min(wk,LT.length-1)]);
+
+  renderTodayCard(dow);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RENDER TODAY CARD
+═══════════════════════════════════════════════════════════ */
+function renderTodayCard(dow){
+  var tasks=buildTodayTasks(dow);
+  var cont=document.getElementById('today-content');
+  if(!tasks||tasks.length===0){cont.innerHTML='<div style="color:var(--muted);font-size:12px;padding:8px 0;">No tasks scheduled — rest day!</div>';return;}
+
+  var html='';
+  var lastSess='';
+  tasks.forEach(function(t,i){
+    if(t.sessLabel!==lastSess){
+      if(i>0)html+='<div style="height:8px;"></div>';
+      html+='<div class="sess-lbl">'+t.sessLabel+' <span class="sess-time">'+t.sessTime+'</span></div>';
+      lastSess=t.sessLabel;
+    }
+    var isDone=t.chId?progress[t.chId]:false;
+    html+='<div class="task-item'+(isDone?' done':'')+'" id="ti-'+i+'" onclick="tapTask('+i+')">'
+      +'<div class="task-chk"><svg viewBox="0 0 13 13"><polyline points="1.5,6.5 5,10 11.5,3"/></svg></div>'
+      +'<div class="task-info">'
+        +'<span class="task-tag t-'+t.tag+'">'+t.tag.toUpperCase()+'</span>'
+        +'<div class="task-text">'+t.text+'</div>'
+      +'</div>'
+    +'</div>';
+  });
+  cont.innerHTML=html;
+  // Store tasks in window for tap handler
+  window._todayTasks=tasks;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   TAP TASK — mark done + auto-advance
+═══════════════════════════════════════════════════════════ */
+function tapTask(idx){
+  var tasks=window._todayTasks;
+  if(!tasks||!tasks[idx])return;
+  var t=tasks[idx];
+  if(!t.chId){showToast('📖 Revision session — keep going!');return;}
+
+  var wasDown=progress[t.chId];
+  progress[t.chId]=!wasDown;
+  saveProgress();
+
+  // Update task UI
+  var el=document.getElementById('ti-'+idx);
+  if(el){if(progress[t.chId])el.classList.add('done');else el.classList.remove('done');}
+
+  // Update chapter page checkbox
+  var chi=document.getElementById('ci-'+t.chId);
+  if(chi){if(progress[t.chId])chi.classList.add('done');else chi.classList.remove('done');}
+
+  updateOverall();
+  updateSM(t.subjId||SUBJECTS.find(function(s){return s.tag===t.tag;}).id);
+
+  if(progress[t.chId]){
+    showToast('✅ Done! Planner updated');
+    // Auto-advance: rebuild planner to show next chapter
+    buildPlanner();
+    // If this task had a custom override, update it to mark done
+    var stored=loadTodayOverride();
+    if(stored&&stored.key===getTodayKey()&&stored.tasks){
+      stored.tasks[idx].chId=t.chId; // keep chId so state persists
+      saveTodayOverride(stored.tasks);
+    }
+  }else{
+    showToast('↩️ Unmarked');
+    buildPlanner();
   }
-};
+}
 
-function getPatchCode(){try{return localStorage.getItem(PATCH_KEY)||'';}catch(e){return'';}}
-function savePatchCode(c){try{localStorage.setItem(PATCH_KEY,c);}catch(e){}}
+/* ═══════════════════════════════════════════════════════════
+   SUBJECT MINI CARDS
+═══════════════════════════════════════════════════════════ */
+function buildMini(){
+  var html='';
+  SUBJECTS.forEach(function(s){
+    var r=cntS(s);var p=r.t?Math.round(r.d/r.t*100):0;
+    var sp=(p/100).toFixed(2);
+    html+='<div class="sm" onclick="goTab(\''+s.id+'\')" style="--sc:'+s.color+';--sp:'+sp+'">'
+      +'<div class="smn" style="color:'+s.color+'">'+s.name+'</div>'
+      +'<div class="smr"><span class="smc" id="mc-'+s.id+'">'+r.d+'/'+r.t+'</span><span class="smc" style="color:'+s.color+'">'+p+'%</span></div>'
+      +'<div class="sm-pbar"><div class="sm-pfill" style="width:'+p+'%;background:'+s.color+'" id="mb-'+s.id+'"></div></div>'
+      +'<div style="font-size:9px;color:var(--muted);margin-top:4px;">'+s.paper+'</div>'
+      +'</div>';
+  });
+  document.getElementById('subj-grid').innerHTML=html;
+}
 
-function applyRuntimePatch(){
-  makeRuntime();
-  var code=getPatchCode().trim();
-  if(!code){renderAll();return;}
-  try{
-    (new Function('RUNTIME','api',code))(RUNTIME,api);
-  }catch(e){
-    showToast('Patch error: '+e.message.slice(0,40));
-    console.error('Patch error:',e);
+function updateSM(id){
+  var s=null;SUBJECTS.forEach(function(sub){if(sub.id===id)s=sub;});if(!s)return;
+  var r=cntS(s);var p=r.t?Math.round(r.d/r.t*100):0;
+  var b=document.getElementById('mb-'+id);if(b)b.style.width=p+'%';
+  var c=document.getElementById('mc-'+id);if(c)c.textContent=r.d+'/'+r.t;
+  var cb=document.getElementById('cb-'+id);if(cb)cb.style.width=p+'%';
+  var cp=document.getElementById('cp-'+id);if(cp)cp.textContent=r.d+' / '+r.t+' done · '+p+'%';
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CHAPTER PAGES
+═══════════════════════════════════════════════════════════ */
+function buildChPage(subj){
+  var r=cntS(subj);var p=r.t?Math.round(r.d/r.t*100):0;
+  var html='<div class="chhdr"><h3 style="color:'+subj.color+'">'+subj.name+'</h3><div class="ppill">'+subj.paper+'</div></div>'
+    +'<div style="display:flex;justify-content:space-between;font-family:\'JetBrains Mono\',monospace;font-size:10px;color:var(--muted);margin-bottom:2px;" id="cp-'+subj.id+'">'+r.d+' / '+r.t+' done · '+p+'%</div>'
+    +'<div class="bar-track" style="margin-bottom:12px;"><div class="bar-fill" style="width:'+p+'%;background:'+subj.color+'" id="cb-'+subj.id+'"></div></div>';
+  subj.sections.forEach(function(sec){
+    html+='<div class="sec-lbl">'+sec.label+'</div>';
+    sec.chapters.forEach(function(ch){
+      var dn=progress[ch.id]?'done':'';
+      var star=ch.star?'<span class="star">'+ch.star+'</span>':'';
+      html+='<div class="chi '+dn+'" id="ci-'+ch.id+'" onclick="toggleCh(\''+subj.id+'\',\''+ch.id+'\')">'
+        +'<div class="chk"><svg viewBox="0 0 13 13"><polyline points="1.5,6.5 5,10 11.5,3"/></svg></div>'
+        +'<div class="chi-lbl">'+ch.text+'</div>'
+        +star+'<div class="chi-w">'+ch.w+'</div></div>';
+    });
+  });
+  document.getElementById('page-'+subj.id).innerHTML=html;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   TOGGLE CHAPTER (from chapter page)
+═══════════════════════════════════════════════════════════ */
+var tTimer;
+function toggleCh(sId,cId){
+  progress[cId]=!progress[cId];saveProgress();
+  var el=document.getElementById('ci-'+cId);
+  if(el){if(progress[cId])el.classList.add('done');else el.classList.remove('done');}
+  updateSM(sId);updateOverall();
+  // Rebuild today card and planner since progress changed
+  var now=new Date();renderTodayCard(now.getDay());buildPlanner();
+  showToast(progress[cId]?'✅ Done! Planner auto-updated':'↩️ Unmarked');
+}
+
+/* ═══════════════════════════════════════════════════════════
+   LIVE PLANNER — builds from queues dynamically
+═══════════════════════════════════════════════════════════ */
+var PLANNER_WEEKS=[
+  {num:'Week 1',dates:'Tue Apr 7 → Sun Apr 13',
+   focus:'CA: Service Costing + CAS + Bookkeeping | FA: Partnership Retirement + Dissolution | DT: PGBP | IDT: Time/Place/Value of Supply',
+   law:'Companies Act — Share Capital (law-12) + Meetings (law-14) + Winding Up (law-15)',
+   days:[
+    {n:'Tue',d:'7 Apr',dow:2},
+    {n:'Wed',d:'8 Apr',dow:3},
+    {n:'Thu',d:'9 Apr',dow:4},
+    {n:'Fri',d:'10 Apr',dow:5},
+    {n:'Sat',d:'11 Apr',dow:6},
+    {n:'Sun',d:'12 Apr',dow:0}
+  ]},
+  {num:'Week 2',dates:'Mon Apr 13 → Sun Apr 19',
+   focus:'CA: Standard Costing ⭐⭐ (3 sessions) | FA: AS 9–21 complete | DT: Capital Gains | IDT: Place of Supply + ITC',
+   law:'Companies Act — Winding Up (law-15) + Contract Act (law-2)',
+   days:[
+    {n:'Mon',d:'13 Apr',dow:1},
+    {n:'Tue',d:'14 Apr',dow:2},
+    {n:'Wed',d:'15 Apr',dow:3},
+    {n:'Thu',d:'16 Apr',dow:4},
+    {n:'Fri',d:'17 Apr',dow:5},
+    {n:'Sat',d:'18 Apr',dow:6},
+    {n:'Sun',d:'19 Apr',dow:0}
+  ]},
+  {num:'Week 3',dates:'Mon Apr 20 → Sun Apr 26',
+   focus:'CA: Marginal Costing + Budgets ✅ CA DONE | FA: Hire Purchase + Lease + Special Transactions | DT: Deductions + Total Income | IDT: ITC complete',
+   law:'Commercial Laws: Sale of Goods + NI Act + Partnership Act + LLP Act',
+   days:[
+    {n:'Mon',d:'20 Apr',dow:1},
+    {n:'Tue',d:'21 Apr',dow:2},
+    {n:'Wed',d:'22 Apr',dow:3},
+    {n:'Thu',d:'23 Apr',dow:4},
+    {n:'Fri',d:'24 Apr',dow:5},
+    {n:'Sat',d:'25 Apr',dow:6},
+    {n:'Sun',d:'26 Apr',dow:0}
+  ]},
+  {num:'Week 4 — Final Push',dates:'Mon Apr 27 → Wed Apr 30 ✅',
+   focus:'FA: Final Accounts + NPO + Incomplete Records | DT: Assessment + Returns | IDT: Registration + Customs | Law: Industrial Laws + Ethics',
+   law:'Industrial Laws (law-7 to law-11) + Business Ethics + EI (law-16, law-17)',
+   days:[
+    {n:'Mon',d:'27 Apr',dow:1},
+    {n:'Tue',d:'28 Apr',dow:2},
+    {n:'Wed',d:'29 Apr',dow:3},
+    {n:'Thu',d:'30 Apr',dow:4}
+  ]}
+];
+
+function buildPlanner(){
+  var now=new Date();var nd=now.getDate();var nm=now.getMonth();
+  var cont=document.getElementById('plan-content');
+  var html='<div class="ph-lbl">Phase 1 — Syllabus Completion (Apr 7 → Apr 30, 2026)</div>';
+
+  // Track which queue positions have been used across the planner
+  var qPos={ca:0,fa:0,dt:0,idt:0,law:0};
+
+  function nextFromQueue(qKey,count){
+    count=count||1;
+    var q=QUEUES[qKey];var results=[];
+    for(var i=0;i<q.length&&results.length<count;i++){
+      if(!progress[q[i]])results.push(q[i]);
+    }
+    return results;
   }
-  renderAll();
+
+  PLANNER_WEEKS.forEach(function(wk){
+    html+='<div class="wkc"><div class="wk-hd"><div class="wk-n">'+wk.num+'</div><div class="wk-d">'+wk.dates+'</div><div class="wk-f">'+wk.focus+'</div></div>'
+      +'<div class="law-s">⚖️ <strong style="color:var(--law)">Law:</strong> '+wk.law+'</div>';
+
+    wk.days.forEach(function(day){
+      var isTod=(parseInt(day.d)===nd&&MONTHS.indexOf(day.d.split(' ')[1])===nm);
+      html+='<div class="pd'+(isTod?' tod':'')+'"><div class="pd-hdr">'
+        +'<span class="pd-n">'+day.n+(isTod?' <span class="tod-tag">TODAY</span>':'')+'</span>'
+        +'<span class="pd-dt">'+day.d+'</span>'
+        +'</div>';
+
+      var sched=getBaseSchedule(day.dow);
+      sched.forEach(function(sess){
+        html+='<div class="sh">'+sess.label+' <span class="st">'+sess.time+'</span></div>';
+        if(sess.fixed.length>0){
+          sess.fixed.forEach(function(f){
+            html+='<div class="ptask"><span class="ptag t-'+f.tag+'">'+f.tag.toUpperCase()+'</span><span>'+f.text+'</span></div>';
+          });
+        }
+        sess.queues.forEach(function(qKey){
+          var pending=nextFromQueue(qKey,1);
+          if(pending.length>0){
+            var info=CH_MAP[pending[0]];
+            if(info){
+              html+='<div class="ptask"><span class="ptag t-'+info.tag+'">'+info.tag.toUpperCase()+'</span><span>'+info.text+'</span></div>';
+            }
+          }else{
+            html+='<div class="ptask" style="color:var(--muted);">✅ All '+qKey.toUpperCase()+' chapters done</div>';
+          }
+        });
+        if(sess!==sched[sched.length-1])html+='<div class="psplit"></div>';
+      });
+      html+='</div>';
+    });
+    html+='</div>';
+  });
+
+  // Phase 2
+  html+='<div class="ph-lbl">Phase 2 — Revision & Mocks (May 1 → May 30, 2026)</div>';
+  var P2=[
+    {n:'Week 5',d:'May 1–7',f:'CA: Standard Costing + Marginal Costing PYQs heavy · Law: Commercial Laws writing'},
+    {n:'Week 6',d:'May 8–14',f:'FA: Partnership + AS PYQs · DT: PGBP + Capital Gains numericals · IDT: GST ITC'},
+    {n:'Week 7 — MOCK 1',d:'May 15–21',f:'🎯 Full timed paper all 4 subjects. Make gap list after each.'},
+    {n:'Week 8',d:'May 22–28',f:'Weak area attack — based entirely on Mock 1 gap list'},
+    {n:'Week 9 — MOCK 2',d:'May 29–30',f:'🎯 Mock 2 + final consolidation · ✅ Revision Done May 30'}
+  ];
+  P2.forEach(function(p){
+    html+='<div class="wkc"><div class="wk-hd"><div class="wk-n">'+p.n+'</div><div class="wk-d">'+p.d+'</div><div class="wk-f">'+p.f+'</div></div>'
+      +'<div class="pd"><div class="ptask" style="color:var(--muted);">PYQs + timed practice + revision — same daily session structure</div></div></div>';
+  });
+
+  cont.innerHTML=html;
 }
 
-function applyPatch(){
-  var code=document.getElementById('patch-code').value||'';
-  savePatchCode(code);
-  applyRuntimePatch();
-  showToast('⚡ Update pushed — data untouched');
+/* ═══════════════════════════════════════════════════════════
+   EDITOR BOTTOM SHEET
+═══════════════════════════════════════════════════════════ */
+var editorSubj='ca';
+
+function openEditor(){
+  // Load current today tasks into sheet
+  var tasks=window._todayTasks||[];
+  renderSheetCurrent(tasks);
+  selSubj(document.querySelector('.subj-chip[data-s="ca"]'),'ca');
+  document.getElementById('overlay').classList.add('show');
+  document.getElementById('sheet').classList.add('show');
 }
-function loadSavedPatch(){document.getElementById('patch-code').value=getPatchCode();showToast('Saved patch loaded');}
-function removePatch(){
-  savePatchCode('');
-  document.getElementById('patch-code').value='';
-  applyRuntimePatch();
-  showToast('Patch removed');
+function closeEditor(){
+  document.getElementById('overlay').classList.remove('show');
+  document.getElementById('sheet').classList.remove('show');
 }
 
-/* ═══════════════════ DATA TOOLS ══════════════════════════════════════════════ */
+function renderSheetCurrent(tasks){
+  var html='';
+  tasks.forEach(function(t,i){
+    html+='<div class="sheet-task" id="st-'+i+'">'
+      +'<div class="task-info" style="flex:1;">'
+        +'<span class="task-tag t-'+t.tag+'" style="display:inline-block;margin-bottom:3px;">'+t.tag.toUpperCase()+'</span>'
+        +'<div style="font-size:12px;color:var(--text);line-height:1.4;">'+t.text+'</div>'
+        +'<div style="font-size:10px;color:var(--muted);margin-top:2px;">'+t.sessLabel+' · '+t.sessTime+'</div>'
+      +'</div>'
+      +'<button class="rm-btn" onclick="removeTask('+i+')">✕</button>'
+    +'</div>';
+  });
+  if(!html)html='<div style="color:var(--muted);font-size:12px;padding:8px 0;">No tasks today</div>';
+  document.getElementById('sheet-current').innerHTML=html;
+}
+
+function removeTask(idx){
+  var tasks=window._todayTasks||[];
+  tasks.splice(idx,1);
+  window._todayTasks=tasks;
+  saveTodayOverride(tasks);
+  renderSheetCurrent(tasks);
+  // Re-render today card
+  var now=new Date();renderTodayCard(now.getDay());
+}
+
+function selSubj(el,id){
+  editorSubj=id;
+  document.querySelectorAll('.subj-chip').forEach(function(c){c.classList.remove('sel');});
+  el.classList.add('sel');
+  renderChList(id);
+}
+
+function renderChList(subjId){
+  var subj=null;SUBJECTS.forEach(function(s){if(s.id===subjId)subj=s;});
+  if(!subj)return;
+  var html='';
+  subj.sections.forEach(function(sec){
+    html+='<div style="font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--muted);padding:8px 0 4px;">'+sec.label+'</div>';
+    sec.chapters.forEach(function(ch){
+      if(progress[ch.id])return; // Skip already done
+      html+='<div class="add-ch" onclick="addChToToday(\''+subjId+'\',\''+ch.id+'\')">'
+        +'<div class="add-ch-plus">+</div>'
+        +'<div class="add-ch-txt">'+ch.text+'</div>'
+      +'</div>';
+    });
+  });
+  if(!html)html='<div style="color:var(--lime);font-size:12px;padding:10px 0;">✅ All chapters in this subject are done!</div>';
+  document.getElementById('ch-list').innerHTML=html;
+}
+
+function addChToToday(subjId,chId){
+  var subj=null;SUBJECTS.forEach(function(s){if(s.id===subjId)subj=s;});
+  if(!subj)return;
+  var info=CH_MAP[chId];if(!info)return;
+
+  var tasks=window._todayTasks||[];
+  // Check if already in today
+  for(var i=0;i<tasks.length;i++){if(tasks[i].chId===chId){showToast('Already in today\'s list');return;}}
+
+  tasks.push({
+    sessLabel:'📌 CUSTOM',
+    sessTime:'Your choice',
+    tag:info.tag,
+    text:info.text,
+    chId:chId
+  });
+  window._todayTasks=tasks;
+  saveTodayOverride(tasks);
+  renderSheetCurrent(tasks);
+  // Re-render today card
+  var now=new Date();renderTodayCard(now.getDay());
+  showToast('✅ Added to today!');
+}
+
+/* ═══════════════════════════════════════════════════════════
+   HUB
+═══════════════════════════════════════════════════════════ */
 function exportData(){
   try{
-    var data=JSON.stringify({progress:progress,meta:{exportedAt:new Date().toISOString(),version:'4.0.0'}},null,2);
-    var blob=new Blob([data],{type:'application/json'});
-    var a=document.createElement('a');
-    a.href=URL.createObjectURL(blob);
-    a.download='cma-progress-backup.json';
-    document.body.appendChild(a);a.click();
-    setTimeout(function(){document.body.removeChild(a);URL.revokeObjectURL(a.href);},100);
-    showToast('✅ Progress exported');
-  }catch(e){showToast('Export failed: '+e.message);}
+    var d=JSON.stringify({progress:progress,meta:{exportedAt:new Date().toISOString(),version:'5.0'}},null,2);
+    var blob=new Blob([d],{type:'application/json'});
+    var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='cma-progress-backup.json';
+    document.body.appendChild(a);a.click();setTimeout(function(){document.body.removeChild(a);URL.revokeObjectURL(a.href);},100);
+    showToast('✅ Exported!');
+  }catch(e){showToast('Export failed');}
 }
 function importData(){
-  var inp=document.createElement('input');
-  inp.type='file';inp.accept='.json,application/json';
+  var inp=document.createElement('input');inp.type='file';inp.accept='.json';
   inp.onchange=function(){
     var f=inp.files&&inp.files[0];if(!f)return;
     var r=new FileReader();
     r.onload=function(){
       try{
         var obj=JSON.parse(r.result);
-        if(obj&&obj.progress&&typeof obj.progress==='object'){
-          progress=obj.progress;saveProgress();renderAll();
-          showToast('✅ Progress imported — '+Object.keys(progress).length+' items');
-        }else{showToast('Invalid backup file');}
+        if(obj.progress){progress=obj.progress;saveProgress();}
+        SUBJECTS.forEach(function(s){buildChPage(s);});
+        buildMini();updateOverall();
+        var now=new Date();renderTodayCard(now.getDay());buildPlanner();
+        showToast('✅ Progress restored!');
       }catch(e){showToast('Import failed');}
     };
     r.readAsText(f);
   };
-  document.body.appendChild(inp);inp.click();
-  setTimeout(function(){document.body.removeChild(inp);},1000);
+  document.body.appendChild(inp);inp.click();setTimeout(function(){document.body.removeChild(inp);},1000);
 }
 function resetData(){
-  if(!confirm('Reset ALL progress? This cannot be undone.'))return;
-  progress={};saveProgress();setDefaults();saveProgress();renderAll();
-  showToast('Progress reset to defaults');
+  if(!confirm('Reset all progress to defaults?'))return;
+  progress={};setDefaults();saveProgress();
+  SUBJECTS.forEach(function(s){buildChPage(s);});
+  buildMini();updateOverall();
+  clearTodayOverride();
+  var now=new Date();renderTodayCard(now.getDay());buildPlanner();
+  showToast('Reset done');
 }
 
-/* ═══════════════════ DATE & COUNTDOWN ════════════════════════════════════════ */
-function dU(y,m,d){
-  var t=new Date();
-  return Math.max(0,Math.ceil((new Date(y,m,d)-new Date(t.getFullYear(),t.getMonth(),t.getDate()))/86400000));
-}
-
-function updateDate(){
-  var now=new Date();
-  var dayName=DAYS[now.getDay()];
-  document.getElementById('date-pill').textContent=dayName.slice(0,3)+' '+now.getDate()+' '+MONTHS[now.getMonth()];
-  document.getElementById('cd-s').textContent=dU(2026,3,22);
-  document.getElementById('cd-r').textContent=dU(2026,4,30);
-  document.getElementById('cd-e').textContent=dU(2026,5,11);
-  document.getElementById('day-pill').textContent=dayName+', '+now.getDate()+' '+MONTHS[now.getMonth()];
-
-  // Today tasks
-  var d=now.getDay();
-  var tasks=RUNTIME.dayTasks[d]||[];
-  var html='';
-  for(var i=0;i<tasks.length;i++){
-    var t=tasks[i];
-    if(!t.tag){html+='<div class="split-ln"></div>';continue;}
-    html+='<div class="tt"><span class="tt-tag t-'+t.tag+'">'+t.tag.toUpperCase()+'</span><span class="tt-text">'+t.text+'</span></div>';
-  }
-  document.getElementById('today-content').innerHTML=html||'<div class="tt-text" style="padding:6px 0;">No specific plan — rest or catch up.</div>';
-
-  // Law target
-  var start=new Date(2026,2,25);
-  var wk=Math.max(0,Math.floor((new Date(now.getFullYear(),now.getMonth(),now.getDate())-start)/(7*86400000)));
-  var lt=RUNTIME.lawTargets[Math.min(wk,RUNTIME.lawTargets.length-1)];
-  document.getElementById('law-target').innerHTML='<strong>Week '+(wk+1)+' target:</strong> '+lt;
-}
-
-/* ═══════════════════ COUNTS ══════════════════════════════════════════════════ */
-function cntSubj(s){var t=0,d=0;for(var i=0;i<s.sections.length;i++){for(var j=0;j<s.sections[i].chapters.length;j++){t++;if(progress[s.sections[i].chapters[j].id])d++;}}return{t:t,d:d};}
-function cntAll(){var t=0,d=0;for(var i=0;i<RUNTIME.subjects.length;i++){var r=cntSubj(RUNTIME.subjects[i]);t+=r.t;d+=r.d;}return{t:t,d:d};}
-
-/* ═══════════════════ UPDATE UI ═══════════════════════════════════════════════ */
-function updateOverall(){
-  var r=cntAll();var p=r.t?Math.round(r.d/r.t*100):0;
-  document.getElementById('ov-pct').textContent=p+'%';
-  document.getElementById('ov-bar').style.width=p+'%';
-  document.getElementById('ov-count').textContent=r.d+' / '+r.t+' chapters done';
-}
-function updateSubjCard(id){
-  var s=null;for(var i=0;i<RUNTIME.subjects.length;i++){if(RUNTIME.subjects[i].id===id){s=RUNTIME.subjects[i];break;}}
-  if(!s)return;
-  var r=cntSubj(s);var p=r.t?Math.round(r.d/r.t*100):0;
-  var b=document.getElementById('mb-'+id);if(b)b.style.width=p+'%';
-  var c=document.getElementById('mc-'+id);if(c)c.textContent=r.d+'/'+r.t;
-  var pp=document.getElementById('mp-'+id);if(pp)pp.textContent=s.paper+' · '+p+'%';
-  var cb=document.getElementById('cb-'+id);if(cb)cb.style.width=p+'%';
-  var cp=document.getElementById('cp-'+id);if(cp)cp.textContent=r.d+' / '+r.t+' done · '+p+'%';
-}
-
-/* ═══════════════════ BUILD MINI GRID ═════════════════════════════════════════ */
-function buildMini(){
-  var html='';
-  for(var i=0;i<RUNTIME.subjects.length;i++){
-    var s=RUNTIME.subjects[i];var r=cntSubj(s);var p=r.t?Math.round(r.d/r.t*100):0;
-    html+='<div class="subj-mini" onclick="goTab(\''+s.id+'\')">'
-      +'<div class="sm-name" style="color:'+s.color+'">'+s.name+'</div>'
-      +'<div class="sm-row"><div class="sm-count" id="mc-'+s.id+'">'+r.d+'/'+r.t+'</div><div class="sm-count" id="mp-'+s.id+'">'+p+'%</div></div>'
-      +'<div class="bar-track" style="height:4px;margin:4px 0 0;"><div class="bar-fill" style="width:'+p+'%;background:'+s.color+'" id="mb-'+s.id+'"></div></div>'
-      +'<div class="sm-paper">'+s.paper+'</div>'
-      +'</div>';
-  }
-  document.getElementById('subj-grid').innerHTML=html;
-}
-
-/* ═══════════════════ BUILD CHAPTER PAGES ═════════════════════════════════════ */
-function buildChPage(subj){
-  var r=cntSubj(subj);var p=r.t?Math.round(r.d/r.t*100):0;
-  var html='<div class="ch-hdr"><h3 style="color:'+subj.color+'">'+subj.name+'</h3><div class="paper-pill">'+subj.paper+'</div></div>'
-    +'<div class="ch-prog-row"><span id="cp-'+subj.id+'">'+r.d+' / '+r.t+' done · '+p+'%</span></div>'
-    +'<div class="bar-track" style="margin-bottom:12px;"><div class="bar-fill" style="width:'+p+'%;background:'+subj.color+'" id="cb-'+subj.id+'"></div></div>';
-  for(var s=0;s<subj.sections.length;s++){
-    var sec=subj.sections[s];
-    html+='<div class="sec-label">'+sec.label+'</div>';
-    for(var c=0;c<sec.chapters.length;c++){
-      var ch=sec.chapters[c];
-      var dn=progress[ch.id]?'done':'';
-      var wn=ch.warn?'<span class="warn-chip">⚠️IDT</span>':'';
-      html+='<div class="ch-item '+dn+'" id="ci-'+ch.id+'" onclick="toggleCh(\''+subj.id+'\',\''+ch.id+'\')">'
-        +'<div class="chk"><svg viewBox="0 0 13 13"><polyline points="1.5,6.5 5,10 11.5,3"/></svg></div>'
-        +'<div class="ch-lbl">'+ch.text+'</div>'
-        +wn+'<div class="ch-wt">'+ch.w+'</div></div>';
-    }
-  }
-  document.getElementById('page-'+subj.id).innerHTML=html;
-}
-
-/* ═══════════════════ TOGGLE CHAPTER ══════════════════════════════════════════ */
-var tTimer;
-function toggleCh(sId,cId){
-  progress[cId]=!progress[cId];saveProgress();
-  var el=document.getElementById('ci-'+cId);
-  if(el){if(progress[cId])el.classList.add('done');else el.classList.remove('done');}
-  updateSubjCard(sId);updateOverall();
-  showToast(progress[cId]?'✅ Done!':'↩️ Unmarked');
-}
-
-/* ═══════════════════ BUILD PLANNER ═══════════════════════════════════════════ */
-function buildPlanner(){
-  var now=new Date();var nd=now.getDate();var nm=now.getMonth();
-  var html='<div class="phase-hdr">Phase 1 — Syllabus Completion (Mar 25 → Apr 22)</div>';
-  for(var w=0;w<RUNTIME.weeks.length;w++){
-    var wk=RUNTIME.weeks[w];
-    html+='<div class="wk-card"><div class="wk-head"><div class="wk-num">'+wk.num+'</div><div class="wk-dates">'+wk.dates+'</div><div class="wk-focus">'+wk.focus+'</div></div>'
-      +'<div class="law-strip">📖 <strong style="color:var(--law)">Law:</strong> '+wk.law+'</div>';
-    for(var d=0;d<wk.days.length;d++){
-      var day=wk.days[d];
-      var pts=day.d.split(' ');
-      var dn=parseInt(pts[0]);var mi=MONTHS.indexOf(pts[1]);
-      var isTd=(dn===nd&&mi===nm);
-      html+='<div class="pday'+(isTd?' today':'')+'"><div class="pday-hdr">'
-        +'<span class="pday-name">'+day.n+(isTd?' <span class="today-tag">TODAY</span>':'')+'</span>'
-        +'<span class="pday-date">'+day.d+'</span>'
-        +'</div>';
-      for(var t=0;t<day.tasks.length;t++){
-        var tk=day.tasks[t];
-        if(tk.tag==='div'){html+='<div class="psplit"></div>';continue;}
-        var lb=tk.tag==='rev'?'REV':tk.tag.toUpperCase();
-        html+='<div class="ptask"><span class="ptag t-'+tk.tag+'">'+lb+'</span><span>'+tk.t+'</span></div>';
-      }
-      html+='</div>';
-    }
-    html+='</div>';
-  }
-  html+='<div class="phase-hdr">Phase 2 — Revision & Mocks (Apr 23 → May 30)</div>';
-  var P2=[
-    {n:'Week 6',d:'Apr 23–29',f:'CA Methods PYQs · Law: EPF + ESI + Code on Wages'},
-    {n:'Week 7',d:'Apr 30–May 6',f:'CA Techniques PYQs · Law: Business Ethics + EI'},
-    {n:'Week 8 — MOCK 1',d:'May 7–13',f:'🎯 Full mock — all 4 papers. Make gap list after.'},
-    {n:'Week 9',d:'May 14–20',f:'Weak area attack — driven by Mock 1 gap list'},
-    {n:'Week 10',d:'May 21–27',f:'High weightage push — Partnership, AS, Standard Costing, GST ITC'},
-    {n:'Week 11 — MOCK 2',d:'May 28–30',f:'🎯 Mock 2 + consolidation · ✅ Phase 2 Done May 30'}
-  ];
-  for(var p=0;p<P2.length;p++){
-    html+='<div class="wk-card"><div class="wk-head"><div class="wk-num">'+P2[p].n+'</div><div class="wk-dates">'+P2[p].d+'</div><div class="wk-focus">'+P2[p].f+'</div></div>'
-      +'<div class="pday"><div class="ptask" style="color:var(--muted);">PYQs + timed practice + revision · same daily session structure</div></div></div>';
-  }
-  document.getElementById('page-plan').innerHTML=html;
-}
-
-/* ═══════════════════ RENDER ALL ══════════════════════════════════════════════ */
-function renderAll(){
-  updateDate();updateOverall();buildMini();
-  for(var i=0;i<RUNTIME.subjects.length;i++)buildChPage(RUNTIME.subjects[i]);
-  buildPlanner();
-}
-
-/* ═══════════════════ TAB SWITCH ══════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════
+   NAV
+═══════════════════════════════════════════════════════════ */
 function goTab(id){
-  var pages=document.querySelectorAll('.page');for(var i=0;i<pages.length;i++)pages[i].classList.remove('active');
-  var tabs=document.querySelectorAll('.nav-tab');for(var i=0;i<tabs.length;i++)tabs[i].classList.remove('active');
-  // Map subject IDs to page IDs
-  var pid={'ca':'ca','fa':'fa','tax':'tax','law':'law','dash':'dash','plan':'plan','hub':'hub'};
-  var pageId=pid[id]||id;
-  var pg=document.getElementById('page-'+pageId);if(pg)pg.classList.add('active');
-  var tab=document.querySelector('.nav-tab[data-p="'+pageId+'"]');
+  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
+  document.querySelectorAll('.nt').forEach(function(t){t.classList.remove('active');});
+  var pg=document.getElementById('page-'+id);if(pg)pg.classList.add('active');
+  var tab=document.querySelector('.nt[data-p="'+id+'"]');
   if(tab){tab.classList.add('active');tab.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});}
   document.querySelector('.scroll').scrollTop=0;
 }
-var navTabs=document.querySelectorAll('.nav-tab');
-for(var ni=0;ni<navTabs.length;ni++){
-  (function(tab){tab.addEventListener('click',function(){goTab(tab.dataset.p);});})(navTabs[ni]);
-}
+var nts=document.querySelectorAll('.nt');
+for(var ni=0;ni<nts.length;ni++){(function(t){t.addEventListener('click',function(){goTab(t.dataset.p);});})(nts[ni]);}
 
-/* ═══════════════════ TOAST ═══════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════
+   TOAST
+═══════════════════════════════════════════════════════════ */
 function showToast(msg){
   var t=document.getElementById('toast');
   t.textContent=msg;t.classList.add('show');
   clearTimeout(tTimer);tTimer=setTimeout(function(){t.classList.remove('show');},1800);
 }
 
-/* ═══════════════════ INIT ════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════
+   INIT
+═══════════════════════════════════════════════════════════ */
 loadProgress();
 setDefaults();
 saveProgress();
-document.getElementById('patch-code').value=getPatchCode();
-applyRuntimePatch(); // This calls makeRuntime + applies any saved patch + renderAll
+updateDate();
+updateOverall();
+buildMini();
+SUBJECTS.forEach(function(s){buildChPage(s);});
+buildPlanner();
 setInterval(updateDate,60000);
 </script>
 </body>
