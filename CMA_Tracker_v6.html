@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta name="theme-color" content="#0D0E14">
+<meta name="mobile-web-app-capable" content="yes">
+<title>CMA Tracker — Deepanshu</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0D0E14;--card:#13141E;--card2:#1A1B28;--border:#252635;
+  --lime:#B9FF66;--text:#F0F0F8;--muted:#5A5C7A;
+  --ca:#60A5FA;--fa:#34D399;--dt:#FBBF24;--idt:#F87171;--law:#C084FC;
+  --r:16px;--rs:10px;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{height:100%;overflow:hidden;}
+body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;font-size:14px;display:flex;flex-direction:column;height:100dvh;overflow:hidden;user-select:none;}
+
+/* TOPBAR */
+.topbar{background:var(--card);border-bottom:1px solid var(--border);padding:12px 16px 10px;flex-shrink:0;}
+.tb1{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.logo{display:flex;align-items:center;gap:9px;font-size:18px;font-weight:800;}
+.ldot{width:10px;height:10px;border-radius:50%;background:var(--lime);box-shadow:0 0 10px var(--lime);animation:glow 2s ease-in-out infinite;}
+@keyframes glow{0%,100%{box-shadow:0 0 6px var(--lime);}50%{box-shadow:0 0 18px var(--lime),0 0 32px rgba(185,255,102,0.25);}}
+.dpill{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--bg);background:var(--lime);padding:4px 12px;border-radius:99px;font-weight:500;}
+.cds{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
+.cdb{background:var(--card2);border:1px solid var(--border);border-radius:var(--rs);padding:8px;text-align:center;position:relative;overflow:hidden;}
+.cdb::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
+.cdb:nth-child(1)::before{background:var(--fa);}
+.cdb:nth-child(2)::before{background:var(--dt);}
+.cdb:nth-child(3)::before{background:var(--idt);}
+.cdn{font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:500;line-height:1.1;}
+.cdl{font-size:7.5px;color:var(--muted);text-transform:uppercase;letter-spacing:1.2px;margin-top:3px;line-height:1.4;}
+
+/* NAV */
+.nav{display:flex;background:var(--card);border-bottom:1px solid var(--border);flex-shrink:0;overflow-x:auto;}
+.nav::-webkit-scrollbar{display:none;}
+.nt{flex:1;min-width:0;padding:8px 3px;text-align:center;font-size:9.5px;font-weight:700;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s;white-space:nowrap;letter-spacing:0.3px;}
+.nt.active{color:var(--lime);border-bottom-color:var(--lime);}
+.ntic{font-size:13px;display:block;margin-bottom:2px;}
+
+/* SCROLL */
+.scroll{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding:14px 14px 32px;}
+.scroll::-webkit-scrollbar{display:none;}
+.page{display:none;} .page.active{display:block;}
+
+/* CARDS */
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:15px;margin-bottom:12px;}
+.card.lime-left{border-left:3px solid var(--lime);}
+.bar-track{height:5px;background:var(--border);border-radius:99px;overflow:hidden;margin:8px 0 4px;}
+.bar-fill{height:100%;border-radius:99px;transition:width 0.6s cubic-bezier(.4,0,.2,1);}
+.bar-main{background:linear-gradient(90deg,#60A5FA,#34D399 50%,#B9FF66);}
+
+/* OVERALL */
+.ovr{display:flex;align-items:flex-start;justify-content:space-between;}
+.ovl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:2.5px;color:var(--muted);}
+.ovp{font-family:'JetBrains Mono',monospace;font-size:36px;font-weight:500;color:var(--lime);line-height:1;}
+.ovc{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);margin-top:3px;}
+
+/* SUBJECT GRID */
+.sgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+.sm{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:13px;cursor:pointer;transition:all 0.15s;}
+.sm:active{transform:scale(0.97);}
+.smn{font-size:11px;font-weight:800;text-transform:uppercase;margin-bottom:6px;}
+.smr{display:flex;justify-content:space-between;margin-bottom:4px;}
+.smc{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);}
+.sm-pb{height:3px;background:var(--border);border-radius:99px;overflow:hidden;margin-top:5px;}
+.sm-pf{height:100%;border-radius:99px;transition:width 0.5s cubic-bezier(.4,0,.2,1);}
+
+/* ─── STUDY TIMER ─── */
+.timer-card{background:linear-gradient(135deg,rgba(185,255,102,0.06),rgba(185,255,102,0.02));border:1px solid rgba(185,255,102,0.2);border-radius:var(--r);padding:16px;margin-bottom:12px;}
+.timer-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+.timer-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--lime);}
+.timer-streak{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:var(--dt);}
+.timer-display{text-align:center;margin-bottom:14px;}
+.timer-clock{font-family:'JetBrains Mono',monospace;font-size:44px;font-weight:500;color:var(--lime);letter-spacing:2px;line-height:1;}
+.timer-sub{font-size:10px;color:var(--muted);margin-top:4px;font-family:'JetBrains Mono',monospace;}
+.timer-btns{display:flex;gap:8px;}
+.timer-btn{flex:1;padding:11px;border-radius:var(--rs);font-family:'Syne',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.15s;border:none;}
+.timer-btn:active{transform:scale(0.97);}
+.tbtn-start{background:var(--lime);color:var(--bg);}
+.tbtn-stop{background:rgba(248,113,113,0.15);border:1px solid rgba(248,113,113,0.3)!important;color:var(--idt);}
+.tbtn-reset{background:var(--card2);border:1px solid var(--border)!important;color:var(--muted);width:44px;flex:none;}
+.timer-today{margin-top:10px;padding-top:10px;border-top:1px solid rgba(185,255,102,0.1);display:flex;justify-content:space-between;font-size:11px;}
+.ttl{color:var(--muted);}
+.ttv{font-family:'JetBrains Mono',monospace;color:var(--lime);font-weight:500;}
+.timer-running .timer-clock{animation:tick-glow 1s ease-in-out infinite;}
+@keyframes tick-glow{0%,100%{opacity:1;}50%{opacity:0.7;}}
+
+/* TODAY CARD */
+.today-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+.today-hdr-left{display:flex;align-items:center;gap:8px;}
+.today-hdr h3{font-size:16px;font-weight:800;}
+.dy-pill{font-size:9px;font-weight:700;padding:3px 10px;border-radius:99px;background:var(--lime);color:var(--bg);}
+.edit-btn{width:32px;height:32px;border-radius:var(--rs);border:1px solid var(--border);background:var(--card2);color:var(--lime);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.15s;flex-shrink:0;}
+.edit-btn:active{transform:scale(0.93);}
+.sess-lbl{font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin:8px 0 5px;display:flex;align-items:center;gap:6px;}
+.sess-time{font-family:'JetBrains Mono',monospace;font-size:8px;padding:2px 7px;border-radius:99px;border:1px solid var(--border);color:var(--muted);}
+.task-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--border);border-radius:var(--rs);margin-bottom:6px;cursor:pointer;transition:all 0.2s;background:var(--card2);}
+.task-item:active{transform:scale(0.98);}
+.task-item.done{background:rgba(185,255,102,0.05);border-color:rgba(185,255,102,0.18);}
+.task-chk{width:22px;height:22px;border-radius:7px;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.2s;}
+.task-item.done .task-chk{background:var(--lime);border-color:var(--lime);}
+.task-chk svg{display:none;width:12px;height:12px;stroke:var(--bg);fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;}
+.task-item.done .task-chk svg{display:block;}
+.task-info{flex:1;}
+.task-tag{display:inline-block;font-size:8px;font-weight:700;padding:1px 6px;border-radius:4px;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:3px;}
+.task-text{font-size:12px;line-height:1.4;color:var(--text);transition:color 0.2s;}
+.task-item.done .task-text{color:var(--muted);text-decoration:line-through;text-decoration-color:rgba(255,255,255,0.15);}
+
+/* LAW CARD */
+.lcard{background:rgba(192,132,252,0.06);border:1px solid rgba(192,132,252,0.2);border-radius:var(--r);padding:14px;margin-bottom:12px;}
+.lpill{display:inline-block;font-size:8.5px;font-weight:700;padding:3px 10px;border-radius:99px;background:rgba(192,132,252,0.15);color:var(--law);text-transform:uppercase;letter-spacing:1px;margin-bottom:7px;}
+.ltxt{font-size:12px;color:#c8a8e8;line-height:1.7;}
+
+/* SESSION KEY */
+.skey{background:var(--card2);border:1px solid var(--border);border-radius:var(--r);padding:12px 14px;margin-bottom:12px;}
+.skey-t{font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin-bottom:8px;}
+.skey-row{display:flex;align-items:center;gap:8px;margin-bottom:5px;}
+.skey-day{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:600;padding:2px 8px;border-radius:4px;flex-shrink:0;min-width:34px;text-align:center;}
+.skey-txt{color:#c0c0d8;font-size:11px;line-height:1.4;}
+
+/* CHAPTER PAGES */
+.chhdr{display:flex;align-items:center;gap:9px;padding:10px 0 6px;}
+.chhdr h3{font-size:18px;font-weight:800;}
+.ppill{font-family:'JetBrains Mono',monospace;font-size:9px;padding:3px 9px;border-radius:99px;background:var(--card2);border:1px solid var(--border);color:var(--muted);}
+.sec-lbl{font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--muted);padding:11px 0 5px;}
+.chi{display:flex;align-items:center;gap:11px;background:var(--card);border:1px solid var(--border);border-radius:var(--rs);padding:12px 13px;margin-bottom:6px;cursor:pointer;transition:all 0.15s;}
+.chi:active{transform:scale(0.98);}
+.chi.done{background:rgba(52,211,153,0.04);border-color:rgba(52,211,153,0.18);}
+.chk{width:22px;height:22px;border-radius:7px;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.2s;}
+.chi.done .chk{background:var(--lime);border-color:var(--lime);}
+.chk svg{display:none;width:13px;height:13px;stroke:var(--bg);fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;}
+.chi.done .chk svg{display:block;}
+.chi-lbl{flex:1;font-size:12px;line-height:1.4;color:var(--text);transition:color 0.2s;}
+.chi.done .chi-lbl{color:var(--muted);text-decoration:line-through;text-decoration-color:rgba(255,255,255,0.1);}
+.chi-w{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);flex-shrink:0;}
+.star{font-size:10px;flex-shrink:0;}
+/* Revision due badge */
+.rev-due{font-size:8px;font-weight:700;padding:2px 6px;border-radius:4px;background:rgba(251,191,36,0.15);color:var(--dt);flex-shrink:0;}
+
+/* ─── ANALYTICS PAGE ─── */
+.analytics-hero{background:linear-gradient(135deg,rgba(185,255,102,0.08),rgba(185,255,102,0.02));border:1px solid rgba(185,255,102,0.15);border-radius:var(--r);padding:16px;margin-bottom:12px;}
+.ah-row{display:flex;align-items:center;gap:10px;margin-bottom:4px;}
+.ah-title{font-size:18px;font-weight:800;}
+.ah-sub{font-size:11px;color:var(--muted);}
+
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+.stat-box{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:14px;text-align:center;}
+.stat-val{font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:500;line-height:1.1;margin-bottom:4px;}
+.stat-lbl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);}
+.stat-sub{font-size:10px;color:var(--muted);margin-top:3px;}
+
+/* WEEKLY CHART */
+.chart-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:15px;margin-bottom:12px;}
+.chart-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin-bottom:14px;}
+.bar-chart{display:flex;align-items:flex-end;gap:6px;height:80px;}
+.bc-col{display:flex;flex-direction:column;align-items:center;flex:1;gap:4px;}
+.bc-bar{width:100%;border-radius:4px 4px 0 0;transition:height 0.5s cubic-bezier(.4,0,.2,1);min-height:2px;}
+.bc-lbl{font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--muted);}
+.bc-val{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--lime);}
+
+/* SUBJECT BARS */
+.subj-bar-row{margin-bottom:12px;}
+.sbr-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;}
+.sbr-name{font-size:12px;font-weight:700;}
+.sbr-val{font-family:'JetBrains Mono',monospace;font-size:11px;}
+.sbr-track{height:8px;background:var(--border);border-radius:99px;overflow:hidden;}
+.sbr-fill{height:100%;border-radius:99px;transition:width 0.8s cubic-bezier(.4,0,.2,1);}
+
+/* PROJECTION */
+.proj-card{background:var(--card2);border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:12px;}
+.proj-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--border);font-size:12px;}
+.proj-row:last-child{border-bottom:none;}
+.proj-lbl{color:var(--muted);}
+.proj-val{font-family:'JetBrains Mono',monospace;font-weight:500;}
+
+/* STREAK */
+.streak-display{display:flex;align-items:center;gap:12px;}
+.streak-num{font-family:'JetBrains Mono',monospace;font-size:48px;font-weight:500;color:var(--dt);line-height:1;}
+.streak-info{flex:1;}
+.streak-fire{font-size:32px;}
+.streak-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:4px;}
+.streak-sub{font-size:11px;color:#c0c0d8;line-height:1.5;}
+
+/* STUDY HRS */
+.hrs-display{display:flex;justify-content:space-between;align-items:center;}
+.hrs-today{font-family:'JetBrains Mono',monospace;font-size:32px;font-weight:500;color:var(--lime);}
+.hrs-total{text-align:right;}
+.hrs-total-val{font-family:'JetBrains Mono',monospace;font-size:18px;color:var(--fa);}
+.hrs-total-lbl{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;}
+
+/* PLANNER */
+.live-badge{display:inline-flex;align-items:center;gap:4px;font-size:8px;font-weight:700;padding:2px 7px;border-radius:99px;background:rgba(185,255,102,0.1);color:var(--lime);border:1px solid rgba(185,255,102,0.2);}
+.live-dot{width:5px;height:5px;border-radius:50%;background:var(--lime);animation:glow 1.5s ease-in-out infinite;}
+.ph-lbl{font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:2.5px;color:var(--muted);padding:12px 0 6px;}
+.wkc{background:var(--card);border:1px solid var(--border);border-radius:var(--r);margin-bottom:10px;overflow:hidden;}
+.wk-hd{padding:11px 14px;border-bottom:1px solid var(--border);background:var(--card2);}
+.wk-n{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--lime);margin-bottom:2px;}
+.wk-d{font-size:13px;font-weight:800;margin-bottom:2px;}
+.wk-f{font-size:10px;color:var(--muted);line-height:1.4;}
+.law-s{background:rgba(192,132,252,0.05);border-bottom:1px solid rgba(192,132,252,0.1);padding:8px 14px;font-size:11px;color:#c0a0e0;line-height:1.5;}
+.pd{border-bottom:1px solid var(--border);padding:10px 14px;}
+.pd:last-child{border-bottom:none;}
+.pd.tod{background:rgba(185,255,102,0.025);border-left:2px solid var(--lime);}
+.pd-hdr{display:flex;align-items:center;gap:8px;margin-bottom:7px;flex-wrap:wrap;}
+.pd-n{font-size:12px;font-weight:800;}
+.pd-dt{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);}
+.tod-tag{font-size:8px;font-weight:700;padding:2px 8px;border-radius:99px;background:var(--lime);color:var(--bg);}
+.done-tag{font-size:8px;font-weight:700;padding:2px 8px;border-radius:99px;background:rgba(52,211,153,0.15);color:var(--fa);}
+.sh{font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin:6px 0 4px;display:flex;align-items:center;gap:5px;}
+.st{font-family:'JetBrains Mono',monospace;font-size:8px;padding:1px 6px;border-radius:99px;border:1px solid var(--border);color:var(--muted);}
+.ptask{display:flex;align-items:flex-start;gap:7px;font-size:11px;color:#b0b0cc;line-height:1.5;margin-bottom:4px;}
+.ptask.ptdone{opacity:0.45;text-decoration:line-through;}
+.ptask:last-child{margin-bottom:0;}
+.ptag{font-size:8px;font-weight:700;padding:2px 6px;border-radius:4px;text-transform:uppercase;flex-shrink:0;margin-top:2px;}
+.psplit{height:1px;background:rgba(255,255,255,0.04);margin:5px 0;}
+
+/* BOTTOM SHEET */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:100;opacity:0;pointer-events:none;transition:opacity 0.3s;backdrop-filter:blur(4px);}
+.overlay.show{opacity:1;pointer-events:all;}
+.sheet{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-radius:20px 20px 0 0;border-top:1px solid var(--border);z-index:101;transform:translateY(100%);transition:transform 0.35s cubic-bezier(.4,0,.2,1);max-height:85vh;display:flex;flex-direction:column;}
+.sheet.show{transform:translateY(0);}
+.sheet-handle{width:40px;height:4px;border-radius:99px;background:var(--border);margin:12px auto 0;}
+.sheet-hdr{padding:14px 18px 12px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.sheet-title{font-size:16px;font-weight:800;}
+.sheet-close{width:30px;height:30px;border-radius:var(--rs);border:1px solid var(--border);background:var(--card2);color:var(--muted);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.sheet-scroll{flex:1;overflow-y:auto;padding:14px 18px 24px;}
+.sheet-scroll::-webkit-scrollbar{display:none;}
+.sheet-sec{font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin:12px 0 8px;}
+.sheet-task{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--card2);border:1px solid var(--border);border-radius:var(--rs);margin-bottom:6px;}
+.rm-btn{width:26px;height:26px;border-radius:6px;background:rgba(248,113,113,0.1);border:1px solid rgba(248,113,113,0.2);color:var(--idt);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.subj-sel{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;}
+.subj-chip{padding:6px 12px;border:1px solid var(--border);border-radius:99px;font-size:11px;font-weight:700;cursor:pointer;transition:all 0.15s;color:var(--muted);}
+.subj-chip.sel{border-color:var(--lime);color:var(--lime);background:rgba(185,255,102,0.08);}
+.ch-list{max-height:220px;overflow-y:auto;}
+.ch-list::-webkit-scrollbar{display:none;}
+.add-ch{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--card2);border:1px solid var(--border);border-radius:var(--rs);margin-bottom:6px;cursor:pointer;transition:all 0.15s;}
+.add-ch:active{transform:scale(0.98);}
+.add-ch-plus{width:24px;height:24px;border-radius:6px;background:rgba(185,255,102,0.1);border:1px solid rgba(185,255,102,0.2);color:var(--lime);font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.add-ch-txt{flex:1;font-size:11.5px;color:var(--text);line-height:1.4;}
+
+/* HUB */
+.hub-hero{background:var(--lime);border-radius:var(--r);padding:16px;margin-bottom:12px;}
+.hub-hero h2{font-size:18px;font-weight:800;color:var(--bg);margin-bottom:3px;}
+.hub-hero p{font-size:11px;color:rgba(13,14,20,0.65);line-height:1.5;}
+.hub-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:11px;}
+.hub-t{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin-bottom:10px;}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;}
+.btn{border:1px solid var(--border);background:var(--card2);color:var(--text);border-radius:var(--rs);padding:9px 14px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Syne',sans-serif;transition:all 0.15s;}
+.btn:active{transform:scale(0.97);}
+.btn.danger{background:rgba(248,113,113,0.08);border-color:rgba(248,113,113,0.25);color:var(--idt);}
+.hub-note{font-size:11px;color:var(--muted);line-height:1.6;margin-top:8px;padding-top:8px;border-top:1px solid var(--border);}
+
+/* TAGS */
+.t-ca{background:rgba(96,165,250,0.15);color:var(--ca);}
+.t-fa{background:rgba(52,211,153,0.15);color:var(--fa);}
+.t-dt{background:rgba(251,191,36,0.15);color:var(--dt);}
+.t-idt{background:rgba(248,113,113,0.15);color:var(--idt);}
+.t-law{background:rgba(192,132,252,0.15);color:var(--law);}
+.t-rev{background:rgba(107,111,138,0.2);color:#94A3B8;}
+
+/* TOAST */
+.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--lime);color:var(--bg);border-radius:99px;padding:10px 22px;font-size:13px;font-weight:700;transition:transform 0.3s cubic-bezier(.4,0,.2,1);z-index:999;white-space:nowrap;pointer-events:none;box-shadow:0 4px 24px rgba(185,255,102,0.35);}
+.toast.show{transform:translateX(-50%) translateY(0);}
+*{scrollbar-width:none;} *::-webkit-scrollbar{display:none;}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="tb1">
+    <div class="logo"><span class="ldot"></span>CMA Tracker</div>
+    <div class="dpill" id="date-pill">--</div>
+  </div>
+  <div class="cds">
+    <div class="cdb"><div class="cdn" id="cd-s" style="color:var(--fa)">--</div><div class="cdl">Syllabus<br>Apr 30</div></div>
+    <div class="cdb"><div class="cdn" id="cd-r" style="color:var(--dt)">--</div><div class="cdl">Revision<br>May 30</div></div>
+    <div class="cdb"><div class="cdn" id="cd-e" style="color:var(--idt)">--</div><div class="cdl">Exam<br>Jun 11</div></div>
+  </div>
+</div>
+
+<!-- NAV -->
+<div class="nav">
+  <div class="nt active" data-p="dash"><span class="ntic">🏠</span>Home</div>
+  <div class="nt" data-p="ca"><span class="ntic">📊</span>CA</div>
+  <div class="nt" data-p="fa"><span class="ntic">📒</span>FA</div>
+  <div class="nt" data-p="tax"><span class="ntic">🧾</span>Tax</div>
+  <div class="nt" data-p="law"><span class="ntic">⚖️</span>Law</div>
+  <div class="nt" data-p="plan"><span class="ntic">📅</span>Planner</div>
+  <div class="nt" data-p="stats"><span class="ntic">📈</span>Stats</div>
+  <div class="nt" data-p="hub"><span class="ntic">🔧</span>Hub</div>
+</div>
+
+<!-- PAGES -->
+<div class="scroll">
+
+  <!-- ═══ HOME ═══ -->
+  <div class="page active" id="page-dash">
+    <div class="card lime-left">
+      <div class="ovr">
+        <div><div class="ovl">Overall Progress</div><div class="ovc" id="ov-cnt" style="margin-top:4px;">0 / 0 chapters</div></div>
+        <div class="ovp" id="ov-pct">0%</div>
+      </div>
+      <div class="bar-track"><div class="bar-fill bar-main" id="ov-bar" style="width:0%"></div></div>
+    </div>
+
+    <!-- STUDY TIMER -->
+    <div class="timer-card" id="timer-card">
+      <div class="timer-top">
+        <div class="timer-label">⏱ Study Timer</div>
+        <div class="timer-streak" id="streak-display">🔥 <span id="streak-num">0</span> day streak</div>
+      </div>
+      <div class="timer-display" id="timer-display">
+        <div class="timer-clock" id="timer-clock">00:00:00</div>
+        <div class="timer-sub" id="timer-sub">Tap Start to begin your session</div>
+      </div>
+      <div class="timer-btns">
+        <button class="timer-btn tbtn-start" id="timer-start-btn" onclick="timerStart()">▶ Start</button>
+        <button class="timer-btn tbtn-stop" id="timer-stop-btn" onclick="timerStop()" style="display:none;">⏹ Stop</button>
+        <button class="timer-btn tbtn-reset" onclick="timerReset()" title="Reset">↺</button>
+      </div>
+      <div class="timer-today">
+        <div><div class="ttl">Today studied</div><div class="ttv" id="timer-today-val">0h 0m</div></div>
+        <div style="text-align:right;"><div class="ttl">Total all time</div><div class="ttv" id="timer-total-val">0h 0m</div></div>
+      </div>
+    </div>
+
+    <div class="skey">
+      <div class="skey-t">Daily Schedule — 3.5 hrs/day</div>
+      <div class="skey-row"><div class="skey-day" style="background:rgba(96,165,250,0.1);color:var(--ca)">Mon</div><div class="skey-txt">☀️ 6:30–8:00 CA &nbsp;·&nbsp; 🌙 9–12:30 CA full (3.5 hrs)</div></div>
+      <div class="skey-row"><div class="skey-day" style="background:rgba(96,165,250,0.1);color:var(--ca)">Tue</div><div class="skey-txt">☀️ CA reading &nbsp;·&nbsp; 🌙 9–11 CA + 11–12:30 Law</div></div>
+      <div class="skey-row"><div class="skey-day" style="background:rgba(96,165,250,0.1);color:var(--ca)">Wed</div><div class="skey-txt">☀️ CA reading &nbsp;·&nbsp; 🌙 9–11 CA + 11–12:30 Law</div></div>
+      <div class="skey-row"><div class="skey-day" style="background:rgba(52,211,153,0.1);color:var(--fa)">Thu</div><div class="skey-txt">☀️ FA reading &nbsp;·&nbsp; 🌙 9–11 FA + 11–12:30 DT</div></div>
+      <div class="skey-row"><div class="skey-day" style="background:rgba(52,211,153,0.1);color:var(--fa)">Fri</div><div class="skey-txt">☀️ FA reading &nbsp;·&nbsp; 🌙 9–11 FA + 11–12:30 DT</div></div>
+      <div class="skey-row"><div class="skey-day" style="background:rgba(248,113,113,0.1);color:var(--idt)">Sat</div><div class="skey-txt">☀️ FA reading &nbsp;·&nbsp; 🌙 9–11 FA + 11–12:30 IDT</div></div>
+      <div class="skey-row"><div class="skey-day" style="background:rgba(107,111,138,0.15);color:#94A3B8">Sun</div><div class="skey-txt">Revision + PYQs (2–3 hrs anytime)</div></div>
+    </div>
+
+    <div class="sgrid" id="subj-grid"></div>
+
+    <div class="card">
+      <div class="today-hdr">
+        <div class="today-hdr-left">
+          <h3>Today's Tasks</h3>
+          <div class="dy-pill" id="dy-pill">--</div>
+        </div>
+        <button class="edit-btn" onclick="openEditor()">✏️</button>
+      </div>
+      <div id="today-content"></div>
+    </div>
+
+    <div class="lcard">
+      <div class="lpill">This Week — Law Target</div>
+      <div class="ltxt" id="law-target">--</div>
+    </div>
+  </div>
+
+  <!-- ═══ CHAPTER PAGES ═══ -->
+  <div class="page" id="page-ca"></div>
+  <div class="page" id="page-fa"></div>
+  <div class="page" id="page-tax"></div>
+  <div class="page" id="page-law"></div>
+
+  <!-- ═══ PLANNER ═══ -->
+  <div class="page" id="page-plan">
+    <div style="display:flex;align-items:center;gap:8px;padding:10px 0 4px;margin-bottom:4px;">
+      <span style="font-size:17px;font-weight:800;">Live Planner</span>
+      <span class="live-badge"><span class="live-dot"></span>Auto-updates</span>
+    </div>
+    <div style="font-size:11px;color:var(--muted);margin-bottom:14px;line-height:1.6;">Ticking a chapter done instantly updates the next session slot. Completed days are greyed out.</div>
+    <div id="plan-content"></div>
+  </div>
+
+  <!-- ═══ ANALYTICS ═══ -->
+  <div class="page" id="page-stats">
+    <div class="analytics-hero">
+      <div class="ah-row"><span style="font-size:24px;">📈</span><span class="ah-title">Analytics</span></div>
+      <div class="ah-sub">Your study performance at a glance</div>
+    </div>
+
+    <!-- STREAK + TODAY HRS -->
+    <div class="stat-grid">
+      <div class="stat-box" style="border-left:3px solid var(--dt);">
+        <div class="stat-val" style="color:var(--dt);" id="a-streak">0🔥</div>
+        <div class="stat-lbl">Day Streak</div>
+        <div class="stat-sub" id="a-streak-sub">Start studying!</div>
+      </div>
+      <div class="stat-box" style="border-left:3px solid var(--lime);">
+        <div class="stat-val" style="color:var(--lime);" id="a-today-hrs">0h</div>
+        <div class="stat-lbl">Today's Hours</div>
+        <div class="stat-sub" id="a-today-sub">0m studied</div>
+      </div>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-box" style="border-left:3px solid var(--fa);">
+        <div class="stat-val" style="color:var(--fa);" id="a-done">0</div>
+        <div class="stat-lbl">Chapters Done</div>
+        <div class="stat-sub" id="a-done-sub">of 0 total</div>
+      </div>
+      <div class="stat-box" style="border-left:3px solid var(--ca);">
+        <div class="stat-val" style="color:var(--ca);" id="a-pace">--</div>
+        <div class="stat-lbl">Pace</div>
+        <div class="stat-sub" id="a-pace-sub">chapters/week</div>
+      </div>
+    </div>
+
+    <!-- WEEKLY CHAPTERS CHART -->
+    <div class="chart-card">
+      <div class="chart-title">Chapters Completed — Last 7 Days</div>
+      <div class="bar-chart" id="week-chart"></div>
+      <div style="display:flex;justify-content:space-between;margin-top:6px;" id="week-chart-labels"></div>
+    </div>
+
+    <!-- STUDY HOURS CHART -->
+    <div class="chart-card">
+      <div class="chart-title">Study Hours — Last 7 Days</div>
+      <div class="bar-chart" id="hrs-chart"></div>
+      <div style="display:flex;justify-content:space-between;margin-top:6px;" id="hrs-chart-labels"></div>
+    </div>
+
+    <!-- SUBJECT BREAKDOWN -->
+    <div class="chart-card">
+      <div class="chart-title">Subject-wise Progress</div>
+      <div id="subj-bars"></div>
+    </div>
+
+    <!-- PROJECTION -->
+    <div class="proj-card">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin-bottom:8px;">Projection</div>
+      <div class="proj-row"><span class="proj-lbl">Syllabus deadline</span><span class="proj-val" style="color:var(--fa)">Apr 30</span></div>
+      <div class="proj-row"><span class="proj-lbl">At current pace, done by</span><span class="proj-val" id="proj-date" style="color:var(--lime)">--</span></div>
+      <div class="proj-row"><span class="proj-lbl">Chapters remaining</span><span class="proj-val" id="proj-remaining" style="color:var(--dt)">--</span></div>
+      <div class="proj-row"><span class="proj-lbl">Days until syllabus</span><span class="proj-val" id="proj-days" style="color:var(--ca)">--</span></div>
+      <div class="proj-row"><span class="proj-lbl">Status</span><span class="proj-val" id="proj-status">--</span></div>
+    </div>
+
+    <!-- TOTAL STUDY TIME -->
+    <div class="chart-card">
+      <div class="chart-title">Total Study Time</div>
+      <div class="hrs-display">
+        <div>
+          <div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">All Time</div>
+          <div class="hrs-today" id="a-total-hrs">0h 0m</div>
+        </div>
+        <div class="hrs-total">
+          <div class="hrs-total-lbl">Goal / Day</div>
+          <div class="hrs-total-val">3.5h</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ HUB ═══ -->
+  <div class="page" id="page-hub">
+    <div class="hub-hero">
+      <h2>🔧 Data Hub</h2>
+      <p>Backup, restore, or reset your progress. Everything lives on your device.</p>
+    </div>
+    <div class="hub-card">
+      <div class="hub-t">Backup & Restore</div>
+      <div class="btn-row">
+        <button class="btn" onclick="exportData()">📤 Export JSON</button>
+        <button class="btn" onclick="importData()">📥 Import JSON</button>
+      </div>
+      <div class="hub-note">Export saves progress as JSON. Import restores it on any device. Always export before clearing Chrome data.</div>
+    </div>
+    <div class="hub-card">
+      <div class="hub-t">Reset</div>
+      <div class="btn-row">
+        <button class="btn danger" onclick="resetData()">⚠️ Reset All Progress</button>
+        <button class="btn danger" onclick="resetTimer()">⏱ Reset Timer Data</button>
+      </div>
+    </div>
+    <div class="hub-card">
+      <div class="hub-t">App Info</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);line-height:2.2;">
+        <div>Version: <span style="color:var(--lime)">6.0 — Analytics + Timer</span></div>
+        <div>Progress key: <span style="color:var(--lime)">cma-progress-v5</span></div>
+        <div>Timer key: <span style="color:var(--lime)">cma-timer-v5</span></div>
+        <div>Exam: <span style="color:var(--lime)">June 11, 2026</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BOTTOM SHEET -->
+<div class="overlay" id="overlay" onclick="closeEditor()"></div>
+<div class="sheet" id="sheet">
+  <div class="sheet-handle"></div>
+  <div class="sheet-hdr">
+    <div class="sheet-title">Edit Today's Tasks</div>
+    <div class="sheet-close" onclick="closeEditor()">✕</div>
+  </div>
+  <div class="sheet-scroll">
+    <div class="sheet-sec">Current Tasks</div>
+    <div id="sheet-current"></div>
+    <div style="margin-top:16px;">
+      <div class="sheet-sec">Add a Chapter</div>
+      <div class="subj-sel" id="subj-sel">
+        <div class="subj-chip sel" data-s="ca" onclick="selSubj(this,'ca')">CA</div>
+        <div class="subj-chip" data-s="fa" onclick="selSubj(this,'fa')">FA</div>
+        <div class="subj-chip" data-s="tax" onclick="selSubj(this,'tax')">Tax</div>
+        <div class="subj-chip" data-s="law" onclick="selSubj(this,'law')">Law</div>
+      </div>
+      <div class="ch-list" id="ch-list"></div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ════════════════════════════════════════════
+   STORAGE KEYS
+════════════════════════════════════════════ */
+var PK='cma-progress-v5';
+var TK='cma-today-v5';
+var TMK='cma-timer-v5'; // timer + study logs
+var STREAK_KEY='cma-streak-v5';
+var COMPLETION_LOG='cma-chlog-v5'; // {date: [chIds]}
+
+/* ════════════════════════════════════════════
+   MONTHS / DAYS
+════════════════════════════════════════════ */
+var MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+var DAYS=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+
+function dateKey(d){
+  d=d||new Date();
+  return d.getDate()+'-'+(d.getMonth()+1)+'-'+d.getFullYear();
+}
+function fmtDate(d){return d.getDate()+' '+MONTHS[d.getMonth()];}
+
+/* ════════════════════════════════════════════
+   SUBJECTS
+════════════════════════════════════════════ */
+var SUBJECTS=[
+  {id:'ca',name:'Cost Accounting',paper:'Paper 8',color:'#60A5FA',tag:'ca',sections:[
+    {label:'Section A — Introduction (40%)',chapters:[
+      {id:'ca-1',text:'Intro to Cost Accounting — basics, terminology, classification',w:'5%'},
+      {id:'ca-2',text:'Material Costing — EOQ, ABC analysis, inventory valuation',w:'15%',star:'⭐'},
+      {id:'ca-3',text:'Labour / Employee Costing — methods, idle time, overtime',w:'15%',star:'⭐'},
+      {id:'ca-4',text:'Overhead Costing — absorption, apportionment, blanket rate',w:'15%',star:'⭐'},
+      {id:'ca-5',text:'Cost Accounting Standards — CAS 1–24 (key: 4,6,7,10,11)',w:'10%'},
+      {id:'ca-6',text:'Cost Bookkeeping — Integrated & Non-Integrated accounts',w:'10%'},
+      {id:'ca-7',text:'Reconciliation of Cost & Financial Accounts',w:'10%'}]},
+    {label:'Section B — Methods of Costing (30%)',chapters:[
+      {id:'ca-8',text:'Job Costing & Batch Costing — cost sheet, EBQ formula',w:'30%',star:'⭐'},
+      {id:'ca-9',text:'Process Costing — normal/abnormal loss, inter-process profit',w:'30%',star:'⭐'},
+      {id:'ca-10',text:'Joint Products & By-products — NRV, physical units methods',w:'30%',star:'⭐'},
+      {id:'ca-11',text:'Contract Costing — WIP, notional profit, retention money',w:'30%',star:'⭐'},
+      {id:'ca-12',text:'Service / Operating Costing — Hospital, Transport, Hotel',w:'30%'}]},
+    {label:'Section C — Techniques (30%)',chapters:[
+      {id:'ca-13',text:'Standard Costing — all variance types + reconciliation',w:'30%',star:'⭐⭐'},
+      {id:'ca-14',text:'Marginal Costing — CVP, BEP, Key Factor decisions',w:'30%',star:'⭐⭐'},
+      {id:'ca-15',text:'Budgetary Control — Fixed, Flexible, Cash, Master Budget',w:'30%',star:'⭐'}]}]},
+  {id:'fa',name:'Financial Accounting',paper:'Paper 6',color:'#34D399',tag:'fa',sections:[
+    {label:'Section A — Fundamentals (15%)',chapters:[
+      {id:'fa-1',text:'Accounting Fundamentals — concepts, conventions',w:'15%'}]},
+    {label:'Section B — Special Transactions (10%)',chapters:[
+      {id:'fa-2',text:'Bills of Exchange — discounting, dishonour, renewal',w:'10%'},
+      {id:'fa-3',text:'Consignment Accounts',w:'10%'},
+      {id:'fa-4',text:'Joint Venture Accounts',w:'10%'}]},
+    {label:'Section C — Financial Statements (20%)',chapters:[
+      {id:'fa-5',text:'Final Accounts of Commercial Organisations',w:'20%',star:'⭐'},
+      {id:'fa-6',text:'Not-for-Profit Organisations (NPO / Club Accounts)',w:'20%'},
+      {id:'fa-7',text:'Accounts from Incomplete Records (Single Entry)',w:'20%'}]},
+    {label:'Section D — Partnership Accounting (20%) ⭐⭐',chapters:[
+      {id:'fa-8',text:'Partnership — Admission: goodwill, sacrificing ratio, revaluation',w:'20%',star:'⭐⭐'},
+      {id:'fa-9',text:'Partnership — Retirement & Death of Partner',w:'20%',star:'⭐⭐'},
+      {id:'fa-10',text:'Partnership — Dissolution & Piecemeal Distribution',w:'20%',star:'⭐⭐'},
+      {id:'fa-11',text:'LLP Accounts',w:'20%'}]},
+    {label:'Section E — Branch & Others (15%)',chapters:[
+      {id:'fa-12',text:'Lease Accounting — Finance vs Operating lease, AS 19',w:'15%'},
+      {id:'fa-13',text:'Branch Accounts — Debtors method, Stock method',w:'15%',star:'⭐'},
+      {id:'fa-14',text:'Foreign Branch Accounts',w:'15%'},
+      {id:'fa-15',text:'Departmental Accounts — inter-dept transfers, loading',w:'15%'},
+      {id:'fa-16',text:'Insurance Claim — Loss of Stock & Loss of Profit (MLOP)',w:'15%',star:'⭐'},
+      {id:'fa-17',text:'Hire Purchase & Instalment Sale',w:'15%',star:'⭐'}]},
+    {label:'Section F — Accounting Standards (20%) ⭐',chapters:[
+      {id:'fa-18',text:'AS 1 (Disclosure), AS 2 (Inventories), AS 7 (Construction)',w:'20%',star:'⭐⭐'},
+      {id:'fa-19',text:'AS 9 (Revenue), AS 10 (PPE), AS 13 (Investments)',w:'20%',star:'⭐'},
+      {id:'fa-20',text:'AS 15 (Employee Benefits), AS 16 (Borrowing Costs), AS 19 (Leases)',w:'20%',star:'⭐'},
+      {id:'fa-21',text:'AS 26 (Intangibles), AS 29 (Provisions) + remaining AS',w:'20%'}]}]},
+  {id:'tax',name:'Direct Tax + IDT',paper:'Paper 7',color:'#FBBF24',tag:'dt',sections:[
+    {label:'DT — Basics (10%)',chapters:[
+      {id:'dt-1',text:'Basics — Definitions, Previous Year, Assessment Year',w:'10%'},
+      {id:'dt-2',text:'Residential Status & Incidence of Tax',w:'10%'}]},
+    {label:'DT — Heads of Income (25%)',chapters:[
+      {id:'dt-3',text:'Income from Salary — allowances, perquisites, retirement benefits',w:'25%',star:'⭐'},
+      {id:'dt-4',text:'Income from House Property — Sec 22–27',w:'25%'},
+      {id:'dt-5',text:'PGBP — Sec 28–44, depreciation, disallowances, Sec 40A/43B',w:'25%',star:'⭐⭐'},
+      {id:'dt-6',text:'Capital Gains — indexation, exemptions (54/54F/54EC), Sec 112A',w:'25%',star:'⭐⭐'},
+      {id:'dt-7',text:'Other Sources — Sec 56: deemed dividend, gifts, winnings',w:'25%'}]},
+    {label:'DT — Total Income & Tax Liability (15%)',chapters:[
+      {id:'dt-8',text:'Set Off & Carry Forward of Losses',w:'15%'},
+      {id:'dt-9',text:'Deductions — Chapter VI-A (80C, 80D, 80E, 80G, 80TTA, 80U)',w:'15%',star:'⭐'},
+      {id:'dt-10',text:'Total Income & Tax Liability — Individual + HUF, rebate 87A',w:'15%',star:'⭐'},
+      {id:'dt-11',text:'Assessment, Returns, Advance Tax, TDS/TCS',w:'15%'}]},
+    {label:'⚠️ IDT — GST (40%) CRITICAL',chapters:[
+      {id:'idt-1',text:'⚠️ Concept of Indirect Taxes — constitutional background',w:'5%'},
+      {id:'idt-2',text:'⚠️ GST — Levy & Collection, Supply (Sec 7), CGST/IGST/SGST',w:'35%',star:'⭐'},
+      {id:'idt-3',text:'⚠️ GST — Time of Supply, Value of Supply (Sec 15)',w:'35%',star:'⭐'},
+      {id:'idt-4',text:'⚠️ GST — Place of Supply rules (B2B vs B2C)',w:'35%',star:'⭐⭐'},
+      {id:'idt-5',text:'⚠️ GST — Input Tax Credit: conditions, Sec 17(5) blocked credits',w:'35%',star:'⭐⭐'},
+      {id:'idt-6',text:'⚠️ GST — Registration, Composition Scheme, Returns, Payment',w:'35%',star:'⭐'}]},
+    {label:'⚠️ IDT — Customs Act (10%)',chapters:[
+      {id:'idt-7',text:'⚠️ Customs Act — types of duties, assessable value',w:'10%'},
+      {id:'idt-8',text:'⚠️ Customs — Import/Export procedures, valuation',w:'10%'}]}]},
+  {id:'law',name:'Business Laws & Ethics',paper:'Paper 5',color:'#C084FC',tag:'law',sections:[
+    {label:'Section A — Commercial Laws (30%)',chapters:[
+      {id:'law-1',text:'Introduction to Law & Legal System in India',w:'5%'},
+      {id:'law-2',text:'Indian Contracts Act, 1872 — offer, acceptance, void agreements',w:'10%',star:'⭐'},
+      {id:'law-3',text:'Sale of Goods Act, 1930 — conditions, warranties',w:'5%'},
+      {id:'law-4',text:'Negotiable Instruments Act, 1881 — dishonour, noting & protest',w:'5%'},
+      {id:'law-5',text:'Indian Partnership Act, 1932',w:'5%'},
+      {id:'law-6',text:'Limited Liability Partnership Act, 2008',w:'5%'}]},
+    {label:'Section B — Industrial Laws (15%)',chapters:[
+      {id:'law-7',text:'Factories Act, 1948 — hours, health, safety, welfare',w:'10%'},
+      {id:'law-8',text:'Payment of Gratuity Act, 1972 — eligibility, formula',w:'10%'},
+      {id:'law-9',text:'EPF & Miscellaneous Provisions Act, 1952',w:'10%'},
+      {id:'law-10',text:'Employees State Insurance Act, 1948',w:'10%'},
+      {id:'law-11',text:'The Code on Wages, 2019',w:'5%'}]},
+    {label:'Section C — Corporate Laws (40%) ⭐⭐',chapters:[
+      {id:'law-12',text:'Companies Act 2013 — Incorporation, MOA, AOA, Share Capital',w:'40%',star:'⭐⭐'},
+      {id:'law-13',text:'Companies Act 2013 — Directors: appointment, DIN, duties',w:'40%',star:'⭐⭐'},
+      {id:'law-14',text:'Companies Act 2013 — Board + General Meetings (AGM/EGM)',w:'40%',star:'⭐⭐'},
+      {id:'law-15',text:'Companies Act 2013 — Audit, Charges, Winding Up, NCLT',w:'40%',star:'⭐'}]},
+    {label:'Section D — Business Ethics (15%)',chapters:[
+      {id:'law-16',text:'Business Ethics — principles, frameworks, ethical dilemmas',w:'15%'},
+      {id:'law-17',text:'Emotional Intelligence in Business — components, application',w:'15%'}]}]}
+];
+
+/* ════════════════════════════════════════════
+   CHAPTER LOOKUP
+════════════════════════════════════════════ */
+var CH_MAP={};
+SUBJECTS.forEach(function(s){
+  s.sections.forEach(function(sec){
+    sec.chapters.forEach(function(ch){
+      CH_MAP[ch.id]={text:ch.text,w:ch.w||'',star:ch.star||'',subjId:s.id,tag:s.tag,color:s.color};
+    });
+  });
+});
+
+/* ════════════════════════════════════════════
+   QUEUES — pending chapters per slot type
+════════════════════════════════════════════ */
+var BASE_Q={
+  ca:['ca-1','ca-5','ca-6','ca-7','ca-12','ca-13','ca-14','ca-15'],
+  fa:['fa-9','fa-10','fa-11','fa-12','fa-14','fa-15','fa-17','fa-18','fa-19','fa-20','fa-21','fa-2','fa-3','fa-4','fa-5','fa-6','fa-7','fa-1'],
+  dt:['dt-5','dt-6','dt-7','dt-8','dt-9','dt-10','dt-11'],
+  idt:['idt-1','idt-3','idt-4','idt-5','idt-6','idt-7','idt-8'],
+  law:['law-12','law-14','law-15','law-2','law-3','law-4','law-5','law-6','law-1','law-7','law-8','law-9','law-10','law-11','law-16','law-17']
+};
+
+function nextPending(qKey){
+  var q=BASE_Q[qKey];
+  if(!q)return null;
+  for(var i=0;i<q.length;i++){if(!progress[q[i]])return q[i];}
+  return null;
+}
+
+/* Day schedule config */
+function getDaySched(dow){
+  var M={
+    0:[{lbl:'📚 REVISION',time:'Anytime',queues:[],fixed:[{tag:'rev',text:'Revision + PYQs — review weakest chapters',chId:null}]}],
+    1:[{lbl:'☀️ MORNING',time:'6:30–8:00 AM',queues:['ca'],fixed:[]},{lbl:'🌙 EVENING',time:'9:00 PM–12:30 AM',queues:['ca','ca'],fixed:[]}],
+    2:[{lbl:'☀️ MORNING',time:'6:30–8:00 AM',queues:['ca'],fixed:[]},{lbl:'🌙 CA',time:'9:00–11:00 PM',queues:['ca'],fixed:[]},{lbl:'🌙 LAW',time:'11:00 PM–12:30 AM',queues:['law'],fixed:[]}],
+    3:[{lbl:'☀️ MORNING',time:'6:30–8:00 AM',queues:['ca'],fixed:[]},{lbl:'🌙 CA',time:'9:00–11:00 PM',queues:['ca'],fixed:[]},{lbl:'🌙 LAW',time:'11:00 PM–12:30 AM',queues:['law'],fixed:[]}],
+    4:[{lbl:'☀️ MORNING',time:'6:30–8:00 AM',queues:['fa'],fixed:[]},{lbl:'🌙 FA',time:'9:00–11:00 PM',queues:['fa'],fixed:[]},{lbl:'🌙 DT',time:'11:00 PM–12:30 AM',queues:['dt'],fixed:[]}],
+    5:[{lbl:'☀️ MORNING',time:'6:30–8:00 AM',queues:['fa'],fixed:[]},{lbl:'🌙 FA',time:'9:00–11:00 PM',queues:['fa'],fixed:[]},{lbl:'🌙 DT',time:'11:00 PM–12:30 AM',queues:['dt'],fixed:[]}],
+    6:[{lbl:'☀️ MORNING',time:'6:30–8:00 AM',queues:['fa'],fixed:[]},{lbl:'🌙 FA',time:'9:00–11:00 PM',queues:['fa'],fixed:[]},{lbl:'🌙 IDT',time:'11:00 PM–12:30 AM',queues:['idt'],fixed:[]}]
+  };
+  return M[dow]||M[0];
+}
+
+/* ════════════════════════════════════════════
+   STORAGE
+════════════════════════════════════════════ */
+var progress={};
+function loadProgress(){
+  try{
+    var r=localStorage.getItem(PK);
+    if(r){progress=JSON.parse(r);return;}
+    var old=['cma-progress-v4','cma-deepanshu-v3'];
+    for(var i=0;i<old.length;i++){var o=localStorage.getItem(old[i]);if(o){progress=JSON.parse(o);saveProgress();return;}}
+  }catch(e){}
+  progress={};
+}
+function saveProgress(){try{localStorage.setItem(PK,JSON.stringify(progress));}catch(e){}}
+function setDefaults(){
+  var done=['ca-2','ca-3','ca-4','ca-8','ca-9','dt-1','dt-2','dt-3','dt-4','fa-8','fa-13','ca-10','law-13','ca-11','fa-16','idt-2'];
+  for(var i=0;i<done.length;i++){if(progress[done[i]]===undefined)progress[done[i]]=true;}
+}
+
+function loadToday(){try{var r=localStorage.getItem(TK);return r?JSON.parse(r):null;}catch(e){return null;}}
+function saveToday(tasks){try{localStorage.setItem(TK,JSON.stringify({key:dateKey(),tasks:tasks}));}catch(e){}}
+function clearToday(){try{localStorage.removeItem(TK);}catch(e){}}
+
+/* ════════════════════════════════════════════
+   CHAPTER COMPLETION LOG (for analytics)
+════════════════════════════════════════════ */
+function logCompletion(chId){
+  try{
+    var log=JSON.parse(localStorage.getItem(COMPLETION_LOG)||'{}');
+    var k=dateKey();
+    if(!log[k])log[k]=[];
+    if(log[k].indexOf(chId)<0)log[k].push(chId);
+    localStorage.setItem(COMPLETION_LOG,JSON.stringify(log));
+  }catch(e){}
+}
+function unlogCompletion(chId){
+  try{
+    var log=JSON.parse(localStorage.getItem(COMPLETION_LOG)||'{}');
+    var k=dateKey();
+    if(log[k]){log[k]=log[k].filter(function(x){return x!==chId;});}
+    localStorage.setItem(COMPLETION_LOG,JSON.stringify(log));
+  }catch(e){}
+}
+function getCompletionLog(){try{return JSON.parse(localStorage.getItem(COMPLETION_LOG)||'{}');}catch(e){return{};}}
+function chaptersCompletedOn(dateStr){
+  var log=getCompletionLog();
+  return(log[dateStr]||[]).length;
+}
+
+/* ════════════════════════════════════════════
+   STREAK SYSTEM
+════════════════════════════════════════════ */
+function updateStreak(){
+  try{
+    var streak=JSON.parse(localStorage.getItem(STREAK_KEY)||'{"count":0,"lastDate":""}');
+    var today=dateKey();
+    if(streak.lastDate===today)return streak.count;
+    var yesterday=dateKey(new Date(Date.now()-86400000));
+    if(streak.lastDate===yesterday){
+      streak.count++;
+    }else if(streak.lastDate!==today){
+      streak.count=1;
+    }
+    streak.lastDate=today;
+    localStorage.setItem(STREAK_KEY,JSON.stringify(streak));
+    return streak.count;
+  }catch(e){return 0;}
+}
+function getStreak(){try{return JSON.parse(localStorage.getItem(STREAK_KEY)||'{"count":0}').count;}catch(e){return 0;}}
+
+/* ════════════════════════════════════════════
+   TIMER SYSTEM
+════════════════════════════════════════════ */
+var timerData={
+  running:false,
+  startTs:null,
+  elapsed:0, // seconds this session
+  todaySecs:0, // seconds today
+  totalSecs:0, // all time
+  logs:{} // {dateKey: seconds}
+};
+var timerInterval=null;
+
+function loadTimer(){
+  try{
+    var r=localStorage.getItem(TMK);
+    if(r){
+      var d=JSON.parse(r);
+      timerData.totalSecs=d.totalSecs||0;
+      timerData.logs=d.logs||{};
+      timerData.todaySecs=timerData.logs[dateKey()]||0;
+    }
+  }catch(e){}
+}
+function saveTimer(){
+  try{
+    timerData.logs[dateKey()]=timerData.todaySecs;
+    localStorage.setItem(TMK,JSON.stringify({totalSecs:timerData.totalSecs,logs:timerData.logs}));
+  }catch(e){}
+}
+
+function timerStart(){
+  if(timerData.running)return;
+  timerData.running=true;
+  timerData.startTs=Date.now()-timerData.elapsed*1000;
+  document.getElementById('timer-start-btn').style.display='none';
+  document.getElementById('timer-stop-btn').style.display='flex';
+  document.getElementById('timer-display').classList.add('timer-running');
+  document.getElementById('timer-sub').textContent='Session in progress...';
+  // Update streak when session starts
+  updateStreak();
+  timerInterval=setInterval(tickTimer,1000);
+}
+
+function tickTimer(){
+  var now=Date.now();
+  timerData.elapsed=Math.floor((now-timerData.startTs)/1000);
+  renderClock();
+}
+
+function timerStop(){
+  if(!timerData.running)return;
+  clearInterval(timerInterval);
+  timerData.running=false;
+  // Add elapsed to today + total
+  timerData.todaySecs+=timerData.elapsed;
+  timerData.totalSecs+=timerData.elapsed;
+  timerData.elapsed=0;
+  saveTimer();
+  document.getElementById('timer-start-btn').style.display='flex';
+  document.getElementById('timer-stop-btn').style.display='none';
+  document.getElementById('timer-display').classList.remove('timer-running');
+  var m=Math.floor(timerData.todaySecs/60);
+  document.getElementById('timer-sub').textContent='Session saved. '+m+' mins today total.';
+  renderTimerTotals();
+  updateAnalytics();
+}
+
+function timerReset(){
+  if(timerData.running){clearInterval(timerInterval);timerData.running=false;}
+  timerData.elapsed=0;
+  document.getElementById('timer-start-btn').style.display='flex';
+  document.getElementById('timer-stop-btn').style.display='none';
+  document.getElementById('timer-display').classList.remove('timer-running');
+  document.getElementById('timer-sub').textContent='Tap Start to begin your session';
+  renderClock();
+}
+
+function fmtSecs(s){
+  var h=Math.floor(s/3600);var m=Math.floor((s%3600)/60);var sec=s%60;
+  return pad(h)+':'+pad(m)+':'+pad(sec);
+}
+function fmtMins(s){var h=Math.floor(s/3600);var m=Math.floor((s%3600)/60);return h+'h '+m+'m';}
+function pad(n){return n<10?'0'+n:n;}
+
+function renderClock(){
+  var el=document.getElementById('timer-clock');
+  if(el)el.textContent=fmtSecs(timerData.elapsed);
+}
+function renderTimerTotals(){
+  var tv=document.getElementById('timer-today-val');if(tv)tv.textContent=fmtMins(timerData.todaySecs);
+  var tot=document.getElementById('timer-total-val');if(tot)tot.textContent=fmtMins(timerData.totalSecs);
+}
+
+function resetTimer(){
+  if(!confirm('Reset all timer data?'))return;
+  timerData={running:false,startTs:null,elapsed:0,todaySecs:0,totalSecs:0,logs:{}};
+  try{localStorage.removeItem(TMK);}catch(e){}
+  renderClock();renderTimerTotals();updateAnalytics();
+  showToast('Timer data reset');
+}
+
+/* ════════════════════════════════════════════
+   COUNTDOWN
+════════════════════════════════════════════ */
+function dU(y,m,d){
+  var t=new Date();
+  return Math.max(0,Math.ceil((new Date(y,m,d)-new Date(t.getFullYear(),t.getMonth(),t.getDate()))/86400000));
+}
+
+/* ════════════════════════════════════════════
+   COUNTS
+════════════════════════════════════════════ */
+function cntS(s){var t=0,d=0;s.sections.forEach(function(sec){sec.chapters.forEach(function(ch){t++;if(progress[ch.id])d++;});});return{t:t,d:d};}
+function cntAll(){var t=0,d=0;SUBJECTS.forEach(function(s){var r=cntS(s);t+=r.t;d+=r.d;});return{t:t,d:d};}
+
+/* ════════════════════════════════════════════
+   UPDATE DATE + HOME
+════════════════════════════════════════════ */
+function updateDate(){
+  var now=new Date();var dow=now.getDay();
+  document.getElementById('date-pill').textContent=DAYS[dow].slice(0,3)+' '+now.getDate()+' '+MONTHS[now.getMonth()]+' '+now.getFullYear();
+  document.getElementById('dy-pill').textContent=DAYS[dow]+', '+now.getDate()+' '+MONTHS[now.getMonth()];
+  document.getElementById('cd-s').textContent=dU(2026,3,30);
+  document.getElementById('cd-r').textContent=dU(2026,4,30);
+  document.getElementById('cd-e').textContent=dU(2026,5,11);
+
+  // Streak
+  var st=getStreak();
+  document.getElementById('streak-num').textContent=st;
+  var sd=document.getElementById('streak-display');
+  if(sd)sd.innerHTML='🔥 <span id="streak-num">'+st+'</span> day streak';
+
+  // Law target
+  var start=new Date(2026,3,7);
+  var today2=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+  var wk=Math.max(0,Math.floor((today2-start)/(7*86400000)));
+  var LT=[
+    'Companies Act — Share Capital (law-12) + Meetings (law-14) + Winding Up (law-15)',
+    'Commercial Laws — Contract Act (law-2) + Sale of Goods (law-3) + NI Act (law-4)',
+    'Commercial Laws complete: Partnership Act + LLP Act + Industrial Laws (law-7 to law-11)',
+    'Business Ethics + EI (law-16, law-17) + Full Law revision'
+  ];
+  document.getElementById('law-target').innerHTML='<strong>Week '+(wk+1)+':</strong> '+(LT[Math.min(wk,LT.length-1)]);
+
+  renderTodayCard(dow);
+}
+
+/* ════════════════════════════════════════════
+   TODAY CARD
+════════════════════════════════════════════ */
+function buildTodayTasks(dow){
+  // Check override
+  var stored=loadToday();
+  if(stored&&stored.key===dateKey()&&stored.tasks&&stored.tasks.length>0){
+    return stored.tasks;
+  }
+  // Generate from queues
+  var sched=getDaySched(dow);
+  var tasks=[];
+  var qUsed={};
+  sched.forEach(function(sess){
+    sess.fixed.forEach(function(f){
+      tasks.push({sessLabel:sess.lbl,sessTime:sess.time,tag:f.tag,text:f.text,chId:f.chId});
+    });
+    sess.queues.forEach(function(qKey){
+      var skip=qUsed[qKey]||0;
+      var q=BASE_Q[qKey];var found=0;var chId=null;
+      if(q){for(var i=0;i<q.length;i++){if(!progress[q[i]]){if(found===skip){chId=q[i];break;}found++;}}}
+      if(chId){
+        var info=CH_MAP[chId];
+        if(info){tasks.push({sessLabel:sess.lbl,sessTime:sess.time,tag:info.tag,text:info.text,chId:chId});}
+        qUsed[qKey]=(qUsed[qKey]||0)+1;
+      }
+    });
+  });
+  return tasks;
+}
+
+function renderTodayCard(dow){
+  var tasks=buildTodayTasks(dow);
+  window._todayTasks=tasks;
+  var cont=document.getElementById('today-content');
+  if(!cont)return;
+  if(!tasks||tasks.length===0){cont.innerHTML='<div style="color:var(--muted);font-size:12px;padding:8px 0;">Rest day — good job this week!</div>';return;}
+  var html='';var lastSess='';
+  tasks.forEach(function(t,i){
+    if(t.sessLabel!==lastSess){
+      if(i>0)html+='<div style="height:6px;"></div>';
+      html+='<div class="sess-lbl">'+t.sessLabel+' <span class="sess-time">'+t.sessTime+'</span></div>';
+      lastSess=t.sessLabel;
+    }
+    var isDone=t.chId?!!progress[t.chId]:false;
+    html+='<div class="task-item'+(isDone?' done':'')+'" id="ti-'+i+'" onclick="tapTask('+i+')">'
+      +'<div class="task-chk"><svg viewBox="0 0 13 13"><polyline points="1.5,6.5 5,10 11.5,3"/></svg></div>'
+      +'<div class="task-info"><span class="task-tag t-'+t.tag+'">'+t.tag.toUpperCase()+'</span>'
+      +'<div class="task-text">'+t.text+'</div></div>'
+      +'</div>';
+  });
+  cont.innerHTML=html;
+}
+
+function tapTask(idx){
+  var tasks=window._todayTasks;
+  if(!tasks||!tasks[idx])return;
+  var t=tasks[idx];
+  if(!t.chId){showToast('📖 Revision — keep going!');return;}
+  var wasDone=!!progress[t.chId];
+  progress[t.chId]=!wasDone;
+  saveProgress();
+  if(progress[t.chId]){logCompletion(t.chId);updateStreak();}
+  else{unlogCompletion(t.chId);}
+  // Update task item
+  var el=document.getElementById('ti-'+idx);
+  if(el){if(progress[t.chId])el.classList.add('done');else el.classList.remove('done');}
+  // Update chapter page
+  var chi=document.getElementById('ci-'+t.chId);
+  if(chi){if(progress[t.chId])chi.classList.add('done');else chi.classList.remove('done');}
+  var sId=t.chId.split('-')[0]==='idt'?'tax':t.chId.split('-')[0];
+  if(sId==='dt')sId='tax';
+  updateSM(sId);updateOverall();buildPlanner();updateAnalytics();
+  showToast(progress[t.chId]?'✅ Done! Planner updated 🚀':'↩️ Unmarked');
+}
+
+/* ════════════════════════════════════════════
+   OVERALL PROGRESS
+════════════════════════════════════════════ */
+function updateOverall(){
+  var r=cntAll();var p=r.t?Math.round(r.d/r.t*100):0;
+  document.getElementById('ov-pct').textContent=p+'%';
+  document.getElementById('ov-bar').style.width=p+'%';
+  document.getElementById('ov-cnt').textContent=r.d+' / '+r.t+' chapters done';
+}
+
+/* ════════════════════════════════════════════
+   SUBJECT MINI GRID
+════════════════════════════════════════════ */
+function buildMini(){
+  var html='';
+  SUBJECTS.forEach(function(s){
+    var r=cntS(s);var p=r.t?Math.round(r.d/r.t*100):0;
+    html+='<div class="sm" onclick="goTab(\''+s.id+'\')" style="border-left:3px solid '+s.color+'">'
+      +'<div class="smn" style="color:'+s.color+'">'+s.name+'</div>'
+      +'<div class="smr"><span class="smc" id="mc-'+s.id+'">'+r.d+'/'+r.t+'</span><span class="smc" style="color:'+s.color+'">'+p+'%</span></div>'
+      +'<div class="sm-pb"><div class="sm-pf" style="width:'+p+'%;background:'+s.color+'" id="mb-'+s.id+'"></div></div>'
+      +'<div style="font-size:9px;color:var(--muted);margin-top:4px;">'+s.paper+'</div>'
+      +'</div>';
+  });
+  document.getElementById('subj-grid').innerHTML=html;
+}
+
+function updateSM(id){
+  var s=null;SUBJECTS.forEach(function(sub){if(sub.id===id)s=sub;});if(!s)return;
+  var r=cntS(s);var p=r.t?Math.round(r.d/r.t*100):0;
+  var b=document.getElementById('mb-'+id);if(b)b.style.width=p+'%';
+  var c=document.getElementById('mc-'+id);if(c)c.textContent=r.d+'/'+r.t;
+  var cb=document.getElementById('cb-'+id);if(cb)cb.style.width=p+'%';
+  var cp=document.getElementById('cp-'+id);if(cp)cp.textContent=r.d+' / '+r.t+' done · '+p+'%';
+}
+
+/* ════════════════════════════════════════════
+   CHAPTER PAGES
+════════════════════════════════════════════ */
+function buildChPage(subj){
+  var r=cntS(subj);var p=r.t?Math.round(r.d/r.t*100):0;
+  var html='<div class="chhdr"><h3 style="color:'+subj.color+'">'+subj.name+'</h3><div class="ppill">'+subj.paper+'</div></div>'
+    +'<div style="display:flex;justify-content:space-between;font-family:\'JetBrains Mono\',monospace;font-size:10px;color:var(--muted);margin-bottom:2px;" id="cp-'+subj.id+'">'+r.d+' / '+r.t+' done · '+p+'%</div>'
+    +'<div class="bar-track" style="margin-bottom:12px;"><div class="bar-fill" style="width:'+p+'%;background:'+subj.color+'" id="cb-'+subj.id+'"></div></div>';
+  subj.sections.forEach(function(sec){
+    html+='<div class="sec-lbl">'+sec.label+'</div>';
+    sec.chapters.forEach(function(ch){
+      var dn=progress[ch.id]?'done':'';
+      var star=ch.star?'<span class="star">'+ch.star+'</span>':'';
+      // Revision due badge
+      var revDue=isRevisionDue(ch.id)?'<span class="rev-due">Due Review</span>':'';
+      html+='<div class="chi '+dn+'" id="ci-'+ch.id+'" onclick="toggleCh(\''+subj.id+'\',\''+ch.id+'\')">'
+        +'<div class="chk"><svg viewBox="0 0 13 13"><polyline points="1.5,6.5 5,10 11.5,3"/></svg></div>'
+        +'<div class="chi-lbl">'+ch.text+'</div>'
+        +revDue+star+'<div class="chi-w">'+ch.w+'</div></div>';
+    });
+  });
+  document.getElementById('page-'+subj.id).innerHTML=html;
+}
+
+/* Spaced repetition — review due after 7 days */
+function isRevisionDue(chId){
+  if(!progress[chId])return false;
+  try{
+    var log=getCompletionLog();
+    var sevenAgo=dateKey(new Date(Date.now()-7*86400000));
+    for(var k in log){
+      if(k<=sevenAgo&&log[k].indexOf(chId)>=0)return true;
+    }
+  }catch(e){}
+  return false;
+}
+
+function toggleCh(sId,cId){
+  progress[cId]=!progress[cId];saveProgress();
+  if(progress[cId])logCompletion(cId);else unlogCompletion(cId);
+  var el=document.getElementById('ci-'+cId);
+  if(el){if(progress[cId])el.classList.add('done');else el.classList.remove('done');}
+  updateSM(sId);updateOverall();
+  var now=new Date();renderTodayCard(now.getDay());
+  buildPlanner();updateAnalytics();
+  showToast(progress[cId]?'✅ Done! Planner auto-updated':'↩️ Unmarked');
+}
+
+/* ════════════════════════════════════════════
+   LIVE PLANNER — full dynamic rebuild
+════════════════════════════════════════════ */
+var PLAN_WEEKS=[
+  {num:'Week 1',dates:'Tue Apr 7 → Sun Apr 13',
+   law:'Companies Act — Share Capital (law-12) + Meetings (law-14) + Winding Up (law-15)',
+   focus:'CA: Service Costing + CAS + Bookkeeping | FA: Partnership Ret + Dissolution | DT: PGBP | IDT: Time/Place/Value',
+   days:[{n:'Tue',d:'7 Apr',m:3,dow:2},{n:'Wed',d:'8 Apr',m:3,dow:3},{n:'Thu',d:'9 Apr',m:3,dow:4},{n:'Fri',d:'10 Apr',m:3,dow:5},{n:'Sat',d:'11 Apr',m:3,dow:6},{n:'Sun',d:'12 Apr',m:3,dow:0}]},
+  {num:'Week 2',dates:'Mon Apr 13 → Sun Apr 19',
+   law:'Companies Act — Winding Up (law-15) + Contract Act (law-2)',
+   focus:'CA: Standard Costing ⭐⭐ (3 sessions) | FA: AS 9–21 | DT: Capital Gains | IDT: Place of Supply + ITC',
+   days:[{n:'Mon',d:'13 Apr',m:3,dow:1},{n:'Tue',d:'14 Apr',m:3,dow:2},{n:'Wed',d:'15 Apr',m:3,dow:3},{n:'Thu',d:'16 Apr',m:3,dow:4},{n:'Fri',d:'17 Apr',m:3,dow:5},{n:'Sat',d:'18 Apr',m:3,dow:6},{n:'Sun',d:'19 Apr',m:3,dow:0}]},
+  {num:'Week 3',dates:'Mon Apr 20 → Sun Apr 26',
+   law:'Commercial Laws: Sale of Goods + NI Act + Partnership Act + LLP Act',
+   focus:'CA: Marginal Costing + Budgets ✅ CA DONE | FA: Hire Purchase + Special Transactions | DT: Deductions | IDT: ITC',
+   days:[{n:'Mon',d:'20 Apr',m:3,dow:1},{n:'Tue',d:'21 Apr',m:3,dow:2},{n:'Wed',d:'22 Apr',m:3,dow:3},{n:'Thu',d:'23 Apr',m:3,dow:4},{n:'Fri',d:'24 Apr',m:3,dow:5},{n:'Sat',d:'25 Apr',m:3,dow:6},{n:'Sun',d:'26 Apr',m:3,dow:0}]},
+  {num:'Week 4 — Final Push',dates:'Mon Apr 27 → Thu Apr 30 ✅',
+   law:'Industrial Laws (law-7 to law-11) + Business Ethics + EI (law-16, law-17)',
+   focus:'FA: Final Accounts + NPO + Incomplete Records | DT: Assessment | IDT: Registration + Customs',
+   days:[{n:'Mon',d:'27 Apr',m:3,dow:1},{n:'Tue',d:'28 Apr',m:3,dow:2},{n:'Wed',d:'29 Apr',m:3,dow:3},{n:'Thu',d:'30 Apr',m:3,dow:4}]}
+];
+
+function buildPlanner(){
+  var now=new Date();var nd=now.getDate();var nm=now.getMonth();
+  var cont=document.getElementById('plan-content');
+  if(!cont)return;
+  var html='<div class="ph-lbl">Phase 1 — Syllabus Completion (Apr 7 → Apr 30, 2026)</div>';
+
+  PLAN_WEEKS.forEach(function(wk){
+    html+='<div class="wkc"><div class="wk-hd"><div class="wk-n">'+wk.num+'</div><div class="wk-d">'+wk.dates+'</div><div class="wk-f">'+wk.focus+'</div></div>'
+      +'<div class="law-s">⚖️ <strong style="color:var(--law)">Law:</strong> '+wk.law+'</div>';
+
+    wk.days.forEach(function(day){
+      var isTod=(day.d.split(' ')[0]*1===nd&&day.m===nm);
+      var isPast=(new Date(2026,day.m,day.d.split(' ')[0]*1)<new Date(now.getFullYear(),now.getMonth(),nd));
+      html+='<div class="pd'+(isTod?' tod':'')+'"><div class="pd-hdr">'
+        +'<span class="pd-n">'+day.n
+        +(isTod?' <span class="tod-tag">TODAY</span>':isPast?' <span class="done-tag">Done</span>':'')
+        +'</span>'
+        +'<span class="pd-dt">'+day.d+'</span></div>';
+
+      var sched=getDaySched(day.dow);
+      var qUsed={};
+      sched.forEach(function(sess){
+        html+='<div class="sh">'+sess.lbl+' <span class="st">'+sess.time+'</span></div>';
+        sess.fixed.forEach(function(f){
+          html+='<div class="ptask'+(isPast?' ptdone':'')+'"><span class="ptag t-'+f.tag+'">'+f.tag.toUpperCase()+'</span><span>'+f.text+'</span></div>';
+        });
+        sess.queues.forEach(function(qKey){
+          var skip=qUsed[qKey]||0;
+          var q=BASE_Q[qKey];var found=0;var chId=null;
+          if(q){for(var i=0;i<q.length;i++){if(!progress[q[i]]){if(found===skip){chId=q[i];break;}found++;}}}
+          if(chId){
+            var info=CH_MAP[chId];
+            if(info){html+='<div class="ptask"><span class="ptag t-'+info.tag+'">'+info.tag.toUpperCase()+'</span><span>'+info.text+'</span></div>';}
+            qUsed[qKey]=(qUsed[qKey]||0)+1;
+          }else{
+            html+='<div class="ptask" style="color:var(--fa);">✅ All '+qKey.toUpperCase()+' chapters complete!</div>';
+          }
+        });
+        if(sess!==sched[sched.length-1])html+='<div class="psplit"></div>';
+      });
+      html+='</div>';
+    });
+    html+='</div>';
+  });
+
+  // Phase 2
+  html+='<div class="ph-lbl">Phase 2 — Revision & Mocks (May 1 → May 30, 2026)</div>';
+  [{n:'Week 5',d:'May 1–7',f:'CA: Standard Costing + Marginal Costing PYQs · Law: writing practice'},
+   {n:'Week 6',d:'May 8–14',f:'FA: Partnership + AS PYQs · DT: PGBP + Capital Gains · IDT: GST ITC'},
+   {n:'Week 7 — MOCK 1',d:'May 15–21',f:'🎯 Full timed papers all 4 subjects. Make gap list after.'},
+   {n:'Week 8',d:'May 22–28',f:'Weak area attack — based on Mock 1 gap list'},
+   {n:'Week 9 — MOCK 2',d:'May 29–30',f:'🎯 Mock 2 + final consolidation · ✅ Revision Done May 30'}
+  ].forEach(function(p){
+    html+='<div class="wkc"><div class="wk-hd"><div class="wk-n">'+p.n+'</div><div class="wk-d">'+p.d+'</div><div class="wk-f">'+p.f+'</div></div>'
+      +'<div class="pd"><div class="ptask" style="color:var(--muted);">PYQs + timed practice + revision · same daily structure</div></div></div>';
+  });
+  cont.innerHTML=html;
+}
+
+/* ════════════════════════════════════════════
+   ANALYTICS
+════════════════════════════════════════════ */
+function updateAnalytics(){
+  var r=cntAll();var p=r.t?Math.round(r.d/r.t*100):0;
+  var streak=getStreak();
+
+  // Stats
+  var astreak=document.getElementById('a-streak');if(astreak)astreak.textContent=streak+'🔥';
+  var astreakSub=document.getElementById('a-streak-sub');
+  if(astreakSub)astreakSub.textContent=streak>0?streak+' day'+(streak>1?'s':'')+' in a row':'Start today!';
+  var aTH=document.getElementById('a-today-hrs');if(aTH)aTH.textContent=Math.floor(timerData.todaySecs/3600)+'h';
+  var aTS=document.getElementById('a-today-sub');if(aTS)aTS.textContent=Math.floor(timerData.todaySecs/60)+'m studied';
+  var aDone=document.getElementById('a-done');if(aDone)aDone.textContent=r.d;
+  var aDoneSub=document.getElementById('a-done-sub');if(aDoneSub)aDoneSub.textContent='of '+r.t+' total';
+
+  // Pace (chapters per week based on last 14 days)
+  var log=getCompletionLog();
+  var twoWeeksAgo=new Date(Date.now()-14*86400000);
+  var recentDone=0;
+  for(var k in log){
+    var parts=k.split('-');
+    var kDate=new Date(parts[2],parts[1]-1,parts[0]);
+    if(kDate>=twoWeeksAgo)recentDone+=log[k].length;
+  }
+  var pace=Math.round(recentDone/2*10)/10;
+  var aPace=document.getElementById('a-pace');if(aPace)aPace.textContent=pace||'--';
+  var aPaceSub=document.getElementById('a-pace-sub');if(aPaceSub)aPaceSub.textContent='chapters/week (14d avg)';
+
+  // Projection
+  var remaining=r.t-r.d;
+  var projDays=pace>0?Math.ceil(remaining/(pace/7)):null;
+  var projDate=projDays?new Date(Date.now()+projDays*86400000):null;
+  var daysLeft=dU(2026,3,30);
+  var el;
+  el=document.getElementById('proj-date');if(el)el.textContent=projDate?fmtDate(projDate):'Need more data';
+  el=document.getElementById('proj-remaining');if(el)el.textContent=remaining+' chapters';
+  el=document.getElementById('proj-days');if(el)el.textContent=daysLeft+' days';
+  el=document.getElementById('proj-status');
+  if(el){
+    if(!pace){el.textContent='Keep going!';el.style.color='var(--muted)';}
+    else if(projDays&&projDays<=daysLeft){el.textContent='✅ On track';el.style.color='var(--fa)';}
+    else{el.textContent='⚠️ Need to speed up';el.style.color='var(--idt)';}
+  }
+
+  // Total hours
+  var aTotalHrs=document.getElementById('a-total-hrs');if(aTotalHrs)aTotalHrs.textContent=fmtMins(timerData.totalSecs);
+
+  // Weekly chapters bar chart
+  buildWeekChart();
+
+  // Hours chart
+  buildHrsChart();
+
+  // Subject bars
+  buildSubjBars();
+}
+
+function buildWeekChart(){
+  var cont=document.getElementById('week-chart');var lcont=document.getElementById('week-chart-labels');
+  if(!cont)return;
+  var log=getCompletionLog();
+  var vals=[];var labels=[];var maxV=0;
+  for(var i=6;i>=0;i--){
+    var d=new Date(Date.now()-i*86400000);
+    var k=dateKey(d);
+    var v=(log[k]||[]).length;
+    vals.push(v);labels.push(DAYS[d.getDay()].slice(0,2));
+    if(v>maxV)maxV=v;
+  }
+  var html='';var lhtml='';
+  for(var j=0;j<vals.length;j++){
+    var h=maxV>0?Math.max(4,Math.round(vals[j]/maxV*76)):4;
+    var isToday=(j===6);
+    html+='<div class="bc-col"><div style="font-family:\'JetBrains Mono\',monospace;font-size:9px;color:'+(isToday?'var(--lime)':'var(--muted)')+';">'+vals[j]+'</div><div class="bc-bar" style="height:'+h+'px;background:'+(isToday?'var(--lime)':'rgba(185,255,102,0.25)')+'"></div></div>';
+    lhtml+='<div style="font-family:\'JetBrains Mono\',monospace;font-size:8px;color:'+(isToday?'var(--lime)':'var(--muted)')+';">'+labels[j]+'</div>';
+  }
+  cont.innerHTML=html;lcont.innerHTML=lhtml;
+}
+
+function buildHrsChart(){
+  var cont=document.getElementById('hrs-chart');var lcont=document.getElementById('hrs-chart-labels');
+  if(!cont)return;
+  var logs=timerData.logs||{};
+  var vals=[];var labels=[];var maxV=0;
+  for(var i=6;i>=0;i--){
+    var d=new Date(Date.now()-i*86400000);
+    var k=dateKey(d);
+    var v=Math.round((logs[k]||0)/60); // minutes
+    vals.push(v);labels.push(DAYS[d.getDay()].slice(0,2));
+    if(v>maxV)maxV=v;
+  }
+  var html='';var lhtml='';
+  for(var j=0;j<vals.length;j++){
+    var h=maxV>0?Math.max(4,Math.round(vals[j]/maxV*76)):4;
+    var isToday=(j===6);
+    html+='<div class="bc-col"><div style="font-family:\'JetBrains Mono\',monospace;font-size:9px;color:'+(isToday?'var(--fa)':'var(--muted)')+';">'+vals[j]+'m</div><div class="bc-bar" style="height:'+h+'px;background:'+(isToday?'var(--fa)':'rgba(52,211,153,0.25)')+'"></div></div>';
+    lhtml+='<div style="font-family:\'JetBrains Mono\',monospace;font-size:8px;color:'+(isToday?'var(--fa)':'var(--muted)')+';">'+labels[j]+'</div>';
+  }
+  cont.innerHTML=html;lcont.innerHTML=lhtml;
+}
+
+function buildSubjBars(){
+  var cont=document.getElementById('subj-bars');if(!cont)return;
+  var html='';
+  SUBJECTS.forEach(function(s){
+    var r=cntS(s);var p=r.t?Math.round(r.d/r.t*100):0;
+    html+='<div class="subj-bar-row">'
+      +'<div class="sbr-top"><span class="sbr-name" style="color:'+s.color+'">'+s.name+'</span><span class="sbr-val" style="color:'+s.color+'">'+r.d+'/'+r.t+' ('+p+'%)</span></div>'
+      +'<div class="sbr-track"><div class="sbr-fill" style="width:'+p+'%;background:'+s.color+'"></div></div>'
+      +'</div>';
+  });
+  cont.innerHTML=html;
+}
+
+/* ════════════════════════════════════════════
+   BOTTOM SHEET EDITOR
+════════════════════════════════════════════ */
+var editorSubj='ca';
+
+function openEditor(){
+  renderSheetCurrent(window._todayTasks||[]);
+  selSubj(document.querySelector('.subj-chip[data-s="ca"]'),'ca');
+  document.getElementById('overlay').classList.add('show');
+  document.getElementById('sheet').classList.add('show');
+}
+function closeEditor(){
+  document.getElementById('overlay').classList.remove('show');
+  document.getElementById('sheet').classList.remove('show');
+}
+
+function renderSheetCurrent(tasks){
+  var html='';
+  tasks.forEach(function(t,i){
+    html+='<div class="sheet-task">'
+      +'<div style="flex:1;">'
+        +'<span class="task-tag t-'+t.tag+'" style="display:inline-block;margin-bottom:3px;">'+t.tag.toUpperCase()+'</span>'
+        +'<div style="font-size:12px;color:var(--text);line-height:1.4;">'+t.text+'</div>'
+        +'<div style="font-size:10px;color:var(--muted);margin-top:2px;">'+t.sessLabel+' · '+t.sessTime+'</div>'
+      +'</div>'
+      +'<div class="rm-btn" onclick="removeEditorTask('+i+')">✕</div>'
+    +'</div>';
+  });
+  if(!html)html='<div style="color:var(--muted);font-size:12px;padding:8px 0;">No tasks — add from below</div>';
+  document.getElementById('sheet-current').innerHTML=html;
+}
+
+function removeEditorTask(idx){
+  var tasks=window._todayTasks||[];
+  tasks.splice(idx,1);
+  window._todayTasks=tasks;
+  saveToday(tasks);
+  renderSheetCurrent(tasks);
+  var now=new Date();renderTodayCard(now.getDay());
+  showToast('Removed');
+}
+
+function selSubj(el,id){
+  editorSubj=id;
+  document.querySelectorAll('.subj-chip').forEach(function(c){c.classList.remove('sel');});
+  el.classList.add('sel');
+  renderChList(id);
+}
+
+function renderChList(sid){
+  var subj=null;SUBJECTS.forEach(function(s){if(s.id===sid)subj=s;});if(!subj)return;
+  var html='';
+  subj.sections.forEach(function(sec){
+    html+='<div style="font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--muted);padding:8px 0 4px;">'+sec.label+'</div>';
+    sec.chapters.forEach(function(ch){
+      if(progress[ch.id])return;
+      html+='<div class="add-ch" onclick="addChToToday(\''+sid+'\',\''+ch.id+'\')">'
+        +'<div class="add-ch-plus">+</div>'
+        +'<div class="add-ch-txt">'+ch.text+'</div>'
+      +'</div>';
+    });
+  });
+  if(!html)html='<div style="color:var(--lime);font-size:12px;padding:10px 0;">✅ All chapters done in this subject!</div>';
+  document.getElementById('ch-list').innerHTML=html;
+}
+
+function addChToToday(sid,chId){
+  var info=CH_MAP[chId];if(!info)return;
+  var tasks=window._todayTasks||[];
+  for(var i=0;i<tasks.length;i++){if(tasks[i].chId===chId){showToast('Already in today');return;}}
+  tasks.push({sessLabel:'📌 CUSTOM',sessTime:'Your choice',tag:info.tag,text:info.text,chId:chId});
+  window._todayTasks=tasks;
+  saveToday(tasks);
+  renderSheetCurrent(tasks);
+  var now=new Date();renderTodayCard(now.getDay());
+  showToast('✅ Added to today!');
+}
+
+/* ════════════════════════════════════════════
+   HUB
+════════════════════════════════════════════ */
+function exportData(){
+  try{
+    var d=JSON.stringify({progress:progress,timer:{totalSecs:timerData.totalSecs,logs:timerData.logs},meta:{exportedAt:new Date().toISOString(),version:'6.0'}},null,2);
+    var blob=new Blob([d],{type:'application/json'});
+    var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='cma-backup-v6.json';
+    document.body.appendChild(a);a.click();setTimeout(function(){document.body.removeChild(a);URL.revokeObjectURL(a.href);},100);
+    showToast('✅ Exported!');
+  }catch(e){showToast('Export failed');}
+}
+function importData(){
+  var inp=document.createElement('input');inp.type='file';inp.accept='.json';
+  inp.onchange=function(){
+    var f=inp.files&&inp.files[0];if(!f)return;
+    var r=new FileReader();
+    r.onload=function(){
+      try{
+        var obj=JSON.parse(r.result);
+        if(obj.progress){progress=obj.progress;saveProgress();}
+        if(obj.timer){timerData.totalSecs=obj.timer.totalSecs||0;timerData.logs=obj.timer.logs||{};timerData.todaySecs=timerData.logs[dateKey()]||0;saveTimer();}
+        SUBJECTS.forEach(function(s){buildChPage(s);});
+        buildMini();updateOverall();
+        var now=new Date();renderTodayCard(now.getDay());buildPlanner();updateAnalytics();renderTimerTotals();
+        showToast('✅ Restored!');
+      }catch(e){showToast('Import failed');}
+    };
+    r.readAsText(f);
+  };
+  document.body.appendChild(inp);inp.click();setTimeout(function(){document.body.removeChild(inp);},1000);
+}
+function resetData(){
+  if(!confirm('Reset all progress to defaults?'))return;
+  progress={};setDefaults();saveProgress();
+  clearToday();
+  SUBJECTS.forEach(function(s){buildChPage(s);});
+  buildMini();updateOverall();
+  var now=new Date();renderTodayCard(now.getDay());buildPlanner();updateAnalytics();
+  showToast('Reset done');
+}
+
+/* ════════════════════════════════════════════
+   NAV
+════════════════════════════════════════════ */
+function goTab(id){
+  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
+  document.querySelectorAll('.nt').forEach(function(t){t.classList.remove('active');});
+  var pg=document.getElementById('page-'+id);if(pg)pg.classList.add('active');
+  var tab=document.querySelector('.nt[data-p="'+id+'"]');
+  if(tab){tab.classList.add('active');tab.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});}
+  document.querySelector('.scroll').scrollTop=0;
+  if(id==='stats')updateAnalytics();
+}
+var nts=document.querySelectorAll('.nt');
+for(var ni=0;ni<nts.length;ni++){(function(t){t.addEventListener('click',function(){goTab(t.dataset.p);});})(nts[ni]);}
+
+/* ════════════════════════════════════════════
+   TOAST
+════════════════════════════════════════════ */
+var tTimer;
+function showToast(msg){
+  var t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  clearTimeout(tTimer);tTimer=setTimeout(function(){t.classList.remove('show');},1800);
+}
+
+/* ════════════════════════════════════════════
+   INIT
+════════════════════════════════════════════ */
+loadProgress();setDefaults();saveProgress();
+loadTimer();
+updateDate();updateOverall();buildMini();
+SUBJECTS.forEach(function(s){buildChPage(s);});
+buildPlanner();
+renderTimerTotals();
+updateAnalytics();
+setInterval(updateDate,60000);
+// Tick timer display if running (after page refresh it won't be running)
+setInterval(function(){if(timerData.running)tickTimer();},1000);
+</script>
+</body>
+</html>
